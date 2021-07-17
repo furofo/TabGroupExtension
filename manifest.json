@@ -1,0 +1,13 @@
+{
+    "name": "1st Version Tab Groups Extension",
+    "description": "Hope this works!",
+    "version": "1.0",
+    "manifest_version": 3,
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": ["storage", "activeTab", "scripting", "tabGroups"],
+    "action": {
+        "default_popup": "test.html"
+  }
+}
