@@ -1,5 +1,19 @@
 console.log("did this work at least?");
 
+
+
+let objy = {color:'yellow'};
+
+chrome.tabGroups.query(objy).then((obj) => {
+        if(objy.length < 1) { console.log("succesfull?" + JSON.stringify(obj));}
+        else {console.log("did not find!")}
+       
+   
+}).catch(() => {
+    console.log('error??');
+});
+
+/*
 chrome.tabGroups.query({}, (obj) => {
     if(obj) {
         console.log("succesfull?" + JSON.stringify(obj));
@@ -9,6 +23,8 @@ chrome.tabGroups.query({}, (obj) => {
     }
 
 }); 
+*/
+
 
 chrome.tabGroups.get(987625515, (obj) => {
     if (obj) {
