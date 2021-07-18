@@ -2,17 +2,29 @@ console.log("did this work at least?");
 
 
 
-let objy = {color:'yellow'};
+let objy = {}
 
-chrome.tabGroups.query(objy).then((obj) => {
-        if(objy.length < 1) { console.log("succesfull?" + JSON.stringify(obj));}
-        else {console.log("did not find!")}
+
+// basic query to see if object found
+chrome.tabGroups.query({}).then((obj) => {
+        console.log(obj.length);
+        if(obj.length >= 1) {
+        console.log("succesfull?" + JSON.stringify(obj));
+        }
+        else {
+            console.log("no match found sorry :(")
+        }
+    
        
    
 }).catch(() => {
     console.log('error??');
 });
 
+//this moves whatever tab group to the end of the tab
+chrome.tabGroups.move(957711729, {'index': -1}).then((obj) => { console.log(obj)});
+
+// id 1611148928 // test 2
 /*
 chrome.tabGroups.query({}, (obj) => {
     if(obj) {
@@ -26,16 +38,7 @@ chrome.tabGroups.query({}, (obj) => {
 */
 
 
-chrome.tabGroups.get(987625515, (obj) => {
-    if (obj) {
-        console.log("this was succesfull too shoud return blue group"  + JSON.stringify(obj));
 
-    }
-    else {
-        console.log("this second check did not work");
-    }
-
-});
 
 /* output wiht one blue tab was did this work at least?
 background.js:5 succesfull?[{"collapsed":false,"color":"blue","id":838850965,"title":"hello","windowId":16}]*/
