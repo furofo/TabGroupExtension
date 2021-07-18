@@ -1,0 +1,12 @@
+Google TabGroups
+
+
+chrome.tabGroups.query() is functiontakes two arguments obj with key value pairs that chrome searches for  and a call back function that uses the objects it finds
+ins some way
+
+The objects have folling proprerties
+collapse: boolean true false
+color: string for color value
+id: some number unique identifier of some sort?
+title: title of the group'
+windowId: another identifier possibly for current window???
