@@ -10,3 +10,9 @@ color: string for color value
 id: some number unique identifier of some sort?
 title: title of the group'
 windowId: another identifier possibly for current window???
+
+
+chrome.tabs handles all indiviual tab functions is where you go to manager and put tabs in gropus too
+takes object as hanlder and does a promise with tab id or group of tab ids as argument can add with chrome.tabs.group(obj with right key value).then to do
+
+

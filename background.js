@@ -4,6 +4,28 @@ console.log("did this work at least?");
 
 let objy = {}
 
+//chrome.tabs.getCurrent().then((tabObj) => {console.log("this should be curernt tab") + console.log(tabObj)});
+async function getCurrentTab() {
+    let queryOptions = { active: true, currentWindow: true };
+    let [tab] = await chrome.tabs.query(queryOptions);
+    return tab;
+  }
+  console.log("this hould be current tab");
+  // get current tabl id
+  let tabId;
+  getCurrentTab().then((obj) =>{
+      tabId = obj.id;
+      console.log(tabId);
+  chrome.tabs.group({tabIds: tabId}).then((id) => {
+     console.log(" group id created is");
+     console.log(id);
+     
+    });
+  
+  });
+
+ 
+  //console.log(await(getCurrentTab()));
 
 // basic query to see if object found
 chrome.tabGroups.query({}).then((obj) => {
@@ -22,7 +44,7 @@ chrome.tabGroups.query({}).then((obj) => {
 });
 
 //this moves whatever tab group to the end of the tab
-chrome.tabGroups.move(957711729, {'index': -1}).then((obj) => { console.log(obj)});
+//chrome.tabGroups.move(957711729, {'index': -1}).then((obj) => { console.log(obj)});
 
 // id 1611148928 // test 2
 /*
