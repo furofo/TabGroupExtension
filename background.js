@@ -11,6 +11,15 @@
   //this gets url and logs it to page
   chrome.tabs.query({active: true, lastFocusedWindow: true}).then((tabs) => {
       let url = tabs[0].url;
+      let searchTerm = "john";
+      if(url.includes(searchTerm)) {
+          console.log("this url includes the serach term");
+
+      }
+
+      else {
+        console.log("this url does not inclue the search term");
+      }
       console.log("promise finidng url");
       console.log(url);
   });
