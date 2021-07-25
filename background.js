@@ -1,29 +1,20 @@
-console.log("did this work at least?");
 
-
-
-let objy = {}
-
-
+// this is function to get current tab
 async function getCurrentTab() {
     let queryOptions = { active: true, currentWindow: true };
     let [tab] = await chrome.tabs.query(queryOptions);
     return tab;
   }
-  console.log("this hould be current tab");
-  // get current tabl id
-  let tabId;
-  getCurrentTab().then((obj) =>{
-      tabId = obj.id;
-      console.log(tabId);
-  chrome.tabs.group({tabIds: tabId}).then((id) => {
+
+
+ //since get current Tab returns promis object, this waits for it then uses the value returned which is curent tab object
+  
+  getCurrentTab().then((tabObj) =>{
+  chrome.tabs.group({tabIds: tabObj.id}).then((id) => {
      console.log(" group id created is");
      console.log(id);
-     
     });
-  
   });
-
 
 
   chrome.tabs.query({active: true, lastFocusedWindow: true}).then((tabs) => {
@@ -32,10 +23,7 @@ async function getCurrentTab() {
       console.log(url);
   });
 
- 
-  //console.log(await(getCurrentTab()));
-
-// basic query to see if object found
+// basic query to see all tab groups currently in window
 chrome.tabGroups.query({}).then((obj) => {
         console.log(obj.length);
         if(obj.length >= 1) {
@@ -44,35 +32,6 @@ chrome.tabGroups.query({}).then((obj) => {
         else {
             console.log("no match found sorry :(")
         }
-    
-       
-   
 }).catch(() => {
     console.log('error??');
 });
-
-//this moves whatever tab group to the end of the tab
-//chrome.tabGroups.move(957711729, {'index': -1}).then((obj) => { console.log(obj)});
-
-// id 1611148928 // test 2
-/*
-chrome.tabGroups.query({}, (obj) => {
-    if(obj) {
-        console.log("succesfull?" + JSON.stringify(obj));
-    }
-    else {
-        console.log("unsuccesfull")
-    }
-
-}); 
-*/
-
-
-
-
-/* output wiht one blue tab was did this work at least?
-background.js:5 succesfull?[{"collapsed":false,"color":"blue","id":838850965,"title":"hello","windowId":16}]*/
-
-
-/* output with two groups [{"collapsed":true,"color":"blue","id":987625515,"title":"hello","windowId":10},
-{"collapsed":true,"color":"red","id":1437632484,"title":"test2","windowId":10}]*/
