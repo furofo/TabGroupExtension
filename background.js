@@ -4,7 +4,7 @@ console.log("did this work at least?");
 
 let objy = {}
 
-//chrome.tabs.getCurrent().then((tabObj) => {console.log("this should be curernt tab") + console.log(tabObj)});
+
 async function getCurrentTab() {
     let queryOptions = { active: true, currentWindow: true };
     let [tab] = await chrome.tabs.query(queryOptions);
@@ -23,6 +23,14 @@ async function getCurrentTab() {
     });
   
   });
+
+
+  chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
+    let url = tabs[0].url;
+    // use `url` here inside the callback because it's asynchronous!
+    console.log("finidng url");
+    console.log(url);
+});
 
  
   //console.log(await(getCurrentTab()));
