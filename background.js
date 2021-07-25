@@ -1,16 +1,7 @@
-
-// this is function to get current tab
-async function getCurrentTab() {
-    let queryOptions = { active: true, currentWindow: true };
-    let [tab] = await chrome.tabs.query(queryOptions);
-    return tab;
-  }
-
-
- //since get current Tab returns promis object, this waits for it then uses the value returned which is curent tab object
+//changed this to an unamed function that uses promis method inside of async function and got rid of async functiont to set goupr id
   
-  getCurrentTab().then((tabObj) =>{
-  chrome.tabs.group({tabIds: tabObj.id}).then((id) => {
+ chrome.tabs.query({active: true, lastFocusedWindow: true}).then((tabObj) =>{
+  chrome.tabs.group({tabIds: tabObj[0].id}).then((id) => {
      console.log(" group id created is");
      console.log(id);
     });
@@ -19,19 +10,32 @@ async function getCurrentTab() {
 
   chrome.tabs.query({active: true, lastFocusedWindow: true}).then((tabs) => {
       let url = tabs[0].url;
-      console.log("promise finidng url");
-      console.log(url);
+      //console.log("promise finidng url");
+      //console.log(url);
   });
 
 // basic query to see all tab groups currently in window
 chrome.tabGroups.query({}).then((obj) => {
         console.log(obj.length);
         if(obj.length >= 1) {
+        //console.log("succesfull?" + JSON.stringify(obj));
+        }
+        else {
+           // console.log("no match found sorry :(")
+        }
+}).catch(() => {
+    //console.log('error??');
+}); 
+
+/* call back mehtod
+chrome.tabGroups.query({}, (obj) => {
+    console.log(obj.length);
+        if(obj.length >= 1) {
         console.log("succesfull?" + JSON.stringify(obj));
         }
         else {
             console.log("no match found sorry :(")
         }
-}).catch(() => {
-    console.log('error??');
-});
+})
+
+*/
