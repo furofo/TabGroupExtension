@@ -10,6 +10,13 @@
 
   //this gets url and logs it to page
   chrome.tabs.query({active: true, lastFocusedWindow: true}).then((tabs) => {
+      console.log(tabs);
+
+
+
+  
+
+
       let url = tabs[0].url;
       let searchTerm = "john";
       if(url.includes(searchTerm)) {
@@ -24,7 +31,17 @@
       console.log(url);
   });
 
+  // listener that can tell if tab changes and new html page loads or if new tab is opened
+  chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab)  => {
+    console.log("tab id that was changed is " + tabId);
+
+});
+
+
   /*
+
+
+  
 
 // basic query to see all tab groups currently in window
 chrome.tabGroups.query({}).then((obj) => {
