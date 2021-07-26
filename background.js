@@ -18,8 +18,10 @@
 
 
       let url = tabs[0].url;
+      console.log(url);
       let searchTerm = "john";
       if(url.includes(searchTerm)) {
+          console.log(url);
           console.log("this url includes the serach term");
 
       }
@@ -34,6 +36,29 @@
   // listener that can tell if tab changes and new html page loads or if new tab is opened
   chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab)  => {
     console.log("tab id that was changed is " + tabId);
+    console.log(tab);
+    let url = tab.url;
+    console.log(url);
+    let searchTerm = "john";
+    if(url.includes(searchTerm)) {
+        
+        console.log("this url includes the serach term");
+        chrome.tabs.group({tabIds: tabId}).then((id) => {
+          console.log(" group id created is");
+          console.log(id);
+         });
+
+
+
+
+
+    }
+
+    else {
+      console.log("this url does not inclue the search term");
+    }
+    console.log("promise finidng url");
+    console.log(url);
 
 });
 
