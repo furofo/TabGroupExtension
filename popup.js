@@ -6,10 +6,25 @@ function setRule() {
     });
   }
 
-addRule.addEventListener("click", async() => {
-    addRule.style.backgroundColor = "green";
-    console.log("did this click thingy work?");
-    setRule();
+
+  addRule.addEventListener("click", async() => {
+    chrome.storage.sync.get(['rule'], (result) => {
+        addRule.style.backgroundColor = "green";
+        console.log("yeah baby this gets the rule set earlire", result.rule);
+
+    });
 });
+
+  /*
+addRule.addEventListener("click", async() => {
+    chrome.storage.sync.get('rule').then((result) => {
+        addRule.style.backgroundColor = "green";
+        console.log("yeah baby this gets the rule set earlire", result);
+
+    });
+    
+    setRule();
+}); */
+
 // The body of this function will be executed as a content script inside the
   // current page
