@@ -28,16 +28,12 @@
     console.log(url);
     let searchTerm = "john";
     
-    setTimeout(
-      function () {
-        if(url.includes(searchTerm) && !groupedTabArray.includes(tabId)) {
-          console.log("gropu created");
-          chrome.tabs.group({tabIds: tabId}).then((id) => {
-            groupedTabArray.push(tabId);
-           });
-      }
-      }
-      , 3000);
+    if(url.includes(searchTerm) && !groupedTabArray.includes(tabId)) {
+      console.log("gropu created");
+      chrome.tabs.group({tabIds: tabId}).then((id) => {
+        groupedTabArray.push(tabId);
+       });
+  }
    
 
     
