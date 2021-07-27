@@ -28,10 +28,10 @@
     console.log(url);
     let searchTerm = "john";
     
-    if(url.includes(searchTerm) && !groupedTabArray.includes(tabId)) {
+    if(url.includes(searchTerm) && !groupedTabArray.includes(url)) {
       console.log("gropu created");
       chrome.tabs.group({tabIds: tabId}).then((id) => {
-        groupedTabArray.push(tabId);
+        groupedTabArray.push(url);
        });
   }
    
