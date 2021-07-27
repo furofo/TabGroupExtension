@@ -2,28 +2,16 @@
   // this gets active tab and creates a group id for it
  chrome.tabs.query({active: true, lastFocusedWindow: true}).then((tabObj) =>{
   chrome.tabs.group({tabIds: tabObj[0].id}).then((id) => {
-     console.log(" group id created is");
-     console.log(id);
     });
   });
 
-
   //this gets url and logs it to page
   chrome.tabs.query({active: true, lastFocusedWindow: true}).then((tabs) => {
-      console.log(tabs);
-
-
-
-  
-
-
+      
       let url = tabs[0].url;
       console.log(url);
       let searchTerm = "john";
       if(url.includes(searchTerm)) {
-          console.log(url);
-          console.log("this url includes the serach term");
-
       }
 
       else {
@@ -33,33 +21,26 @@
       console.log(url);
   });
 
+  let groupedTabArray = [];
   // listener that can tell if tab changes and new html page loads or if new tab is opened
   chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab)  => {
-    console.log("tab id that was changed is " + tabId);
-    console.log(tab);
     let url = tab.url;
     console.log(url);
     let searchTerm = "john";
-    if(url.includes(searchTerm)) {
-        
-        console.log("this url includes the serach term");
-        chrome.tabs.group({tabIds: tabId}).then((id) => {
-          console.log(" group id created is");
-          console.log(id);
-         });
+    
+    setTimeout(
+      function () {
+        if(url.includes(searchTerm) && !groupedTabArray.includes(tabId)) {
+          console.log("gropu created");
+          chrome.tabs.group({tabIds: tabId}).then((id) => {
+            groupedTabArray.push(tabId);
+           });
+      }
+      }
+      , 3000);
+   
 
-
-
-
-
-    }
-
-    else {
-      console.log("this url does not inclue the search term");
-    }
-    console.log("promise finidng url");
-    console.log(url);
-
+    
 });
 
 
