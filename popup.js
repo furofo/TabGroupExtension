@@ -6,7 +6,7 @@ function setRule() {
     let value = ruleInput.value;
     console.log("value is ", value);
     chrome.storage.sync.set({rule: value}, () => {
-      setARule.style.backgroundColor = "yellow";
+      setARule.style.backgroundColor = "purple";
       console.log("value is set to", value);
     });
   }
