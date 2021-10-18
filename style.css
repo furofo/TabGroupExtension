@@ -23,3 +23,12 @@ button {
     box-shadow: 0 0 0 2px white,
                 0 0 0 4px black;
   }
+
+  #set-rule {
+      background-color: blue;
+      color: white;
+      font-size: 1.2em;
+  }
+  #rule-input {
+      width: 50%;
+  }

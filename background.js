@@ -1,6 +1,9 @@
 //changed this to an unamed function that uses promis method inside of async function and got rid of async functiont to set goupr id
   // this gets active tab and creates a group id for it
  chrome.tabs.query({active: true, lastFocusedWindow: true}).then((tabObj) =>{
+  console.log(tabObj);
+  console.log(tabObj);
+
   chrome.tabs.group({tabIds: tabObj[0].id}).then((id) => {
     });
   });
