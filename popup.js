@@ -1,9 +1,13 @@
 let getRule = document.getElementById('get-rule');
 let setARule = document.getElementById('set-rule');
+let ruleInput = document.getElementById('rule-input');
 //this adds a property rule to local storage that we will use to define search urls for the tab groups
-function setRule(inputRule) {
-    chrome.storage.sync.set({rule: inputRule}, () => {
-      console.log("value is set to", inputRule);
+function setRule() {
+    let value = ruleInput.value;
+    console.log("value is ", value);
+    chrome.storage.sync.set({rule: value}, () => {
+      setARule.style.backgroundColor = "yellow";
+      console.log("value is set to", value);
     });
   }
 
