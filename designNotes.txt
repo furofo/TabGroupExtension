@@ -1,0 +1,9 @@
+Design Notes:
+
+This will chrome extension to auto group tabs based on url prefixes. Allows end user to customize name, color and urls to group tab groups by automiatically. Uses google storage to accomplish this.
+
+Buttons on button delete group, deletes selected group. The Edit/Add group button allows user to change and add up to 3 auto group rules. If no check boxes selected before either of these button clicked displays warning message to user to select one first.
+Confirmation dialoge to delete group or edit one.  No confirmation if adding. Throws error if url or name is the same. 
+
+Figma file URL
+https://www.figma.com/file/bVVRsW1uTZO1TFHyd1DFC8/Untitled?node-id=0%3A1
