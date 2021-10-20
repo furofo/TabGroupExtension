@@ -118,13 +118,37 @@ button {
     transform: rotate(45deg);
   }
 
+ .rule-headings{
+     margin-bottom: 1.3em;
+     font-size: 1.3em
+ }
   .rule-content {
-      width: 33.33%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-  }
+    width: 33.33%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding-left: 3em;
+}
+
+.rule-content label {
+    margin-left: 1em;
+}
 
   #color-check-button {
-      left: 48%;
+      left: 40%;
   }
+
+  #fav-color {
+    border-style: none;
+    /* border: none; */
+    width: 10%;
+    padding: 0px;
+    background-color: none;
+    background-color: white;
+}
+
+.flex-center {
+    padding-left: 0px;
+    margin-left: 0px;
+    justify-content: center;
+}
