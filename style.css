@@ -11,12 +11,22 @@ body {
 
 button {
     height: 30px;
-    width: 90px;
+    width: 25%;
     outline: none;
     margin: 10px;
     border: none;
     border-radius: 2px;
     background-color: brown;
+    color: white;
+    font-size: 1.2em;
+  }
+
+  #delete-group {
+    background-color: brown;
+  }
+
+  #edit-add-group {
+      background-color: blue;
   }
   
   button.current {
