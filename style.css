@@ -32,3 +32,9 @@ button {
   #rule-input {
       width: 50%;
   }
+
+  .rule-headings h3{
+      width: 33.33%;
+      text-align:  center;
+      background-color: grey;
+  }
