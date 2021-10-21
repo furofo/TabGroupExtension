@@ -1,9 +1,11 @@
-let getRule = document.getElementById('get-rule');
-let setARule = document.getElementById('set-rule');
-let ruleInput = document.getElementById('rule-input');
+
+
+let addButton = document.getElementById('delete-group');
+let editAddButton = document.getElementById('edit-add-group')
+//let ruleInput = document.getElementById('rule-input');
 //this adds a property rule to local storage that we will use to define search urls for the tab groups
 function setRule() {
-    let value = ruleInput.value;
+   // let value = ruleInput.value;
     console.log("value is ", value);
     chrome.storage.sync.set({rule: value}, () => {
       setARule.style.backgroundColor = "purple";
@@ -12,17 +14,19 @@ function setRule() {
   }
 
 //listener for setRule Button
-setARule.addEventListener("click", async() => {
+addButton.addEventListener("click", async() => {
   setRule("johntron.com");
 });
 
 // when button clicked for right now reads rule but functionality built to set rule//
-  getRule.addEventListener("click", async() => {
+  editAddButton.addEventListener("click", async() => {
     chrome.storage.sync.get(['rule'], (result) => {
-        getRule.style.backgroundColor = "green";
+       
         console.log("yeah baby this gets the rule set earlire", result.rule);
         // setRule();
 
     });
 });
+
+
 

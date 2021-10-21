@@ -47,12 +47,13 @@ button {
   .rule-headings h3{
       width: 33.33%;
       text-align:  center;
-      background-color: grey;
   }
 
 /* Customize the label (the container) */
 .container {
-    display: block;
+    align-items: center;
+    height: 50px;
+    display: flex;
     position: relative;
     padding-left: 50px;
     margin-bottom: 12px;
@@ -62,7 +63,8 @@ button {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-  }
+    overflow: hidden;
+}
   
   /* Hide the browser's default checkbox */
   .container input {
@@ -76,7 +78,7 @@ button {
   /* Create a custom checkbox */
   .checkmark {
     position: absolute;
-    top: 0;
+    top: 25%;
     left: 10px;
     /* left: 3%; */
     height: 25px;
@@ -125,7 +127,9 @@ button {
      font-size: 1.3em
  }
  .rule-content {
-    height: 13%;
+    overflow: hidden;
+    height: 5em;
+    /* height: 13%; */
     width: 33.33%;
     display: flex;
     align-items: center;
