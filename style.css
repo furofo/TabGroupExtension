@@ -54,7 +54,7 @@ button {
 .container {
     display: block;
     position: relative;
-    padding-left: 35px;
+    padding-left: 50px;
     margin-bottom: 12px;
     cursor: pointer;
     font-size: 22px;
@@ -77,12 +77,13 @@ button {
   .checkmark {
     position: absolute;
     top: 0;
-    left: 3%;
+    left: 10px;
+    /* left: 3%; */
     height: 25px;
     width: 25px;
     background-color: #eee;
     border: 2px solid black;
-  }
+}
   
   /* On mouse-over, add a grey background color */
   .container:hover input ~ .checkmark {
@@ -123,17 +124,16 @@ button {
      margin-bottom: 1.3em;
      font-size: 1.3em
  }
-  .rule-content {
+ .rule-content {
+    height: 13%;
     width: 33.33%;
     display: flex;
     align-items: center;
-    justify-content: left;
-    padding-left: 3em;
+    justify-content: center;
 }
 
-.rule-content label {
-    margin-left: 1em;
-}
+
+
 
   #color-check-button {
       left: 40%;
@@ -149,7 +149,23 @@ button {
 }
 
 .flex-center {
-    padding-left: 0px;
-    margin-left: 0px;
+    text-align: center;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
     justify-content: center;
+}
+
+.name-content {
+    justify-content: start;
+}
+
+#delete-group:hover {
+    background-color: rgb(245, 20, 72);
+    color: black;
+}
+
+#edit-add-group:hover {
+    background-color:  rgb(174, 216, 235);
+    color: black;
 }
