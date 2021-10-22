@@ -15,7 +15,8 @@ function setRule() {
 
 //listener for setRule Button
 deleteButton.addEventListener("click", async() => {
-  if(document.querySelector('input').checked) {
+  if(document.querySelector('.container input').checked) {
+    console.log(document.querySelectorAll('.container input'));
     console.log("checked item detected");
 
   }
