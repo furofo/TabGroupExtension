@@ -175,6 +175,12 @@ button {
     padding: 0px;
     margin: 0px;
     justify-content: center;
+    border: none;
+}
+
+.flex-center:disabled {
+  color: black;
+  background-color: white;
 }
 
 .name-content {
