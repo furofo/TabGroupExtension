@@ -1,21 +1,28 @@
 
 
-let addButton = document.getElementById('delete-group');
+let deleteButton = document.getElementById('delete-group');
 let editAddButton = document.getElementById('edit-add-group')
 //let ruleInput = document.getElementById('rule-input');
 //this adds a property rule to local storage that we will use to define search urls for the tab groups
 function setRule() {
    // let value = ruleInput.value;
-    console.log("value is ", value);
-    chrome.storage.sync.set({rule: value}, () => {
-      setARule.style.backgroundColor = "purple";
+   // console.log("value is ", value);
+   // chrome.storage.sync.set({rule: value}, () => {
+     // setARule.style.backgroundColor = "purple";
       console.log("value is set to", value);
-    });
+    //});
   }
 
 //listener for setRule Button
-addButton.addEventListener("click", async() => {
-  setRule("johntron.com");
+deleteButton.addEventListener("click", async() => {
+  if(document.querySelector('input').checked) {
+    console.log("checked item detected");
+
+  }
+  else {
+    console.log("did not detect checked item");
+  }
+  console.log("delete group clicked");
 });
 
 // when button clicked for right now reads rule but functionality built to set rule//
