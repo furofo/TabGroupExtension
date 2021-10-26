@@ -9,5 +9,18 @@
     "permissions": ["storage", "activeTab", "scripting", "tabGroups", "tabs"],
     "action": {
         "default_popup": "popup.html"
-  }
+  },
+
+
+  "content_scripts": [{
+    
+    "css": [
+       "css/all.min.css"
+    ]
+    
+ }],
+ "web_accessible_resources": [
+   
+ ]
 }
+
