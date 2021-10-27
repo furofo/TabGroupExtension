@@ -45,7 +45,7 @@ deleteButton.addEventListener("click", async() => {
     dropDownAll[i].onclick = function() {
         for(let j = 0; j < boxAll.length; j++) {
           if(i == j) {
-            
+
           }
          else if(boxAll[j].classList.contains('active-box')) {
             boxAll[j].classList.toggle('active-box');
@@ -56,46 +56,43 @@ deleteButton.addEventListener("click", async() => {
     boxAll[i].querySelector('.blue-box').onclick = function() {   
         this.parentElement.style.backgroundColor = "blue";
         this.parentElement.classList.toggle('active-box');
+        this.parentElement.setAttribute('value', 'blue');
      }
 
      boxAll[i].querySelector('.yellow-box').onclick = function() {   
         this.parentElement.style.backgroundColor = "yellow";
         this.parentElement.classList.toggle('active-box');
+        this.parentElement.setAttribute('value', 'yellow');
      }
 
      boxAll[i].querySelector('.purple-box').onclick = function() {   
         this.parentElement.style.backgroundColor = "purple";
         this.parentElement.classList.toggle('active-box');
+        this.parentElement.setAttribute('value', 'purple');
      }
-
-
    }
    
    let aIsInB = function (elemArr, elemToMatch) {
-      console.log("Here is array of elements with class of Active Box", elemArr);
-      console.log("here is what are tyring to find match for elemetn clicked", elemToMatch);
-      console.log("this is parent elmenet of clicked element", elemToMatch.parentElement);
+     
       for(let i = 0; i < elemArr.length; i++) {
          if(elemToMatch.parentElement) {
-           console.log("Element clicked has parent element");
+          
            if(elemToMatch.parentElement.classList.contains('dropdown')) {
-            console.log(elemToMatch.parentElement.classList);
-             console.log("elemetn clickeds parent has class of dropdown")
+           
           
            }
            else if(elemToMatch.parentElement != elemArr[i]){
-             console.log(elemToMatch.parentElement.classList);
-             console.log('active box not click');
+             
             elemArr[i].classList.toggle('active-box');
            }
 
            else {
-             console.log("no match found");
+             
            }
          }
         
          else {
-            console.log("matchfound", elemArr[i], elemToMatch);
+            
          }
          
       }
