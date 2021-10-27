@@ -144,15 +144,14 @@ button {
      font-size: 1.3em
  }
  .rule-content {
-    overflow: hidden;
-    height: 5em;
-    /* height: 13%; */
-    width: 33.33%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  /* overflow: hidden; */
+  height: 5em;
+  /* height: 13%; */
+  width: 33.33%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
 
 
 
@@ -227,14 +226,13 @@ button {
   transition: all .3s ease-in-out;
   
 }
-
 .active-box > div {
-  min-height: 60px;
-  min-width: 60px;
+  border: 1px solid grey;
+  min-height: 40px;
+  min-width: 40px;
   opacity: 1;
+  z-index: 3;
 }
-
-
 
 .blue-box {
   position: absolute;
@@ -243,8 +241,8 @@ button {
  
  
   background-color:blue;
-  width: 60px;
-  height: 60px;
+  width: 100%;
+  height: 100%;
   
   
   padding: 0px;
@@ -258,9 +256,8 @@ button {
   
 
   background-color:yellow;
-  width: 60px;
-  height: 60px;
-  
+  width: 100%;
+  height: 100%;
   
   padding: 0px;
 }
@@ -273,8 +270,8 @@ button {
   
  
   background-color: purple;
-  width: 60px;
-  height: 60px;
+  width: 100%;
+  height: 100%;
   
   
   padding: 0px;
@@ -286,7 +283,7 @@ button {
   height: 40px;
   background-color: black;
   display: inline-block;
-  margin-left: -4px;
+  /* margin-left: -4px; */
   padding: 0px;
 }
 
@@ -299,6 +296,11 @@ button {
   display: flex !important;
   justify-content: center;
   align-content: center;
+}
+
+.fa-angle-double-down:hover {
+  font-size: 1.5em;
+  color:lightblue;
 }
 
 .fa-center {
