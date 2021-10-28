@@ -26,7 +26,7 @@ toggleButtonText = function(btn, str1, str2) {
 
 }
 
-//function thtat switches an elemtns display
+//function thtat switches an elemtns display between none and block
 toggleElementDisplay = function(elem) {
   
   if (window.getComputedStyle(elem, null).display == 'block') {
@@ -36,6 +36,18 @@ toggleElementDisplay = function(elem) {
     elem.style.display = 'block';
   }
   
+}
+
+//this function toggles input disabled from true and false and border to none and solid px effectively
+toggleInputDisabled = function(elem) {
+  elem.disabled =  !elem.disabled;
+        if(elem.disabled) {
+          elem.style.border = "none";
+        }
+        else {
+          elem.style.border = '1px solid grey';
+        }
+
 }
 
 //listener for setRule Button
@@ -48,22 +60,54 @@ deleteButton.addEventListener("click", async function() {
       console.log("checked item detected");
       return;
     }
-    console.log("no checked item detected");
+    
 
   }
+  alert("No Group Checked! Please Check Tab Group Rule to Delete!")
  
 });
 
 // when button clicked for right now reads rule but functionality built to set rule//
   editAddButton.addEventListener("click", async function()  {
-    toggleButtonText(this, 'Edit/Add Group', 'Save Group(s)')
-    toggleElementDisplay(deleteButton);
+    
+    
+    let isCheckedArray = document.querySelectorAll('.container input');
+    let checkedInputFound = false;
+    for(let i = 0; i < isCheckedArray.length; i++) {
+      if(i == isCheckedArray.length - 1 ) {
+        if(isCheckedArray[i].checked) {
+          checkedInputFound = true;
+        }
+        if(checkedInputFound) {
+          toggleButtonText(this, 'Edit/Add Group', 'Save Group(s)')
+          toggleElementDisplay(deleteButton);
+          return;
+        }
+       
+      }
+      if(isCheckedArray[i].checked) {
+        let checkedNameField = document.querySelectorAll(".name")[i];
+        let checkedUrlField = document.querySelectorAll(".flex-center")[i];
+        toggleInputDisabled(checkedUrlField);
+        toggleInputDisabled(checkedNameField);
+        
+  
+      
+
+        checkedInputFound = true;
+
+      }
+      
+  
+    }
+    alert("No Group Checked! Please Check Tab Group Rule to Edit or Add!")
+    //fetch somelthign from group storage
+    /*
     chrome.storage.sync.get(['rule'], (result) => {
        
         console.log("yeah baby this gets the rule set earlire", result.rule);
-        // setRule();
-
-    });
+        
+    });*/
 });
 
 

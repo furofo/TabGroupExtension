@@ -169,6 +169,7 @@ button {
 }
 
 .flex-center {
+    height: 50%;
     text-align: center;
     width: 100%;
     padding: 0px;
@@ -199,6 +200,9 @@ button {
 .name {
   font-size: 22px;
   border: none;
+  width: 95%;
+  height: 50%;
+  margin-right: 3%;
 }
 
 .name:disabled {
