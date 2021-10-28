@@ -13,21 +13,38 @@ function setRule() {
     //});
   }
 
-//listener for setRule Button
-deleteButton.addEventListener("click", async() => {
-  if(document.querySelector('.container input').checked) {
-    console.log(document.querySelectorAll('.container input'));
-    console.log("checked item detected");
+//function that switches a btn elements inner html between two strings, firs argument is button element, second is current text
+//third is text to toggle between
+toggleButtonText = function(btn, str1, str2) {
+  if(btn.innerHTML == str1) {
+    btn.innerHTML = str2
 
   }
   else {
-    console.log("did not detect checked item");
+    btn.innerHTML = str1;
   }
-  console.log("delete group clicked");
+
+}
+
+//listener for setRule Button
+deleteButton.addEventListener("click", async function() {
+  //logic to see if input is checked
+  let isCheckedArray = document.querySelectorAll('.container input');
+  for(let i = 0; i < isCheckedArray.length; i++) {
+    if(isCheckedArray[i].checked) {
+      console.log(document.querySelectorAll('.container input'));
+      console.log("checked item detected");
+      return;
+    }
+    console.log("no checked item detected");
+
+  }
+ 
 });
 
 // when button clicked for right now reads rule but functionality built to set rule//
-  editAddButton.addEventListener("click", async() => {
+  editAddButton.addEventListener("click", async function()  {
+    toggleButtonText(this, 'Edit/Add Group', 'Save Group(s)')
     chrome.storage.sync.get(['rule'], (result) => {
        
         console.log("yeah baby this gets the rule set earlire", result.rule);
@@ -122,4 +139,5 @@ deleteButton.addEventListener("click", async() => {
  
       });
 
+     
 
