@@ -282,11 +282,12 @@ button {
 }
 
 .dropdown {
+  display: none;
   position: relative;
   width: 16px;
   height: 40px;
   background-color: black;
-  display: inline-block;
+  /*display: inline-block; */
   /* margin-left: -4px; */
   padding: 0px;
 }

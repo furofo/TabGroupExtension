@@ -50,6 +50,16 @@ toggleInputDisabled = function(elem) {
 
 }
 
+toggleDropdownBox = function (elem) {
+  
+  if(window.getComputedStyle(elem, null).display == 'none') {
+    elem.style.display = "inline-block";
+  }
+  else {
+    elem.style.display = "none";
+  }
+}
+
 //listener for setRule Button
 deleteButton.addEventListener("click", async function() {
   //logic to see if input is checked
@@ -76,6 +86,12 @@ deleteButton.addEventListener("click", async function() {
     for(let i = 0; i < isCheckedArray.length; i++) {
       if(i == isCheckedArray.length - 1 ) {
         if(isCheckedArray[i].checked) {
+          let checkedNameField = document.querySelectorAll(".name")[i];
+          let checkedUrlField = document.querySelectorAll(".flex-center")[i];
+          let dropDownBox = document.querySelectorAll(".dropdown")[i];
+          toggleInputDisabled(checkedUrlField);
+          toggleInputDisabled(checkedNameField);
+          toggleDropdownBox(dropDownBox);
           checkedInputFound = true;
         }
         if(checkedInputFound) {
@@ -88,12 +104,10 @@ deleteButton.addEventListener("click", async function() {
       if(isCheckedArray[i].checked) {
         let checkedNameField = document.querySelectorAll(".name")[i];
         let checkedUrlField = document.querySelectorAll(".flex-center")[i];
+        let dropDownBox = document.querySelectorAll(".dropdown")[i];
         toggleInputDisabled(checkedUrlField);
         toggleInputDisabled(checkedNameField);
-        
-  
-      
-
+        toggleDropdownBox(dropDownBox);
         checkedInputFound = true;
 
       }
