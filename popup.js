@@ -26,6 +26,18 @@ toggleButtonText = function(btn, str1, str2) {
 
 }
 
+//function thtat switches an elemtns display
+toggleElementDisplay = function(elem) {
+  
+  if (window.getComputedStyle(elem, null).display == 'block') {
+    elem.style.display = 'none';
+  }
+  else {
+    elem.style.display = 'block';
+  }
+  
+}
+
 //listener for setRule Button
 deleteButton.addEventListener("click", async function() {
   //logic to see if input is checked
@@ -45,6 +57,7 @@ deleteButton.addEventListener("click", async function() {
 // when button clicked for right now reads rule but functionality built to set rule//
   editAddButton.addEventListener("click", async function()  {
     toggleButtonText(this, 'Edit/Add Group', 'Save Group(s)')
+    toggleElementDisplay(deleteButton);
     chrome.storage.sync.get(['rule'], (result) => {
        
         console.log("yeah baby this gets the rule set earlire", result.rule);
