@@ -17,13 +17,11 @@ function setRule() {
 //third is text to toggle between
 toggleButtonText = function(btn, str1, str2) {
   if(btn.innerHTML == str1) {
-    btn.innerHTML = str2
-
+    btn.innerHTML = str2;
   }
   else {
     btn.innerHTML = str1;
   }
-
 }
 
 //function thtat switches an elemtns display between none and block
@@ -60,15 +58,52 @@ toggleDropdownBox = function (elem) {
   }
 }
 
+//functoin to get input value as typed 
+function showMe(e) {
+  // i am spammy!
+    e.target.setAttribute('value', e.target.value);
+    console.log(e.target.value);
+  }
+
+document.getElementById('first-name').addEventListener('input', showMe);
+
 //listener for setRule Button
 deleteButton.addEventListener("click", async function() {
   //logic to see if input is checked
   let isCheckedArray = document.querySelectorAll('.container input');
+  let checkedInputFound = false;
   for(let i = 0; i < isCheckedArray.length; i++) {
+    if(i == isCheckedArray.length - 1) {
+      if(isCheckedArray[i].checked) {
+        let checkedNameField = document.querySelectorAll(".name")[i];
+        let checkedUrlField = document.querySelectorAll(".flex-center")[i];
+        let box = document.querySelectorAll(".box")[i];
+        console.log("wtf");
+        console.log(checkedNameField.getAttribute('value'));
+        checkedNameField.setAttribute('value', ' ');
+        checkedNameField.innerHTML = '';
+        checkedNameField.value = '';
+        box.setAttribute('color', 'grey' );
+        box.style.backgroundColor = 'grey';
+        checkedInputFound = true;
+        return;
+      }
+      if(checkedInputFound) {
+        return;
+      }
+
+    }
     if(isCheckedArray[i].checked) {
-      console.log(document.querySelectorAll('.container input'));
-      console.log("checked item detected");
-      return;
+      let checkedNameField = document.querySelectorAll(".name")[i];
+      let checkedUrlField = document.querySelectorAll(".flex-center")[i];
+      console.log("wtf");
+      console.log(checkedNameField.getAttribute('value'));
+      let box = document.querySelectorAll(".box")[i];
+      checkedNameField.setAttribute('value', '');
+      checkedUrlField.setAttribute('value', '');
+      box.setAttribute('color', 'grey' );
+      box.style.backgroundColor = 'grey';
+      checkedInputFound = true;
     }
     
 
@@ -83,8 +118,41 @@ deleteButton.addEventListener("click", async function() {
     
     let isCheckedArray = document.querySelectorAll('.container input');
     let checkedInputFound = false;
-    for(let i = 0; i < isCheckedArray.length; i++) {
-      if(i == isCheckedArray.length - 1 ) {
+    if (window.getComputedStyle(deleteButton, null).display == 'none') {
+        toggleElementDisplay(deleteButton);
+        for(let i = 0; i < isCheckedArray.length; i++) {
+          if(isCheckedArray[i].checked) {
+            let checkedNameField = document.querySelectorAll(".name")[i];
+            let checkedUrlField = document.querySelectorAll(".flex-center")[i];
+            let dropDownBox = document.querySelectorAll(".dropdown")[i];
+            toggleInputDisabled(checkedUrlField);
+            toggleInputDisabled(checkedNameField);
+            toggleDropdownBox(dropDownBox);
+            isCheckedArray[i].checked = false;
+          }
+          
+        }
+    }
+
+    else {
+      for(let i = 0; i < isCheckedArray.length; i++) {
+        if(i == isCheckedArray.length - 1 ) {
+          if(isCheckedArray[i].checked) {
+            let checkedNameField = document.querySelectorAll(".name")[i];
+            let checkedUrlField = document.querySelectorAll(".flex-center")[i];
+            let dropDownBox = document.querySelectorAll(".dropdown")[i];
+            toggleInputDisabled(checkedUrlField);
+            toggleInputDisabled(checkedNameField);
+            toggleDropdownBox(dropDownBox);
+            checkedInputFound = true;
+          }
+          if(checkedInputFound) {
+            toggleButtonText(this, 'Edit/Add Group', 'Save Group(s)')
+            toggleElementDisplay(deleteButton);
+            return;
+          }
+         
+        }
         if(isCheckedArray[i].checked) {
           let checkedNameField = document.querySelectorAll(".name")[i];
           let checkedUrlField = document.querySelectorAll(".flex-center")[i];
@@ -93,29 +161,15 @@ deleteButton.addEventListener("click", async function() {
           toggleInputDisabled(checkedNameField);
           toggleDropdownBox(dropDownBox);
           checkedInputFound = true;
-        }
-        if(checkedInputFound) {
-          toggleButtonText(this, 'Edit/Add Group', 'Save Group(s)')
-          toggleElementDisplay(deleteButton);
-          return;
-        }
-       
-      }
-      if(isCheckedArray[i].checked) {
-        let checkedNameField = document.querySelectorAll(".name")[i];
-        let checkedUrlField = document.querySelectorAll(".flex-center")[i];
-        let dropDownBox = document.querySelectorAll(".dropdown")[i];
-        toggleInputDisabled(checkedUrlField);
-        toggleInputDisabled(checkedNameField);
-        toggleDropdownBox(dropDownBox);
-        checkedInputFound = true;
-
-      }
-      
   
+        }
+        
+    
+      }
+      alert("No Group Checked! Please Check Tab Group Rule to Edit or Add!")
+      //fetch somelthign from group storage
     }
-    alert("No Group Checked! Please Check Tab Group Rule to Edit or Add!")
-    //fetch somelthign from group storage
+    
     /*
     chrome.storage.sync.get(['rule'], (result) => {
        
