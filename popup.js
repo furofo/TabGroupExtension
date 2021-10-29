@@ -127,6 +127,21 @@ deleteButton.addEventListener("click", async function() {
 
     //if save button clicked basiclaly because should be only time deletbutton diplsy is none
     if (window.getComputedStyle(deleteButton, null).display == 'none') {
+        chrome.storage.sync.set({GROUP1: {
+          COLOR: 'BLUE',
+          NAME: 'google',
+          URL: 'persnipity.com',
+        }}, function() {
+          console.log('rule set');
+        });
+
+        chrome.storage.sync.get(['GROUP1'], (result) => {
+          console.log(result);
+          console.log("yeah baby this gets the rule set earlire first up is Color", 
+          result['GROUP1']['COLOR'], 'second is name',
+          result['GROUP1']['NAME'], 'lastly is url', result["GROUP1"]["URL"]);
+          
+      });
         toggleElementDisplay(deleteButton);
         for(let i = 0; i < isCheckedArray.length; i++) {
           if(isCheckedArray[i].checked) {
