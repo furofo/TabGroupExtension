@@ -120,11 +120,8 @@ deleteButton.addEventListener("click", async function() {
 
 // when button clicked for right now reads rule but functionality built to set rule//
   editAddButton.addEventListener("click", async function()  {
-    
-    
     let isCheckedArray = document.querySelectorAll('.container input');
     let checkedInputFound = false;
-
     //if save button clicked basiclaly because should be only time deletbutton diplsy is none
     if (window.getComputedStyle(deleteButton, null).display == 'none') {
         chrome.storage.sync.set({GROUP1: {
