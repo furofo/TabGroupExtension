@@ -78,11 +78,13 @@ deleteButton.addEventListener("click", async function() {
         let checkedNameField = document.querySelectorAll(".name")[i];
         let checkedUrlField = document.querySelectorAll(".flex-center")[i];
         let box = document.querySelectorAll(".box")[i];
-        console.log("wtf");
+      
         console.log(checkedNameField.getAttribute('value'));
-        checkedNameField.setAttribute('value', ' ');
-        checkedNameField.innerHTML = '';
-        checkedNameField.value = '';
+        //checkedNameField.setAttribute('value', 'a');
+       // checkedNameField.innerHTML = 'a';
+       console.log(checkedNameField);
+      // checkedNameField.disabled = false;
+        checkedNameField.value = 'a';
         box.setAttribute('color', 'grey' );
         box.style.backgroundColor = 'grey';
         checkedInputFound = true;
@@ -96,11 +98,15 @@ deleteButton.addEventListener("click", async function() {
     if(isCheckedArray[i].checked) {
       let checkedNameField = document.querySelectorAll(".name")[i];
       let checkedUrlField = document.querySelectorAll(".flex-center")[i];
-      console.log("wtf");
+      
       console.log(checkedNameField.getAttribute('value'));
       let box = document.querySelectorAll(".box")[i];
+     // checkedNameField.disabled = false;
       checkedNameField.setAttribute('value', '');
+      checkedNameField.value = '';
+     
       checkedUrlField.setAttribute('value', '');
+      checkedUrlField.value = '';
       box.setAttribute('color', 'grey' );
       box.style.backgroundColor = 'grey';
       checkedInputFound = true;
@@ -118,6 +124,8 @@ deleteButton.addEventListener("click", async function() {
     
     let isCheckedArray = document.querySelectorAll('.container input');
     let checkedInputFound = false;
+
+    //if save button clicked basiclaly because should be only time deletbutton diplsy is none
     if (window.getComputedStyle(deleteButton, null).display == 'none') {
         toggleElementDisplay(deleteButton);
         for(let i = 0; i < isCheckedArray.length; i++) {
