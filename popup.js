@@ -127,7 +127,7 @@ deleteButton.addEventListener("click", async function() {
         chrome.storage.sync.set({GROUP1: {
           COLOR: 'BLUE',
           NAME: 'google',
-          URL: 'persnipity.com',
+          URL: 'rule',
         }}, function() {
           console.log('rule set');
         });
