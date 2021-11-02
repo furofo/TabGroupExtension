@@ -125,25 +125,18 @@ deleteButton.addEventListener("click", async function() {
     //if save button clicked basiclaly because should be only Save Button when delete button is not visible
     if (window.getComputedStyle(deleteButton, null).display == 'none') {
       let firstName = document.getElementById("first-name").value;
-      if(firstName) {
-        toggleButtonText(this,  'Save Group(s)', 'Edit/Add Group')
-        console.log(document.getElementById("first-name").value);
-      }
-      else {
-        console.log("no first Name Value found");
-      }
-
-      //example for how to set chrome storage
-        chrome.storage.sync.set({GROUP1: {
-          COLOR: 'BLUE',
-          NAME: 'google',
-          URL: 'rule',
-        }}, function() {
-          console.log('rule set');
-        });
-
+      let firstURL = document.getElementById("first-url").value;
+      let firstBox = document.getElementById("first-box").getAttribute("value");
+      console.log(document.getElementById("first-box"));
+      if(firstName && firstURL && firstBox != "grey") {
        
-        toggleElementDisplay(deleteButton);
+        console.log(document.getElementById("first-name").value);
+        console.log(document.getElementById("first-url").value);
+        console.log(firstBox);
+        console.log(document.getElementById("first-box").value);
+        
+        
+        //this coges through and unchecks everything that is checked
         for(let i = 0; i < isCheckedArray.length; i++) {
           if(isCheckedArray[i].checked) {
             let checkedNameField = document.querySelectorAll(".name")[i];
@@ -156,6 +149,22 @@ deleteButton.addEventListener("click", async function() {
           }
           
         }
+        toggleElementDisplay(deleteButton);
+        toggleButtonText(this,  'Save Group(s)', 'Edit/Add Group');
+         //example for how to set chrome storage
+         chrome.storage.sync.set({GROUP1: {
+          COLOR: firstBox,
+          NAME: firstName,
+          URL: firstURL,
+        }}, function() {
+          console.log('rule set');
+        });
+      }
+      else {
+        alert("Fields in a rule are empty, or color is not selected please fill out all forms / select color before saving");
+      }
+
+     
     }
 
     else {
