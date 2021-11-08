@@ -32,20 +32,52 @@
   // listener that can tell if tab changes and new html page loads or if new tab is opened
   chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab)  => {
 
+   
+
     /*
     chrome.storage.sync.get(['rule'], (result) => {
       console.log("yeah baby this is service worker does it work heree", result.rule);
       // setRule();
   });
   */
-  chrome.storage.sync.get(['GROUP1'], (result) => {
+  chrome.storage.sync.get(['GROUP2'], (result) => {
+    console.log("this is group2");
     console.log(result);
+    console.log(".");
+    console.log(".");
+    console.log(".");
+    console.log("yeah baby this gets the rule set earlire  Group 2 first up is Color", 
+    result['GROUP2']['COLOR'], 'second is name',
+     result['GROUP2']['NAME'], 'lastly is url', result["GROUP2"]["URL"]);
+  });
+  chrome.storage.sync.get(['GROUP1'], (result) => {
+    
+    console.log("this is group1");
+    console.log(".");
+    console.log(".");
+    console.log(".");
+    console.log(result);
+
+    //console.log("yeah baby this gets the rule set earlire first up is Color", 
+   // result['GROUP1']['COLOR'], 'second is name',
+    //result['GROUP1']['NAME'], 'lastly is url', result["GROUP1"]["URL"]);
+    
     console.log("yeah baby this gets the rule set earlire first up is Color", 
     result['GROUP1']['COLOR'], 'second is name',
-    result['GROUP1']['NAME'], 'lastly is url', result["GROUP1"]["URL"]);
+     result['GROUP1']['NAME'], 'lastly is url', result["GROUP1"]["URL"]);
+    
+
+
+
     let url = tab.url;
     console.log(url);
     let searchTerm = result['GROUP1']["URL"];
+
+
+
+
+
+
     
    // console.log("this is rule term", ruleTerm);
     //first parameter determines if url which is current tab url has the search term in it

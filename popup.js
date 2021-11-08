@@ -133,7 +133,7 @@ deleteButton.addEventListener("click", async function() {
         console.log(document.getElementById("first-name").value);
         console.log(document.getElementById("first-url").value);
         console.log(firstBox);
-        console.log(document.getElementById("first-box").value);
+        console.log(document.getElementById("first-box").getAttribute('value'));
         
         
         //this coges through and unchecks everything that is checked
@@ -142,6 +142,15 @@ deleteButton.addEventListener("click", async function() {
             let checkedNameField = document.querySelectorAll(".name")[i];
             let checkedUrlField = document.querySelectorAll(".flex-center")[i];
             let dropDownBox = document.querySelectorAll(".dropdown")[i];
+            let groupNumber = 'GROUP' + String(parseInt(i + 1));
+            console.log("this is group number", groupNumber);
+            chrome.storage.sync.set({[groupNumber]: {
+              COLOR: document.querySelectorAll(".box")[i].getAttribute("value"),
+              NAME: checkedNameField.value,
+              URL: checkedUrlField.value,
+            }}, function() {
+              console.log(groupNumber + " was set");
+            });
             toggleInputDisabled(checkedUrlField);
             toggleInputDisabled(checkedNameField);
             toggleDropdownBox(dropDownBox);
@@ -149,16 +158,43 @@ deleteButton.addEventListener("click", async function() {
           }
           
         }
+        /*works when set manually
+        chrome.storage.sync.set({'GROUP2': {
+          COLOR: 'Yellow',
+          NAME: 'BOB2',
+          URL: "Bob.com",
+        }}, function() {
+          console.log("group 2 was set");
+        });
+        chrome.storage.sync.set({'GROUP1': {
+          COLOR: 'Yellow',
+          NAME: 'BOB1',
+          URL: "Bob.com",
+        }}, function() {
+          console.log("group 2 was set");
+        });
+       works when set manually  */
+       
         toggleElementDisplay(deleteButton);
         toggleButtonText(this,  'Save Group(s)', 'Edit/Add Group');
          //example for how to set chrome storage
-         chrome.storage.sync.set({GROUP1: {
-          COLOR: firstBox,
-          NAME: firstName,
-          URL: firstURL,
+
+         /*
+         chrome.storage.sync.set({'GROUP1': { 
+            COLOR: firstBox,
+            NAME: firstName,
+            URL: firstURL, 
         }}, function() {
           console.log('rule set');
         });
+        */
+
+
+  
+
+
+
+
       }
       else {
         alert("Fields in a rule are empty, or color is not selected please fill out all forms / select color before saving");
