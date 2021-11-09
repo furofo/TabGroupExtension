@@ -61,7 +61,7 @@
 
 
 */
-
+// make chormestorage get a promise instead of clalback avoid callback hell muahhahahah
 function chromeStorageGet(result) {
   return new Promise((resolve, reject) => {
     if(resolve) {
@@ -74,28 +74,34 @@ function chromeStorageGet(result) {
   });
 }
 
-chromeStorageGet(chrome.storage.sync.get(['GROUP2'])).then((result) => {
+chromeStorageGet(chrome.storage.sync.get(['GROUP1']))
+.then((result) => {
   console.log("this is practice with promise instead of call back")
   console.log("..");
   console.log("...");
   console.log("..");
   console.log("...");
   console.log(result);
+  let groupsArray = [];
+  groupsArray.push(result);
+  return groupsArray;
+  })
+.then((result) => {
+  console.log('okay so this should be groups array right now yall', result);
+  return  chromeStorageGet(chrome.storage.sync.get(['GROUP2']))
+  .then((result2) => {
+      result.push(result2);
+      return result;
+     })
+  })
+.then((result) => {
+  console.log("so groups array with group 2 in it now", result)
 });
 
 
 
 
-    chrome.storage.sync.get(['GROUP2'], (result) => {
-      console.log("this is group2");
-      console.log(result);
-      console.log(".");
-      console.log(".");
-      console.log(".");
-      console.log("yeah baby this gets the rule set earlire  Group 2 first up is Color", 
-      result['GROUP2']['COLOR'], 'second is name',
-       result['GROUP2']['NAME'], 'lastly is url', result["GROUP2"]["URL"]);
-    });
+    
     chrome.storage.sync.get(['GROUP1'], (result) => {
       //console.log("this is first result should be group 2", result);
       console.log("this is group1");
