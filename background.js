@@ -40,6 +40,7 @@
       // setRule();
   });
   */
+ /*
   chrome.storage.sync.get(['GROUP2'], (result) => {
     console.log("this is group2");
     console.log(result);
@@ -58,51 +59,116 @@
     console.log(".");
     console.log(result);
 
-    //console.log("yeah baby this gets the rule set earlire first up is Color", 
-   // result['GROUP1']['COLOR'], 'second is name',
-    //result['GROUP1']['NAME'], 'lastly is url', result["GROUP1"]["URL"]);
-    
-    console.log("yeah baby this gets the rule set earlire first up is Color", 
-    result['GROUP1']['COLOR'], 'second is name',
-     result['GROUP1']['NAME'], 'lastly is url', result["GROUP1"]["URL"]);
-    
+
+*/
+
+function chromeStorageGet(result) {
+  return new Promise((resolve, reject) => {
+    if(resolve) {
+      resolve(result)
+    }
+    else {
+      console.log("didn't work");
+    }
+
+  });
+}
+
+chromeStorageGet(chrome.storage.sync.get(['GROUP2'])).then((result) => {
+  console.log("this is practice with promise instead of call back")
+  console.log("..");
+  console.log("...");
+  console.log("..");
+  console.log("...");
+  console.log(result);
+});
 
 
 
-    let url = tab.url;
-    console.log(url);
-    let searchTerm = result['GROUP1']["URL"];
+
+    chrome.storage.sync.get(['GROUP2'], (result) => {
+      console.log("this is group2");
+      console.log(result);
+      console.log(".");
+      console.log(".");
+      console.log(".");
+      console.log("yeah baby this gets the rule set earlire  Group 2 first up is Color", 
+      result['GROUP2']['COLOR'], 'second is name',
+       result['GROUP2']['NAME'], 'lastly is url', result["GROUP2"]["URL"]);
+    });
+    chrome.storage.sync.get(['GROUP1'], (result) => {
+      //console.log("this is first result should be group 2", result);
+      console.log("this is group1");
+      console.log(".");
+      console.log(".");
+      console.log(".");
+      console.log(result);
+
+
+      chrome.storage.sync.get(['GROUP2'], (result2) => {
+        console.log("this is first result should be group 1", result);
+        console.log("this is group2");
+        console.log(result2);
+        console.log(".");
+        console.log(".");
+        console.log(".");
+        console.log("yeah baby this gets the rule set earlire  Group 2 first up is Color", 
+        result2['GROUP2']['COLOR'], 'second is name',
+        result2['GROUP2']['NAME'], 'lastly is url', result2["GROUP2"]["URL"]);
+
+        
+              //console.log("yeah baby this gets the rule set earlire first up is Color", 
+            // result['GROUP1']['COLOR'], 'second is name',
+              //result['GROUP1']['NAME'], 'lastly is url', result["GROUP1"]["URL"]);
+              
+              console.log("yeah baby this gets the rule set earlire first up is Color", 
+              result['GROUP1']['COLOR'], 'second is name',
+              result['GROUP1']['NAME'], 'lastly is url', result["GROUP1"]["URL"]);
+              
+
+
+
+              let url = tab.url;
+              console.log(url);
+              let searchTerm = result['GROUP1']["URL"];
 
 
 
 
 
 
-    
-   // console.log("this is rule term", ruleTerm);
-    //first parameter determines if url which is current tab url has the search term in it
-    //this will later be updated to include group rules
-    //second paramter deteremines if the grouped tab array has an excact match for this tab array, if it 
-    //does this does not execute  and adds url toprevents infinite loops otherwise this fires infinietly 
-    if(url.includes(searchTerm) && !groupedTabArray.includes(url)) {
-      console.log("gropu created");
-      if(groupIDArray[0]) {
-        console.log("group id found yay youu1");
-        chrome.tabs.group({tabIds: tabId, groupId: groupIDArray[0]}).then((id) => {
-          console.log("groupd id is ", id);
-          groupIDArray.push(id);
-          groupedTabArray.push(url);
-         });
-      }
-      else {
-        chrome.tabs.group({tabIds: tabId}).then((id) => {
-          console.log("groupd id is ", id);
-          groupIDArray.push(id);
-          groupedTabArray.push(url);
-         });
-      }
-      
-  }
+              
+            // console.log("this is rule term", ruleTerm);
+              //first parameter determines if url which is current tab url has the search term in it
+              //this will later be updated to include group rules
+              //second paramter deteremines if the grouped tab array has an excact match for this tab array, if it 
+              //does this does not execute  and adds url toprevents infinite loops otherwise this fires infinietly 
+              if(url.includes(searchTerm) && !groupedTabArray.includes(url)) {
+                console.log("gropu created");
+                if(groupIDArray[0]) {
+                  console.log("group id found yay youu1");
+                  chrome.tabs.group({tabIds: tabId, groupId: groupIDArray[0]}).then((id) => {
+                    console.log("groupd id is ", id);
+                    groupIDArray.push(id);
+                    groupedTabArray.push(url);
+                  });
+                }
+                else {
+                  chrome.tabs.group({tabIds: tabId}).then((id) => {
+                    console.log("groupd id is ", id);
+                    groupIDArray.push(id);
+                    groupedTabArray.push(url);
+                  });
+                }
+                
+            }
+
+
+
+
+
+                })
+
     
 });
 
