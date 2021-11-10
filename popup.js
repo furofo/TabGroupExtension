@@ -1,5 +1,4 @@
-
-
+//get variables for buttons ahere
 let deleteButton = document.getElementById('delete-group');
 let editAddButton = document.getElementById('edit-add-group')
 
@@ -89,13 +88,11 @@ deleteButton.addEventListener("click", async function() {
       checkedInputFound = true;
     }
   }
-
   alert("No Group Checked! Please Check Tab Group Rule to Delete!")
- 
 });
 
-// when button clicked for right now reads rule but functionality built to set rule//
-  editAddButton.addEventListener("click", async function()  {
+
+editAddButton.addEventListener("click", async function()  {
     let isCheckedArray = document.querySelectorAll('.container input');
     let checkedInputFound = false;
     //if save button clicked basiclaly because should be only Save Button when delete button is not visible
@@ -104,22 +101,16 @@ deleteButton.addEventListener("click", async function() {
       let firstURL = document.getElementById("first-url").value;
       let firstBox = document.getElementById("first-box").getAttribute("value");
       console.log(document.getElementById("first-box"));
-      if(firstName && firstURL && firstBox != "grey") {
-       
-        console.log(document.getElementById("first-name").value);
-        console.log(document.getElementById("first-url").value);
-        console.log(firstBox);
-        console.log(document.getElementById("first-box").getAttribute('value'));
-        
-        
-        //this coges through and unchecks everything that is checked
+           //this coges through and unchecks everything that is checked
         for(let i = 0; i < isCheckedArray.length; i++) {
           if(isCheckedArray[i].checked) {
             let checkedNameField = document.querySelectorAll(".name")[i];
             let checkedUrlField = document.querySelectorAll(".flex-center")[i];
             let dropDownBox = document.querySelectorAll(".dropdown")[i];
+            let boxField = document.querySelectorAll(".box")[i];
             let groupNumber = 'GROUP' + String(parseInt(i + 1));
-            console.log("this is group number", groupNumber);
+            if(checkedNameField.value && checkedUrlField.value && boxField.getAttribute("value") != "grey") {
+              console.log("this is group number", groupNumber);
             chrome.storage.sync.set({[groupNumber]: {
               COLOR: document.querySelectorAll(".box")[i].getAttribute("value"),
               NAME: checkedNameField.value,
@@ -131,17 +122,23 @@ deleteButton.addEventListener("click", async function() {
             toggleInputDisabled(checkedNameField);
             toggleDropdownBox(dropDownBox);
             isCheckedArray[i].checked = false;
+              
+            }
+            else {
+              alert("Fields in a rule are empty, or color is not selected please fill out all forms / select color before saving");
+              return;
+            }
+      
           }
           
         }
         toggleElementDisplay(deleteButton);
         toggleButtonText(this,  'Save Group(s)', 'Edit/Add Group');
-      }
-      else {
-        alert("Fields in a rule are empty, or color is not selected please fill out all forms / select color before saving");
-      }
-    }
 
+      
+      
+    }
+    //if edit button clicked make all the checked stuff editable basically
     else {
       for(let i = 0; i < isCheckedArray.length; i++) {
         if(i == isCheckedArray.length - 1 ) {
@@ -171,20 +168,18 @@ deleteButton.addEventListener("click", async function() {
           checkedInputFound = true;
   
         }
-        
-    
       }
       alert("No Group Checked! Please Check Tab Group Rule to Edit or Add!")
       
     }
 });
 
-
-
    // Set up custom drop down menu color pickers
    let dropDownAll = document.querySelectorAll('.dropdown');
    let boxAll = document.querySelectorAll('.box');
+    //this loops through and provides functions for each color picking box, changes color when clicked toggles display when clicked
    for(let i = 0; i < dropDownAll.length; i++) {
+    //this assigns unique function to dropdown icon for each color box
     dropDownAll[i].onclick = function() {
         for(let j = 0; j < boxAll.length; j++) {
           if(i == j) {
@@ -216,7 +211,8 @@ deleteButton.addEventListener("click", async function() {
    }
    
    //function that looks at second argument and sees if it has parent element, if ithas parent element and doesn't 
-   //have class of dropdown and doesn't match any of elements in the first argument, it targ
+   //have class of dropdown and doesn't match element in the elmeArr toggles active-box away from it, ignores drop down when clicked since 
+   //we have a functoin for that already that toggles when that is clicked among other things. 
    let aIsInB = function (elemArr, elemToMatch) {
       for(let i = 0; i < elemArr.length; i++) {
          if(elemToMatch.parentElement) {
@@ -230,7 +226,7 @@ deleteButton.addEventListener("click", async function() {
    
 
    //click function for body taht closes drop down menu as witch exceptions for clicking other things, 
-   // used so you click outside of the drop downs to clsoe them jquery implentation
+   // used so you click outside of the drop downs to close them
       
     document.addEventListener('mouseup', function(e) 
       {
@@ -240,6 +236,3 @@ deleteButton.addEventListener("click", async function() {
 
  
       });
-
-     
-
