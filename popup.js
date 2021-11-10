@@ -2,20 +2,10 @@
 
 let deleteButton = document.getElementById('delete-group');
 let editAddButton = document.getElementById('edit-add-group')
-//let ruleInput = document.getElementById('rule-input');
-//this adds a property rule to local storage that we will use to define search urls for the tab groups
-function setRule() {
-   // let value = ruleInput.value;
-   // console.log("value is ", value);
-   // chrome.storage.sync.set({rule: value}, () => {
-     // setARule.style.backgroundColor = "purple";
-      console.log("value is set to", value);
-    //});
-  }
 
-//function that switches a btn elements inner html between two strings, firs argument is button element, second is current text
+//function that switches a btn elements inner html between two strings, first argument is button element, second is current text
 //third is text to toggle between
-toggleButtonText = function(btn, str1, str2) {
+let toggleButtonText = function(btn, str1, str2) {
   if(btn.innerHTML == str1) {
     btn.innerHTML = str2;
   }
@@ -24,20 +14,18 @@ toggleButtonText = function(btn, str1, str2) {
   }
 }
 
-//function thtat switches an elemtns display between none and block
-toggleElementDisplay = function(elem) {
-  
+//function that switches an elemtns display between none and block
+let toggleElementDisplay = function(elem) {
   if (window.getComputedStyle(elem, null).display == 'block') {
     elem.style.display = 'none';
   }
   else {
     elem.style.display = 'block';
   }
-  
 }
 
 //this function toggles input disabled from true and false and border to none and solid px effectively
-toggleInputDisabled = function(elem) {
+let toggleInputDisabled = function(elem) {
   elem.disabled =  !elem.disabled;
         if(elem.disabled) {
           elem.style.border = "none";
@@ -45,11 +33,10 @@ toggleInputDisabled = function(elem) {
         else {
           elem.style.border = '1px solid grey';
         }
-
 }
 
-toggleDropdownBox = function (elem) {
-  
+//this function hides and unhides the dropdown box for the color picker box
+let toggleDropdownBox = function (elem) {
   if(window.getComputedStyle(elem, null).display == 'none') {
     elem.style.display = "inline-block";
   }
@@ -58,14 +45,14 @@ toggleDropdownBox = function (elem) {
   }
 }
 
-//functoin to get input value as typed 
-function showMe(e) {
-  // i am spammy!
+//functoin to get input value as typed and update that inputs value attribute with what was typed
+function updateInputWhenTyped(e) {
     e.target.setAttribute('value', e.target.value);
     console.log(e.target.value);
   }
 
-document.getElementById('first-name').addEventListener('input', showMe);
+// add listener to first name value and use this method
+document.getElementById('first-name').addEventListener('input', updateInputWhenTyped);
 
 //listener for setRule Button
 deleteButton.addEventListener("click", async function() {
@@ -73,18 +60,13 @@ deleteButton.addEventListener("click", async function() {
   let isCheckedArray = document.querySelectorAll('.container input');
   let checkedInputFound = false;
   for(let i = 0; i < isCheckedArray.length; i++) {
+    //this runs on last item, if it is checked remove everything and end here if not just return and do nothing
     if(i == isCheckedArray.length - 1) {
       if(isCheckedArray[i].checked) {
         let checkedNameField = document.querySelectorAll(".name")[i];
         let checkedUrlField = document.querySelectorAll(".flex-center")[i];
         let box = document.querySelectorAll(".box")[i];
-      
-        console.log(checkedNameField.getAttribute('value'));
-        //checkedNameField.setAttribute('value', 'a');
-       // checkedNameField.innerHTML = 'a';
-       console.log(checkedNameField);
-      // checkedNameField.disabled = false;
-        checkedNameField.value = 'a';
+        checkedNameField.value = '';
         box.setAttribute('color', 'grey' );
         box.style.backgroundColor = 'grey';
         checkedInputFound = true;
@@ -93,27 +75,21 @@ deleteButton.addEventListener("click", async function() {
       if(checkedInputFound) {
         return;
       }
-
     }
     if(isCheckedArray[i].checked) {
       let checkedNameField = document.querySelectorAll(".name")[i];
       let checkedUrlField = document.querySelectorAll(".flex-center")[i];
-      
-      console.log(checkedNameField.getAttribute('value'));
       let box = document.querySelectorAll(".box")[i];
-     // checkedNameField.disabled = false;
       checkedNameField.setAttribute('value', '');
       checkedNameField.value = '';
-     
       checkedUrlField.setAttribute('value', '');
       checkedUrlField.value = '';
       box.setAttribute('color', 'grey' );
       box.style.backgroundColor = 'grey';
       checkedInputFound = true;
     }
-    
-
   }
+
   alert("No Group Checked! Please Check Tab Group Rule to Delete!")
  
 });
@@ -158,49 +134,12 @@ deleteButton.addEventListener("click", async function() {
           }
           
         }
-        /*works when set manually
-        chrome.storage.sync.set({'GROUP2': {
-          COLOR: 'Yellow',
-          NAME: 'BOB2',
-          URL: "Bob.com",
-        }}, function() {
-          console.log("group 2 was set");
-        });
-        chrome.storage.sync.set({'GROUP1': {
-          COLOR: 'Yellow',
-          NAME: 'BOB1',
-          URL: "Bob.com",
-        }}, function() {
-          console.log("group 2 was set");
-        });
-       works when set manually  */
-       
         toggleElementDisplay(deleteButton);
         toggleButtonText(this,  'Save Group(s)', 'Edit/Add Group');
-         //example for how to set chrome storage
-
-         /*
-         chrome.storage.sync.set({'GROUP1': { 
-            COLOR: firstBox,
-            NAME: firstName,
-            URL: firstURL, 
-        }}, function() {
-          console.log('rule set');
-        });
-        */
-
-
-  
-
-
-
-
       }
       else {
         alert("Fields in a rule are empty, or color is not selected please fill out all forms / select color before saving");
       }
-
-     
     }
 
     else {
@@ -236,15 +175,8 @@ deleteButton.addEventListener("click", async function() {
     
       }
       alert("No Group Checked! Please Check Tab Group Rule to Edit or Add!")
-      //fetch somelthign from group storage
+      
     }
-    
-    /*
-    chrome.storage.sync.get(['rule'], (result) => {
-       
-        console.log("yeah baby this gets the rule set earlire", result.rule);
-        
-    });*/
 });
 
 
@@ -283,29 +215,16 @@ deleteButton.addEventListener("click", async function() {
      }
    }
    
+   //function that looks at second argument and sees if it has parent element, if ithas parent element and doesn't 
+   //have class of dropdown and doesn't match any of elements in the first argument, it targ
    let aIsInB = function (elemArr, elemToMatch) {
-     
       for(let i = 0; i < elemArr.length; i++) {
          if(elemToMatch.parentElement) {
-          
-           if(elemToMatch.parentElement.classList.contains('dropdown')) {
-           
-          
-           }
+           if(elemToMatch.parentElement.classList.contains('dropdown')) {}
            else if(elemToMatch.parentElement != elemArr[i]){
-             
             elemArr[i].classList.toggle('active-box');
            }
-
-           else {
-             
-           }
-         }
-        
-         else {
-            
-         }
-         
+         } 
       }
    }
    
@@ -318,17 +237,6 @@ deleteButton.addEventListener("click", async function() {
            // if the target of the click isn't the container nor a descendant of the container
            let activeBoxes = document.querySelectorAll('.active-box');
            aIsInB(activeBoxes, e.target);
-          /*
-           for (let i = 0; i < activeBoxes.length; i++) {
-            if (!$(activeBoxes[i]).is(e.target) && $(activeBoxes[i]).has(e.target).length === 0 
-            && !$(".box").is(e.target) && $(".box").has(e.target).length === 0
-            && !$(".dropdown").is(e.target) && $(".dropdown").has(e.target).length === 0)  {
-                $(activeBoxes[i]).toggleClass('active-box');
-
-            }
-              
-           }
-*/
 
  
       });
