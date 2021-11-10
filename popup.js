@@ -65,7 +65,10 @@ deleteButton.addEventListener("click", async function() {
         let checkedNameField = document.querySelectorAll(".name")[i];
         let checkedUrlField = document.querySelectorAll(".flex-center")[i];
         let box = document.querySelectorAll(".box")[i];
+        checkedNameField.setAttribute('value', '');
         checkedNameField.value = '';
+        checkedUrlField.setAttribute('value', '');
+        checkedUrlField.value = '';
         box.setAttribute('color', 'grey' );
         box.style.backgroundColor = 'grey';
         checkedInputFound = true;
@@ -236,3 +239,70 @@ editAddButton.addEventListener("click", async function()  {
 
  
       });
+// make chormestorage get a promise instead of callback avoid callback hell muahhahahah
+function chromeStorageGet(result) {
+  return new Promise((resolve, reject) => {
+  if(resolve) { resolve(result) }
+  else {console.log("didn't work"); }
+      });
+      }    
+ window.onload = function () {
+    chromeStorageGet(chrome.storage.sync.get(['GROUP1']))
+    .then((result) => {
+      console.log("this is practice with promise instead of call back")
+      console.log("..");
+      console.log("...");
+      console.log("..");
+      console.log("...");
+      console.log("this will be group 1");
+      console.log(result);
+      let groupsArray = [];
+      groupsArray.push(result);
+      return groupsArray;
+      })
+    .then((result) => {
+      console.log('okay so this should be groups array variable right now yall', result);
+      return  chromeStorageGet(chrome.storage.sync.get(['GROUP2']))
+      .then((result2) => {
+        console.log("..");
+        console.log("...");
+        console.log("..");
+        console.log("...");
+        console.log("this will be group 2");
+        console.log(result2);
+          result.push(result2);
+          return result;
+        });
+      })
+    .then((result) => {
+      console.log("so groups array with group 2 in it now", result)
+      return chromeStorageGet(chrome.storage.sync.get(['GROUP3']))
+      .then((result2) => {
+        console.log("..");
+        console.log("...");
+        console.log("..");
+        console.log("...");
+        console.log("this will be group 3");
+        console.log(result2);
+        result.push(result2);
+        return result;
+      });
+    })
+    .then((result) => {
+      console.log("this should be result with all groups in it", result);
+      let names = document.querySelectorAll(".name");
+      let urls = document.querySelectorAll(".flex-center");
+      let boxes = document.querySelectorAll(".box");
+      
+      for(let i = 0; i < result.length; i++) {
+        let group = "GROUP" + String(i + 1);
+        if(result[i].hasOwnProperty(group)) {
+         
+          names[i].setAttribute("value",  result[i][group]["NAME"]);
+          urls[i].setAttribute("value", result[i][group]["URL"]);
+          boxes[i].setAttribute("value", result[i][group]["COLOR"]);
+          boxes[i].style.backgroundColor = result[i][group]["COLOR"];
+        }
+      }
+    });
+}
