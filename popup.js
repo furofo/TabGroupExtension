@@ -155,6 +155,7 @@ editAddButton.addEventListener("click", async function()  {
     else {
       for(let i = 0; i < isCheckedArray.length; i++) {
         if(i == isCheckedArray.length - 1 ) {
+          //this is handlign for last check box returns if it is checked so doesn't throw error logic
           if(isCheckedArray[i].checked) {
             let checkedNameField = document.querySelectorAll(".name")[i];
             let checkedUrlField = document.querySelectorAll(".flex-center")[i];
@@ -163,6 +164,10 @@ editAddButton.addEventListener("click", async function()  {
             toggleInputDisabled(checkedNameField);
             toggleDropdownBox(dropDownBox);
             checkedInputFound = true;
+          }
+          else {
+            let inputBox = document.querySelectorAll(".container")[i];
+            inputBox.style.pointerEvents = "none";
           }
           if(checkedInputFound) {
             toggleButtonText(this, 'Edit/Add Group', 'Save Group(s)')
@@ -180,6 +185,10 @@ editAddButton.addEventListener("click", async function()  {
           toggleDropdownBox(dropDownBox);
           checkedInputFound = true;
   
+        }
+        else {
+          let inputBox = document.querySelectorAll(".container")[i];
+          inputBox.style.pointerEvents = "none";
         }
       }
       alert("No Group Checked! Please Check Tab Group Rule to Edit or Add!")
