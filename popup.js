@@ -71,6 +71,8 @@ deleteButton.addEventListener("click", async function() {
         checkedUrlField.value = '';
         box.setAttribute('color', 'grey' );
         box.style.backgroundColor = 'grey';
+        let checkedItem = document.querySelectorAll(".container input")[i];
+        checkedItem.checked = false;
         checkedInputFound = true;
         return;
       }
@@ -89,6 +91,8 @@ deleteButton.addEventListener("click", async function() {
       box.setAttribute('color', 'grey' );
       box.style.backgroundColor = 'grey';
       checkedInputFound = true;
+      let checkedItem = document.querySelectorAll(".container input")[i];
+      checkedItem.checked = false;
     }
   }
   alert("No Group Checked! Please Check Tab Group Rule to Delete!")
@@ -133,6 +137,8 @@ editAddButton.addEventListener("click", async function()  {
               return;
             }
             */
+
+            //this unchecks everythign after save button is hit
            let checkedItem = document.querySelectorAll(".container input")[i];
            checkedItem.checked = false;
       
