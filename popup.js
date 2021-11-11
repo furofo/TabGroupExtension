@@ -143,6 +143,11 @@ editAddButton.addEventListener("click", async function()  {
            checkedItem.checked = false;
       
           }
+
+          else {
+            let inputBox = document.querySelectorAll(".container")[i];
+            inputBox.style.pointerEvents = "auto";
+          }
           
         }
         toggleElementDisplay(deleteButton);
