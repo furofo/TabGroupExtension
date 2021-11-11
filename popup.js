@@ -127,10 +127,14 @@ editAddButton.addEventListener("click", async function()  {
             isCheckedArray[i].checked = false;
               
             }
+            /*
             else {
               alert("Fields in a rule are empty, or color is not selected please fill out all forms / select color before saving");
               return;
             }
+            */
+           let checkedItem = document.querySelectorAll(".container input")[i];
+           checkedItem.checked = false;
       
           }
           
