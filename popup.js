@@ -110,6 +110,8 @@ editAddButton.addEventListener("click", async function()  {
       console.log(document.getElementById("first-box"));
            //this coges through and unchecks everything that is checked
         for(let i = 0; i < isCheckedArray.length; i++) {
+          let inputBox = document.querySelectorAll(".container")[i];
+          inputBox.style.pointerEvents = "auto";
           if(isCheckedArray[i].checked) {
             let checkedNameField = document.querySelectorAll(".name")[i];
             let checkedUrlField = document.querySelectorAll(".flex-center")[i];
@@ -144,10 +146,7 @@ editAddButton.addEventListener("click", async function()  {
       
           }
 
-          else {
-            let inputBox = document.querySelectorAll(".container")[i];
-            inputBox.style.pointerEvents = "auto";
-          }
+         
           
         }
         toggleElementDisplay(deleteButton);
@@ -159,6 +158,8 @@ editAddButton.addEventListener("click", async function()  {
     //if edit button clicked make all the checked stuff editable basically
     else {
       for(let i = 0; i < isCheckedArray.length; i++) {
+        let inputBox = document.querySelectorAll(".container")[i];
+        inputBox.style.pointerEvents = "none";
         if(i == isCheckedArray.length - 1 ) {
           //this is handlign for last check box returns if it is checked so doesn't throw error logic
           if(isCheckedArray[i].checked) {
@@ -170,10 +171,7 @@ editAddButton.addEventListener("click", async function()  {
             toggleDropdownBox(dropDownBox);
             checkedInputFound = true;
           }
-          else {
-            let inputBox = document.querySelectorAll(".container")[i];
-            inputBox.style.pointerEvents = "none";
-          }
+        
           if(checkedInputFound) {
             toggleButtonText(this, 'Edit/Add Group', 'Save Group(s)')
             toggleElementDisplay(deleteButton);

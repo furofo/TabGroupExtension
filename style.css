@@ -210,8 +210,12 @@ button {
   background-color: white;
 }
 
-
+.box-style {
+  box-shadow: 1px 2px 2px grey;
+  border: 2px solid black;
+}
 .box {
+  
   /* margin-left: 8em; */
   /* margin-tOP: 3em; */
   display: inline-block;
