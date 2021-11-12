@@ -15,12 +15,34 @@ function chromeStorageGet(result) {
 
 
   let groupedTabArray = [];
-  let groupIDArray = [];
+  let group1 = {
+    GROUP1: {
+
+    }
+  }
+
+  let group2 = {
+    GROUP2: {
+      
+    }
+  }
+
+  let group3 = {
+    GROUP3: {
+      
+    }
+  }
+  let groupIDArray = [group1, group2, group3];
   // listener that can tell if tab changes and new html page loads or if new tab is opened
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab)  => {
+  console.log("this is tab Group Id", tab.groupId);
 
   
+let returnFoundTabGroupID = function(arr) {
+  for(let i = 0; i < arr.length; i++) {
 
+  }
+}
 
 //this is promise chaing of chrome storage .gets 
 chromeStorageGet(chrome.storage.sync.get(['GROUP1']))
@@ -51,8 +73,31 @@ chromeStorageGet(chrome.storage.sync.get(['GROUP1']))
     let group = 'GROUP' + String(i + 1);
     if(result[i].hasOwnProperty(group)) {
       let searchTerm = result[i][group]['URL'];
+
+      if(url.includes(searchTerm)) {
+          if(groupIDArray[i][group].hasOwnProperty("TABGROUP")) {
+            chrome.tabs.group({tabIds: tabId, groupId: groupIDArray[i][group]["TABGROUP"]}).then((id) => {
+              console.log("groupd found is ", id);
+            });
+
+          }
+
+          else {
+            chrome.tabs.group({tabIds: tabId}).then((id) => {
+              console.log("New group idea created it is:  ", id);
+              groupIDArray[i][group]["TABGROUP"] = id;
+            });
+           
+
+          }
+
+      }
+
+
+
+/*
       if(url.includes(searchTerm) && !groupedTabArray.includes(url)) {
-        console.log("group created");
+        console.log("here is group id", groupIDArray);
         if(groupIDArray[0]) {
           console.log("group id found yay youu1");
           chrome.tabs.group({tabIds: tabId, groupId: groupIDArray[0]}).then((id) => {
@@ -70,6 +115,12 @@ chromeStorageGet(chrome.storage.sync.get(['GROUP1']))
         }
         
     }
+
+
+*/
+
+
+
 
     }
     
