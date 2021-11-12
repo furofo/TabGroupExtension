@@ -1,5 +1,3 @@
-
-
 // make chormestorage get a promise instead of callback avoid callback hell muahhahahah
 function chromeStorageGet(result) {
   return new Promise((resolve, reject) => {
@@ -66,18 +64,20 @@ chromeStorageGet(chrome.storage.sync.get(['GROUP1']))
   });
 }).then((result) => {
   
-  console.log("so groups array with group 3 in it now", result);
   let url = tab.url;
-  console.log(url);
   for(let i = 0; i < result.length; i++) {
     let group = 'GROUP' + String(i + 1);
     if(result[i].hasOwnProperty(group)) {
       let searchTerm = result[i][group]['URL'];
 
       if(url.includes(searchTerm)) {
-          if(groupIDArray[i][group].hasOwnProperty("TABGROUP")) {
+          if(tab.groupId != -1) {
+            console.log("this tab is already in group");
+
+          }
+          else if(groupIDArray[i][group].hasOwnProperty("TABGROUP")) {
             chrome.tabs.group({tabIds: tabId, groupId: groupIDArray[i][group]["TABGROUP"]}).then((id) => {
-              console.log("groupd found is ", id);
+              console.log("Group ID was found \n \n \n follows rule in gorup ", group, "\n\n id is :", id);
             });
 
           }
