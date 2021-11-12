@@ -74,6 +74,13 @@ deleteButton.addEventListener("click", async function() {
         let checkedItem = document.querySelectorAll(".container input")[i];
         checkedItem.checked = false;
         checkedInputFound = true;
+
+        // logic to delete rule here 
+      let group = "GROUP" + String(i + 1);
+      chrome.storage.sync.remove(group).then(() => {console.log("group", group, " was removed")});
+
+
+
         return;
       }
       if(checkedInputFound) {
@@ -93,6 +100,11 @@ deleteButton.addEventListener("click", async function() {
       checkedInputFound = true;
       let checkedItem = document.querySelectorAll(".container input")[i];
       checkedItem.checked = false;
+
+      // logic to delete rule here 
+      let group = "GROUP" + String(i + 1);
+      chrome.storage.sync.remove(group).then(() => {console.log("group", group, " was removed")});
+      
     }
   }
   alert("No Group Checked! Please Check Tab Group Rule to Delete!")
