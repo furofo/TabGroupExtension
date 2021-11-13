@@ -1,6 +1,7 @@
 //get variables for buttons ahere
 let deleteButton = document.getElementById('delete-group');
-let editAddButton = document.getElementById('edit-add-group')
+let editAddButton = document.getElementById('edit-add-group');
+let tabGroupsArray = [];
 
 //function that switches a btn elements inner html between two strings, first argument is button element, second is current text
 //third is text to toggle between
@@ -114,11 +115,15 @@ deleteButton.addEventListener("click", async function() {
 editAddButton.addEventListener("click", async function()  {
     let isCheckedArray = document.querySelectorAll('.container input');
     let checkedInputFound = false;
+
+  
+    console.log("this is tab groups array", tabGroupsArray);
     //if save button clicked basiclaly because should be only Save Button when delete button is not visible
     if (window.getComputedStyle(deleteButton, null).display == 'none') {
       let firstName = document.getElementById("first-name").value;
       let firstURL = document.getElementById("first-url").value;
       let firstBox = document.getElementById("first-box").getAttribute("value");
+      tabGroupsArray = [];
       console.log(document.getElementById("first-box"));
            //this coges through and unchecks everything that is checked
         for(let i = 0; i < isCheckedArray.length; i++) {
@@ -132,6 +137,16 @@ editAddButton.addEventListener("click", async function()  {
             let groupNumber = 'GROUP' + String(parseInt(i + 1));
             if(checkedNameField.value && checkedUrlField.value && boxField.getAttribute("value") != "grey") {
               console.log("this is group number", groupNumber);
+
+            tabGroupsArray.push( {
+              [groupNumber]: {
+                COLOR: document.querySelectorAll(".box")[i].getAttribute("value"),
+                NAME: checkedNameField.value,
+                URL: checkedUrlField.value,
+              }
+            });
+
+            /*
             chrome.storage.sync.set({[groupNumber]: {
               COLOR: document.querySelectorAll(".box")[i].getAttribute("value"),
               NAME: checkedNameField.value,
@@ -139,6 +154,12 @@ editAddButton.addEventListener("click", async function()  {
             }}, function() {
               console.log(groupNumber + " was set");
             });
+
+            */
+            
+           
+
+
             toggleInputDisabled(checkedUrlField);
             toggleInputDisabled(checkedNameField);
             toggleDropdownBox(dropDownBox);
@@ -158,9 +179,22 @@ editAddButton.addEventListener("click", async function()  {
       
           }
 
+          else {
+            tabGroupsArray.push( {
+            });
+          }
+
          
           
         }
+
+
+        chrome.storage.sync.set({TABGROUPS:  tabGroupsArray }, function() {
+        //  tabGroupsArray = [];
+          console.log('GROUPS' + " was set");
+          tabGroupsArray = [];
+        });
+        
         toggleElementDisplay(deleteButton);
         toggleButtonText(this,  'Save Group(s)', 'Edit/Add Group');
 
@@ -281,62 +315,54 @@ function chromeStorageGet(result) {
       });
       }    
  window.onload = function () {
-    chromeStorageGet(chrome.storage.sync.get(['GROUP1']))
+  
+    chromeStorageGet(chrome.storage.sync.get(['TABGROUPS']))
     .then((result) => {
-      console.log("this is practice with promise instead of call back")
-      console.log("..");
-      console.log("...");
-      console.log("..");
-      console.log("...");
-      console.log("this will be group 1");
+      // so if object is empty
       console.log(result);
-      let groupsArray = [];
-      groupsArray.push(result);
-      return groupsArray;
-      })
-    .then((result) => {
-      console.log('okay so this should be groups array variable right now yall', result);
-      return  chromeStorageGet(chrome.storage.sync.get(['GROUP2']))
-      .then((result2) => {
-        console.log("..");
-        console.log("...");
-        console.log("..");
-        console.log("...");
-        console.log("this will be group 2");
-        console.log(result2);
-          result.push(result2);
-          return result;
-        });
-      })
-    .then((result) => {
-      console.log("so groups array with group 2 in it now", result)
-      return chromeStorageGet(chrome.storage.sync.get(['GROUP3']))
-      .then((result2) => {
-        console.log("..");
-        console.log("...");
-        console.log("..");
-        console.log("...");
-        console.log("this will be group 3");
-        console.log(result2);
-        result.push(result2);
-        return result;
-      });
-    })
-    .then((result) => {
-      console.log("this should be result with all groups in it", result);
+     if(Object.keys(result).length === 0) {
+       console.log("object lenght is zero here")
+
+     }
+     else {
+       console.log("this is result", result);
+       tabGroupsArray = [];
+       
       let names = document.querySelectorAll(".name");
       let urls = document.querySelectorAll(".flex-center");
       let boxes = document.querySelectorAll(".box");
-      
-      for(let i = 0; i < result.length; i++) {
+      for(let i = 0; i < result['TABGROUPS'].length; i++) {
+        tabGroupsArray.push(result['TABGROUPS'][i]);
+        console.log("this is tab group array now biatches!");
+
+        tabGroupsArray.push(result['TABGROUPS'][i]);
+        console.log("this is tab group array now biatches!");
         let group = "GROUP" + String(i + 1);
-        if(result[i].hasOwnProperty(group)) {
+        if(result['TABGROUPS'][i].hasOwnProperty(group)) {
          
-          names[i].setAttribute("value",  result[i][group]["NAME"]);
-          urls[i].setAttribute("value", result[i][group]["URL"]);
-          boxes[i].setAttribute("value", result[i][group]["COLOR"]);
-          boxes[i].style.backgroundColor = result[i][group]["COLOR"];
-        }
+          names[i].setAttribute("value",  result['TABGROUPS'][i][group]["NAME"]);
+          urls[i].setAttribute("value", result['TABGROUPS'][i][group]["URL"]);
+          boxes[i].setAttribute("value", result['TABGROUPS'][i][group]["COLOR"]);
+          boxes[i].style.backgroundColor = result['TABGROUPS'][i][group]["COLOR"];   
+        } 
+
+
+
+
+
+
+
+
+        
+
       }
+     }
+
+
     });
+    
 }
+
+
+
+  

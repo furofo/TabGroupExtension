@@ -72,7 +72,7 @@ chromeStorageGet(chrome.storage.sync.get(['GROUP1']))
 
       if(url.includes(searchTerm)) {
           if(tab.groupId != -1) {
-            console.log("this tab is already in group");
+            console.log("this tab is already in group \n \n \n");
 
           }
           else if(groupIDArray[i][group].hasOwnProperty("TABGROUP")) {
@@ -84,7 +84,7 @@ chromeStorageGet(chrome.storage.sync.get(['GROUP1']))
 
           else {
             chrome.tabs.group({tabIds: tabId}).then((id) => {
-              console.log("New group idea created it is:  ", id);
+              console.log("Not in group \n \n \n \n New group idea created it is:  ", id);
               groupIDArray[i][group]["TABGROUP"] = id;
             });
            
