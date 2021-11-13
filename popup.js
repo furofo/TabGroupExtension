@@ -128,13 +128,15 @@ editAddButton.addEventListener("click", async function()  {
            //this coges through and unchecks everything that is checked
         for(let i = 0; i < isCheckedArray.length; i++) {
           let inputBox = document.querySelectorAll(".container")[i];
+
           inputBox.style.pointerEvents = "auto";
+          let checkedNameField = document.querySelectorAll(".name")[i];
+          let checkedUrlField = document.querySelectorAll(".flex-center")[i];
+          let dropDownBox = document.querySelectorAll(".dropdown")[i];
+          let boxField = document.querySelectorAll(".box")[i];
+          let groupNumber = 'GROUP' + String(parseInt(i + 1));
           if(isCheckedArray[i].checked) {
-            let checkedNameField = document.querySelectorAll(".name")[i];
-            let checkedUrlField = document.querySelectorAll(".flex-center")[i];
-            let dropDownBox = document.querySelectorAll(".dropdown")[i];
-            let boxField = document.querySelectorAll(".box")[i];
-            let groupNumber = 'GROUP' + String(parseInt(i + 1));
+           
             if(checkedNameField.value && checkedUrlField.value && boxField.getAttribute("value") != "grey") {
               console.log("this is group number", groupNumber);
 
@@ -180,8 +182,31 @@ editAddButton.addEventListener("click", async function()  {
           }
 
           else {
+            //logic to go heree to check if name fiels are blank
+            
+       
+            //logic to go heree to check if name fiels are blank
+            if(checkedNameField.value && checkedUrlField.value && boxField.getAttribute("value") != "grey") {
             tabGroupsArray.push( {
-            });
+              [groupNumber]: {
+                COLOR: document.querySelectorAll(".box")[i].getAttribute("value"),
+                NAME: checkedNameField.value,
+                URL: checkedUrlField.value,
+              }
+
+             });
+             }
+
+            else {
+              tabGroupsArray.push( {
+              
+              });
+
+            }
+
+         
+          
+        
           }
 
          
