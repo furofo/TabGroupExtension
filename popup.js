@@ -54,18 +54,18 @@ function updateInputWhenTyped(e) {
 // add listener to first name value and use this method
 document.getElementById('first-name').addEventListener('input', updateInputWhenTyped);
 
-//listener for setRule Button
+//when delet button clicked removes the group number from google sync and from pop up html of extension
 deleteButton.addEventListener("click", async function() {
   //logic to see if input is checked
   let isCheckedArray = document.querySelectorAll('.container input');
   let checkedInputFound = false;
   for(let i = 0; i < isCheckedArray.length; i++) {
+    let checkedNameField = document.querySelectorAll(".name")[i];
+    let checkedUrlField = document.querySelectorAll(".flex-center")[i];
+    let box = document.querySelectorAll(".box")[i];
     //this runs on last item, if it is checked remove everything and end here if not just return and do nothing
     if(i == isCheckedArray.length - 1) {
       if(isCheckedArray[i].checked) {
-        let checkedNameField = document.querySelectorAll(".name")[i];
-        let checkedUrlField = document.querySelectorAll(".flex-center")[i];
-        let box = document.querySelectorAll(".box")[i];
         checkedNameField.setAttribute('value', '');
         checkedNameField.value = '';
         checkedUrlField.setAttribute('value', '');
@@ -78,20 +78,30 @@ deleteButton.addEventListener("click", async function() {
 
         // logic to delete rule here 
       let group = "GROUP" + String(i + 1);
-      chrome.storage.sync.remove(group).then(() => {console.log("group", group, " was removed")});
+
+     // chrome.storage.sync.remove(group).then(() => {console.log("group", group, " was removed")});
+     //logic to remove this from tabsGroup Array which should be array of all groups retrieved from google Sync
+      if (tabGroupsArray[i].hasOwnProperty(group)) {
+        tabGroupsArray[i][group] = {};
+      }
+      else {
+        console.log("tabs group array does not have group#", group, "\n \n")
+      }
 
 
 
+      chrome.storage.sync.set({TABGROUPS: tabGroupsArray}).then(() => {console.log('Groups Removed and rest in chrome sync')});
         return;
       }
       if(checkedInputFound) {
+        chrome.storage.sync.set({TABGROUPS: tabGroupsArray}).then(() => {console.log('Groups Removed and rest in chrome sync')});
         return;
       }
+
+     
+
     }
     if(isCheckedArray[i].checked) {
-      let checkedNameField = document.querySelectorAll(".name")[i];
-      let checkedUrlField = document.querySelectorAll(".flex-center")[i];
-      let box = document.querySelectorAll(".box")[i];
       checkedNameField.setAttribute('value', '');
       checkedNameField.value = '';
       checkedUrlField.setAttribute('value', '');
@@ -104,12 +114,25 @@ deleteButton.addEventListener("click", async function() {
 
       // logic to delete rule here 
       let group = "GROUP" + String(i + 1);
-      chrome.storage.sync.remove(group).then(() => {console.log("group", group, " was removed")});
+      if (tabGroupsArray[i].hasOwnProperty(group)) {
+        tabGroupsArray[i][group] = {};
+      }
+      else {
+        console.log("tabs group array does not have group#", group, "\n \n")
+      }
+     // chrome.storage.sync.remove(group).then(() => {console.log("group", group, " was removed")});
       
     }
   }
   alert("No Group Checked! Please Check Tab Group Rule to Delete!")
 });
+
+
+
+
+
+
+
 
 
 editAddButton.addEventListener("click", async function()  {
@@ -358,12 +381,9 @@ function chromeStorageGet(result) {
       let boxes = document.querySelectorAll(".box");
       for(let i = 0; i < result['TABGROUPS'].length; i++) {
         tabGroupsArray.push(result['TABGROUPS'][i]);
-        console.log("this is tab group array now biatches!");
-
-        tabGroupsArray.push(result['TABGROUPS'][i]);
-        console.log("this is tab group array now biatches!");
+        console.log("this is tab group array now biatches!", tabGroupsArray, "\n \n");
         let group = "GROUP" + String(i + 1);
-        if(result['TABGROUPS'][i].hasOwnProperty(group)) {
+        if(result['TABGROUPS'][i].hasOwnProperty(group) && result['TABGROUPS'][i][group]["NAME"] != undefined) {
          
           names[i].setAttribute("value",  result['TABGROUPS'][i][group]["NAME"]);
           urls[i].setAttribute("value", result['TABGROUPS'][i][group]["URL"]);
