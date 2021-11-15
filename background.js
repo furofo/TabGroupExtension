@@ -18,6 +18,20 @@ function chromeStorageGet(result) {
   let group3 = {GROUP3: {}}
   let groupIDArray = [group1, group2, group3];
 
+  //when a tab group is completly removed this fires
+  chrome.tabGroups.onRemoved.addListener(
+    (tabGroup) => {
+    
+     for(let i = 0; i < groupIDArray.length; i++) {
+       let group = 'GROUP' + String(i + 1);
+       if(groupIDArray[i][group].hasOwnProperty('TABGROUP') && groupIDArray[i][group]['TABGROUP'] == tabGroup.id) {
+        delete  groupIDArray[i][group]['TABGROUP'];
+        console.log("id", tabGroup.id, "deleted");
+       }
+
+     }
+    }
+  );
 
   // listener that can tell if tab changes and new html page loads or if new tab is opened
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab)  => {
