@@ -21,11 +21,11 @@ function chromeStorageGet(result) {
 
   // listener that can tell if tab changes and new html page loads or if new tab is opened
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab)  => {
-//this is promise chain of chrome.storage.get instead of callback
+
+//only exectue if tabs are fully loaded
 if(changeInfo.status == 'complete' && tab.status == 'complete' && tab.url != undefined){
   console.log("on updated was called \n \n \n ");
-    }
-
+  //this is promise chain of chrome.storage.get instead of callback
 chromeStorageGet(chrome.storage.sync.get(['TABGROUPS']))
 .then((result) => {
   let url = tab.url;
@@ -60,5 +60,7 @@ chromeStorageGet(chrome.storage.sync.get(['TABGROUPS']))
   }
 
 });
+    }
+
 
 });
