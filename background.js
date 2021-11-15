@@ -5,7 +5,7 @@ function chromeStorageGet(result) {
       resolve(result)
     }
     else {
-      console.log("didn't work");
+     // console.log("didn't work");
     }
 
   });
@@ -22,6 +22,10 @@ function chromeStorageGet(result) {
   // listener that can tell if tab changes and new html page loads or if new tab is opened
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab)  => {
 //this is promise chain of chrome.storage.get instead of callback
+if(changeInfo.status == 'complete' && tab.status == 'complete' && tab.url != undefined){
+  console.log("on updated was called \n \n \n ");
+    }
+
 chromeStorageGet(chrome.storage.sync.get(['TABGROUPS']))
 .then((result) => {
   let url = tab.url;
@@ -31,18 +35,18 @@ chromeStorageGet(chrome.storage.sync.get(['TABGROUPS']))
       let searchTerm = result['TABGROUPS'][i][group]['URL'];
       if(url.includes(searchTerm)) {
           if(tab.groupId != -1) {
-            console.log("this tab is already in group \n \n \n");
+           // console.log("this tab is already in group \n \n \n");
 
           }
           else if(groupIDArray[i][group].hasOwnProperty("TABGROUP")) {
             chrome.tabs.group({tabIds: tabId, groupId: groupIDArray[i][group]["TABGROUP"]}).then((id) => {
-              console.log("Group ID was found \n \n \n follows rule in gorup ", group, "\n\n id is :", id);
+             // console.log("Group ID was found \n \n \n follows rule in gorup ", group, "\n\n id is :", id);
             });
 
           }
           else {
             chrome.tabs.group({tabIds: tabId}).then((id) => {
-              console.log("Not in group \n \n \n \n New group idea created it is:  ", id);
+             // console.log("Not in group \n \n \n \n New group idea created it is:  ", id);
               groupIDArray[i][group]["TABGROUP"] = id;
             });
            
