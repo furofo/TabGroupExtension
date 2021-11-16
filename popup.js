@@ -253,8 +253,6 @@ function chromeStorageGet(result) {
  window.onload = function () {
     chromeStorageGet(chrome.storage.sync.get(['TABGROUPS']))
     .then((result) => {
-      // so if object is empty
-      console.log(result);
      if(Object.keys(result).length === 0) { console.log("object lenght is zero here")}
      else {
        tabGroupsArray = [];
@@ -263,7 +261,6 @@ function chromeStorageGet(result) {
       let boxes = document.querySelectorAll(".box");
       for(let i = 0; i < result['TABGROUPS'].length; i++) {
         tabGroupsArray.push(result['TABGROUPS'][i]);
-        console.log("this is tab group array now biatches!", tabGroupsArray, "\n \n");
         let group = "GROUP" + String(i + 1);
         if(result['TABGROUPS'][i].hasOwnProperty(group) && result['TABGROUPS'][i][group]["NAME"] != undefined) {
           names[i].setAttribute("value",  result['TABGROUPS'][i][group]["NAME"]);
@@ -275,7 +272,3 @@ function chromeStorageGet(result) {
      }
     });  
 }
-
-
-
-  
