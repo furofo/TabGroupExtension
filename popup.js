@@ -2,7 +2,6 @@
 let deleteButton = document.getElementById('delete-group');
 let editAddButton = document.getElementById('edit-add-group');
 let tabGroupsArray = [];
-
 //function that switches a btn elements inner html between two strings, first argument is button element, second is current text
 //third is text to toggle between
 let toggleButtonText = function(btn, str1, str2) {
@@ -123,13 +122,10 @@ editAddButton.addEventListener("click", async function()  {
             toggleInputDisabled(checkedNameField);
             toggleDropdownBox(dropDownBox);
             isCheckedArray[i].checked = false;
-             
             toggleElementDisplay(deleteButton);
             toggleButtonText(this,  'Save Group(s)', 'Edit/Add Group');
             }
-            else {
-              alert("Check Name URL and Color fields, must have value to save!");
-            }
+            else { alert("Check Name URL and Color fields, must have value to save!");}
           }
           else {
             //logic to go heree to check if name fiels are blank
@@ -146,7 +142,6 @@ editAddButton.addEventListener("click", async function()  {
           }           
         }
         chrome.storage.sync.set({TABGROUPS:  tabGroupsArray }, function() {
-        //  tabGroupsArray = [];
           console.log('GROUPS' + " was set");
           tabGroupsArray = [];
         });
@@ -155,13 +150,13 @@ editAddButton.addEventListener("click", async function()  {
     else {
       for(let i = 0; i < isCheckedArray.length; i++) {
         let inputBox = document.querySelectorAll(".container")[i];
+        let checkedNameField = document.querySelectorAll(".name")[i];
+        let checkedUrlField = document.querySelectorAll(".flex-center")[i];
+        let dropDownBox = document.querySelectorAll(".dropdown")[i];
         inputBox.style.pointerEvents = "none";
         if(i == isCheckedArray.length - 1 ) {
           //this is handlign for last check box returns if it is checked so doesn't throw error logic
           if(isCheckedArray[i].checked) {
-            let checkedNameField = document.querySelectorAll(".name")[i];
-            let checkedUrlField = document.querySelectorAll(".flex-center")[i];
-            let dropDownBox = document.querySelectorAll(".dropdown")[i];
             toggleInputDisabled(checkedUrlField);
             toggleInputDisabled(checkedNameField);
             toggleDropdownBox(dropDownBox);
@@ -176,14 +171,10 @@ editAddButton.addEventListener("click", async function()  {
          
         }
         if(isCheckedArray[i].checked) {
-          let checkedNameField = document.querySelectorAll(".name")[i];
-          let checkedUrlField = document.querySelectorAll(".flex-center")[i];
-          let dropDownBox = document.querySelectorAll(".dropdown")[i];
           toggleInputDisabled(checkedUrlField);
           toggleInputDisabled(checkedNameField);
           toggleDropdownBox(dropDownBox);
           checkedInputFound = true;
-  
         }
         else {
           let inputBox = document.querySelectorAll(".container")[i];
@@ -203,12 +194,8 @@ editAddButton.addEventListener("click", async function()  {
     //this assigns unique function to dropdown icon for each color box
     dropDownAll[i].onclick = function() {
         for(let j = 0; j < boxAll.length; j++) {
-          if(i == j) {
-
-          }
-         else if(boxAll[j].classList.contains('active-box')) {
-            boxAll[j].classList.toggle('active-box');
-          }
+          if(i == j) {}
+         else if(boxAll[j].classList.contains('active-box')) { boxAll[j].classList.toggle('active-box'); }
         }
         boxAll[i].classList.toggle('active-box');  
     }
@@ -247,8 +234,7 @@ editAddButton.addEventListener("click", async function()  {
    
 
    //click function for body taht closes drop down menu as witch exceptions for clicking other things, 
-   // used so you click outside of the drop downs to close them
-      
+   // used so you click outside of the drop downs to close them 
     document.addEventListener('mouseup', function(e) 
       {
            // if the target of the click isn't the container nor a descendant of the container
@@ -257,27 +243,21 @@ editAddButton.addEventListener("click", async function()  {
 
  
       });
-// make chormestorage get a promise instead of callback avoid callback hell muahhahahah
+// make chormestorage get a promise instead of callback avoid callback hell 
 function chromeStorageGet(result) {
   return new Promise((resolve, reject) => {
-  if(resolve) { resolve(result) }
-  else {console.log("didn't work"); }
-      });
-      }    
+    if(resolve) { resolve(result) }
+    else {console.log("didn't work"); }
+    });
+  }    
  window.onload = function () {
-  
     chromeStorageGet(chrome.storage.sync.get(['TABGROUPS']))
     .then((result) => {
       // so if object is empty
       console.log(result);
-     if(Object.keys(result).length === 0) {
-       console.log("object lenght is zero here")
-
-     }
+     if(Object.keys(result).length === 0) { console.log("object lenght is zero here")}
      else {
-       console.log("this is result", result);
        tabGroupsArray = [];
-       
       let names = document.querySelectorAll(".name");
       let urls = document.querySelectorAll(".flex-center");
       let boxes = document.querySelectorAll(".box");
@@ -286,28 +266,14 @@ function chromeStorageGet(result) {
         console.log("this is tab group array now biatches!", tabGroupsArray, "\n \n");
         let group = "GROUP" + String(i + 1);
         if(result['TABGROUPS'][i].hasOwnProperty(group) && result['TABGROUPS'][i][group]["NAME"] != undefined) {
-         
           names[i].setAttribute("value",  result['TABGROUPS'][i][group]["NAME"]);
           urls[i].setAttribute("value", result['TABGROUPS'][i][group]["URL"]);
           boxes[i].setAttribute("value", result['TABGROUPS'][i][group]["COLOR"]);
           boxes[i].style.backgroundColor = result['TABGROUPS'][i][group]["COLOR"];   
         } 
-
-
-
-
-
-
-
-
-        
-
       }
      }
-
-
-    });
-    
+    });  
 }
 
 
