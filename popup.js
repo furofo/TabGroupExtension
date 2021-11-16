@@ -6,55 +6,38 @@ let tabGroupsArray = [];
 //function that switches a btn elements inner html between two strings, first argument is button element, second is current text
 //third is text to toggle between
 let toggleButtonText = function(btn, str1, str2) {
-  if(btn.innerHTML == str1) {
-    btn.innerHTML = str2;
-  }
-  else {
-    btn.innerHTML = str1;
-  }
+  if(btn.innerHTML == str1) {btn.innerHTML = str2; }
+  else {btn.innerHTML = str1; }
 }
 
 //function that switches an elemtns display between none and block
 let toggleElementDisplay = function(elem) {
-  if (window.getComputedStyle(elem, null).display == 'block') {
-    elem.style.display = 'none';
-  }
-  else {
-    elem.style.display = 'block';
-  }
+  if (window.getComputedStyle(elem, null).display == 'block') {elem.style.display = 'none';}
+  else {elem.style.display = 'block'; }
 }
 
 //this function toggles input disabled from true and false and border to none and solid px effectively
 let toggleInputDisabled = function(elem) {
   elem.disabled =  !elem.disabled;
-        if(elem.disabled) {
-          elem.style.border = "none";
-        }
-        else {
-          elem.style.border = '1px solid grey';
-        }
+        if(elem.disabled) {elem.style.border = "none";}
+        else {elem.style.border = '1px solid grey'; }
 }
 
 //this function hides and unhides the dropdown box for the color picker box
 let toggleDropdownBox = function (elem) {
-  if(window.getComputedStyle(elem, null).display == 'none') {
-    elem.style.display = "inline-block";
-  }
-  else {
-    elem.style.display = "none";
-  }
+  if(window.getComputedStyle(elem, null).display == 'none') {elem.style.display = "inline-block";}
+  else {elem.style.display = "none"; }
 }
 
 //functoin to get input value as typed and update that inputs value attribute with what was typed
 function updateInputWhenTyped(e) {
     e.target.setAttribute('value', e.target.value);
-    console.log(e.target.value);
   }
 
-// add listener to first name value and use this method
+// add listener to first name value and use method to set value attribute of input to what is being typed
 document.getElementById('first-name').addEventListener('input', updateInputWhenTyped);
 
-//when delet button clicked removes the group number from google sync and from pop up html of extension
+//when delete button clicked removes the group number from google sync and from pop up html of extension
 deleteButton.addEventListener("click", async function() {
   //logic to see if input is checked
   let isCheckedArray = document.querySelectorAll('.container input');
@@ -63,6 +46,7 @@ deleteButton.addEventListener("click", async function() {
     let checkedNameField = document.querySelectorAll(".name")[i];
     let checkedUrlField = document.querySelectorAll(".flex-center")[i];
     let box = document.querySelectorAll(".box")[i];
+    let group = "GROUP" + String(i + 1);
     //this runs on last item, if it is checked remove everything and end here if not just return and do nothing
     if(i == isCheckedArray.length - 1) {
       if(isCheckedArray[i].checked) {
@@ -77,18 +61,10 @@ deleteButton.addEventListener("click", async function() {
         checkedInputFound = true;
 
         // logic to delete rule here 
-      let group = "GROUP" + String(i + 1);
-
-     // chrome.storage.sync.remove(group).then(() => {console.log("group", group, " was removed")});
+      
      //logic to remove this from tabsGroup Array which should be array of all groups retrieved from google Sync
-      if (tabGroupsArray[i].hasOwnProperty(group)) {
-        tabGroupsArray[i][group] = {};
-      }
-      else {
-        console.log("tabs group array does not have group#", group, "\n \n")
-      }
-
-
+      if (tabGroupsArray[i].hasOwnProperty(group)) {tabGroupsArray[i][group] = {}; }
+      else {console.log("tabs group array does not have group#", group, "\n \n") }
 
       chrome.storage.sync.set({TABGROUPS: tabGroupsArray}).then(() => {console.log('Groups Removed and rest in chrome sync')});
         return;
@@ -97,9 +73,6 @@ deleteButton.addEventListener("click", async function() {
         chrome.storage.sync.set({TABGROUPS: tabGroupsArray}).then(() => {console.log('Groups Removed and rest in chrome sync')});
         return;
       }
-
-     
-
     }
     if(isCheckedArray[i].checked) {
       checkedNameField.setAttribute('value', '');
@@ -109,39 +82,19 @@ deleteButton.addEventListener("click", async function() {
       box.setAttribute('color', 'grey' );
       box.style.backgroundColor = 'grey';
       checkedInputFound = true;
-      let checkedItem = document.querySelectorAll(".container input")[i];
-      checkedItem.checked = false;
-
+      document.querySelectorAll(".container input")[i].checked = false;
       // logic to delete rule here 
-      let group = "GROUP" + String(i + 1);
-      if (tabGroupsArray[i].hasOwnProperty(group)) {
-        tabGroupsArray[i][group] = {};
-      }
-      else {
-        console.log("tabs group array does not have group#", group, "\n \n")
-      }
-     // chrome.storage.sync.remove(group).then(() => {console.log("group", group, " was removed")});
-      
+      if (tabGroupsArray[i].hasOwnProperty(group)) {tabGroupsArray[i][group] = {}; }
+      else { console.log("tabs group array does not have group#", group, "\n \n") }
     }
   }
   alert("No Group Checked! Please Check Tab Group Rule to Delete!")
 });
 
-
-
-
-
-
-
-
-
 editAddButton.addEventListener("click", async function()  {
     let isCheckedArray = document.querySelectorAll('.container input');
     let checkedInputFound = false;
-
-  
-    console.log("this is tab groups array", tabGroupsArray);
-    //if save button clicked basiclaly because should be only Save Button when delete button is not visible
+    //if save button clicked  because should be only Save Button text when delete button is not visible
     if (window.getComputedStyle(deleteButton, null).display == 'none') {
       let firstName = document.getElementById("first-name").value;
       let firstURL = document.getElementById("first-url").value;
@@ -151,7 +104,6 @@ editAddButton.addEventListener("click", async function()  {
            //this coges through and unchecks everything that is checked
         for(let i = 0; i < isCheckedArray.length; i++) {
           let inputBox = document.querySelectorAll(".container")[i];
-
           inputBox.style.pointerEvents = "auto";
           let checkedNameField = document.querySelectorAll(".name")[i];
           let checkedUrlField = document.querySelectorAll(".flex-center")[i];
@@ -159,10 +111,7 @@ editAddButton.addEventListener("click", async function()  {
           let boxField = document.querySelectorAll(".box")[i];
           let groupNumber = 'GROUP' + String(parseInt(i + 1));
           if(isCheckedArray[i].checked) {
-           
             if(checkedNameField.value && checkedUrlField.value && boxField.getAttribute("value") != "grey") {
-              console.log("this is group number", groupNumber);
-
             tabGroupsArray.push( {
               [groupNumber]: {
                 COLOR: document.querySelectorAll(".box")[i].getAttribute("value"),
@@ -170,44 +119,19 @@ editAddButton.addEventListener("click", async function()  {
                 URL: checkedUrlField.value,
               }
             });
-
-            /*
-            chrome.storage.sync.set({[groupNumber]: {
-              COLOR: document.querySelectorAll(".box")[i].getAttribute("value"),
-              NAME: checkedNameField.value,
-              URL: checkedUrlField.value,
-            }}, function() {
-              console.log(groupNumber + " was set");
-            });
-
-            */
-            
-           
-
-
             toggleInputDisabled(checkedUrlField);
             toggleInputDisabled(checkedNameField);
             toggleDropdownBox(dropDownBox);
             isCheckedArray[i].checked = false;
-              
+             
+            toggleElementDisplay(deleteButton);
+            toggleButtonText(this,  'Save Group(s)', 'Edit/Add Group');
             }
-            /*
             else {
-              alert("Fields in a rule are empty, or color is not selected please fill out all forms / select color before saving");
-              return;
+              alert("Check Name URL and Color fields, must have value to save!");
             }
-            */
-
-            //this unchecks everythign after save button is hit
-           let checkedItem = document.querySelectorAll(".container input")[i];
-           checkedItem.checked = false;
-      
           }
-
           else {
-            //logic to go heree to check if name fiels are blank
-            
-       
             //logic to go heree to check if name fiels are blank
             if(checkedNameField.value && checkedUrlField.value && boxField.getAttribute("value") != "grey") {
             tabGroupsArray.push( {
@@ -216,38 +140,16 @@ editAddButton.addEventListener("click", async function()  {
                 NAME: checkedNameField.value,
                 URL: checkedUrlField.value,
               }
-
              });
              }
-
-            else {
-              tabGroupsArray.push( {
-              
-              });
-
-            }
-
-         
-          
-        
-          }
-
-         
-          
+            else { tabGroupsArray.push({}); }       
+          }           
         }
-
-
         chrome.storage.sync.set({TABGROUPS:  tabGroupsArray }, function() {
         //  tabGroupsArray = [];
           console.log('GROUPS' + " was set");
           tabGroupsArray = [];
         });
-        
-        toggleElementDisplay(deleteButton);
-        toggleButtonText(this,  'Save Group(s)', 'Edit/Add Group');
-
-      
-      
     }
     //if edit button clicked make all the checked stuff editable basically
     else {
