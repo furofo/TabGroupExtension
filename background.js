@@ -46,6 +46,14 @@ chromeStorageGet(chrome.storage.sync.get(['TABGROUPS']))
           else {
             chrome.tabs.group({tabIds: tabId}).then((id) => {
               console.log("Not in group \n \n \n \n New group idea created it is:  ", id);
+              chrome.tabGroups.update(id, 
+                {
+                  title: "Testing",
+                  color: "green",
+                }
+                ).then((id) => {
+                  console.log("tab group updated");
+                });
               groupIDArray[i][group]["TABGROUP"] = id;
             });
           }
