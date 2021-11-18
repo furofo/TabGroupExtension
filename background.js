@@ -27,6 +27,7 @@ if(changeInfo.status == 'complete' && tab.status == 'complete' && tab.url != und
   //this is promise chain of chrome.storage.get instead of callback
 chromeStorageGet(chrome.storage.sync.get(['TABGROUPS']))
 .then((result) => {
+  console.log("This is result", result);
   let url = tab.url;
   for(let i = 0; i < result['TABGROUPS'].length; i++) {
     let group = 'GROUP' + String(i + 1);
@@ -48,8 +49,8 @@ chromeStorageGet(chrome.storage.sync.get(['TABGROUPS']))
               console.log("Not in group \n \n \n \n New group idea created it is:  ", id);
               chrome.tabGroups.update(id, 
                 {
-                  title: "Testing",
-                  color: "green",
+                  title: result['TABGROUPS'][i][group]['NAME'],
+                  color: result['TABGROUPS'][i][group]['COLOR'],
                 }
                 ).then((id) => {
                   console.log("tab group updated");
