@@ -134,14 +134,14 @@ editAddButton.addEventListener('click', async function ()  {
           toggleInputDisabled(checkedNameField);
           toggleDropdownBox(dropDownBox);
           isCheckedArray[i].checked = false;
-          toggleElementDisplay(deleteButton);
-          toggleButtonText(this, 'Save Group(s)', 'Edit/Add Group');
         } else {
           alert('Check Name URL and Color fields, must have value to save!');
+          break;
         }
-      } else if (checkedNameField.value && checkedUrlField.value
+      } 
+      
+      else if (checkedNameField.value && checkedUrlField.value
         && boxField.getAttribute('value') !== 'grey') {
-        // logic to go heree to check if name fiels are blank
         tabGroupsArray.push({
           [groupNumber]: {
             COLOR: document.querySelectorAll('.box')[i].getAttribute('value'),
@@ -152,16 +152,26 @@ editAddButton.addEventListener('click', async function ()  {
       } else {
         tabGroupsArray.push({});
       }
+
+      if(i === isCheckedArray.length - 1) {
+        //if make it to last array withoug this breaking
+        toggleElementDisplay(deleteButton);
+        toggleButtonText(this, 'Save Group(s)', 'Edit/Add Group');
+        chrome.storage.sync.set({ TABGROUPS: tabGroupsArray }, () => {
+          tabGroupsArray = [];
+        });
+      }
+
+
     }
-    chrome.storage.sync.set({ TABGROUPS: tabGroupsArray }, () => {
-      tabGroupsArray = [];
-    });
+   
   } else {
     for (let i = 0; i < isCheckedArray.length; i += 1) {
       const inputBox = document.querySelectorAll('.container')[i];
       const checkedNameField = document.querySelectorAll('.name')[i];
       const checkedUrlField = document.querySelectorAll('.flex-center')[i];
       const dropDownBox = document.querySelectorAll('.dropdown')[i];
+      inputBox.style.pointerEvents = 'none';
       if (i === isCheckedArray.length - 1) {
         // this is handlign for last check box returns if it is checked so doesn't throw error logic
         if (isCheckedArray[i].checked) {
@@ -187,11 +197,8 @@ editAddButton.addEventListener('click', async function ()  {
         toggleInputDisabled(checkedNameField);
         toggleDropdownBox(dropDownBox);
         checkedInputFound = true;
-      } else {
-        inputBox.style.pointerEvents = 'none';
-      }
+      } 
     }
-    
     alert('No Group Checked! Please Check Tab Group Rule to Edit or Add!');
   }
 });
