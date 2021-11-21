@@ -2,13 +2,9 @@
     display: flex;
     justify-content: center;
 }
-
 body {
     width: 750px;
-    height: 1750px;
 }
-
-
 button {
     height: 30px;
     width: 25%;
@@ -42,6 +38,9 @@ button {
   }
   #rule-input {
       width: 50%;
+  }
+  .rule-buttons {
+    margin-bottom: 6em;
   }
 
   .rule-headings h3{
@@ -152,9 +151,6 @@ button {
   align-items: center;
   justify-content: center;
 }
-
-
-
   #color-check-button {
       left: 40%;
   }

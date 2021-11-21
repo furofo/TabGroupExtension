@@ -1,6 +1,6 @@
 {
-    "name": "1st Version Tab Groups Extension",
-    "description": "Hope this works!",
+    "name": "Auto Tab Groups",
+    "description": "Automatically Set Your Tab Groups!",
     "version": "1.0",
     "manifest_version": 3,
     "background": {

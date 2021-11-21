@@ -53,6 +53,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                   color: result.TABGROUPS[i][group].COLOR,
                 });
                 groupIDArray[i][group].TABGROUP = id;
+                console.log("New Tab Group Created id is", id, "\n here is groupdIDARRAy in total", groupIDArray);
               });
             }
           }
