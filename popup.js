@@ -42,6 +42,21 @@ const toggleDropdownBox = (elem) => {
     selectedElem.style.display = 'none';
   }
 };
+
+//function that returns true if either name or url or color field is blank if it is checked in tool false othersiwe
+const isBlank = (isCheckedArray, checkedNameField, checkedUrlField, boxField) => {
+  for(let i = 0; i < isCheckedArray.length; i+=1) {
+    if(isCheckedArray[i].checked) {
+      if (!checkedNameField[i].value || !checkedUrlField[i].value
+        ||boxField[i].getAttribute('value') === 'grey') {
+          return true
+        }
+    }
+    else {
+      return false
+    }
+  }
+}
 // functoin to get input value as typed and update that inputs value attribute with what was typed
 function updateInputWhenTyped(e) {
   e.target.setAttribute('value', e.target.value);
@@ -107,46 +122,46 @@ deleteButton.addEventListener('click', async () => {
 editAddButton.addEventListener('click', async function ()  {
   const isCheckedArray = document.querySelectorAll('.container input');
   let checkedInputFound = false;
+  const inputBox = document.querySelectorAll('.container');
+  const checkedNameField = document.querySelectorAll('.name');
+  const checkedUrlField = document.querySelectorAll('.flex-center');
+  const dropDownBox = document.querySelectorAll('.dropdown');
+  const boxField = document.querySelectorAll('.box');
   // if save button clicked  because should be only
   // Save Button text when delete button is not visible
   if (window.getComputedStyle(deleteButton, null).display === 'none') {
     tabGroupsArray = [];
+    const blank = isBlank(isCheckedArray, checkedNameField, checkedUrlField, boxField);
+    if(blank) {
+      alert("Field is blank please set it pleassse");
+      return;
+    }
+   
     // this coges through and unchecks everything that is checked
     for (let i = 0; i < isCheckedArray.length; i += 1) {
-      const inputBox = document.querySelectorAll('.container')[i];
-      inputBox.style.pointerEvents = 'auto';
-      const checkedNameField = document.querySelectorAll('.name')[i];
-      const checkedUrlField = document.querySelectorAll('.flex-center')[i];
-      const dropDownBox = document.querySelectorAll('.dropdown')[i];
-      const boxField = document.querySelectorAll('.box')[i];
       const groupNumber = `GROUP${String(i + 1)}`;
+      inputBox[i].style.pointerEvents = 'auto';
+      //debugger;
       if (isCheckedArray[i].checked) {
-        if (checkedNameField.value && checkedUrlField.value
-          && boxField.getAttribute('value') !== 'grey') {
           tabGroupsArray.push({
             [groupNumber]: {
               COLOR: document.querySelectorAll('.box')[i].getAttribute('value'),
-              NAME: checkedNameField.value,
-              URL: checkedUrlField.value,
+              NAME: checkedNameField[i].value,
+              URL: checkedUrlField[i].value,
             },
           });
-          toggleInputDisabled(checkedUrlField);
-          toggleInputDisabled(checkedNameField);
-          toggleDropdownBox(dropDownBox);
+          toggleInputDisabled(checkedUrlField[i]);
+          toggleInputDisabled(checkedNameField[i]);
+          toggleDropdownBox(dropDownBox[i]);
           isCheckedArray[i].checked = false;
-        } else {
-          alert('Check Name URL and Color fields, must have value to save!');
-          break;
-        }
       } 
-      
-      else if (checkedNameField.value && checkedUrlField.value
-        && boxField.getAttribute('value') !== 'grey') {
+      else if (checkedNameField[i].value && checkedUrlField[i].value
+        && boxField[i].getAttribute('value') !== 'grey') {
         tabGroupsArray.push({
           [groupNumber]: {
             COLOR: document.querySelectorAll('.box')[i].getAttribute('value'),
-            NAME: checkedNameField.value,
-            URL: checkedUrlField.value,
+            NAME: checkedNameField[i].value,
+            URL: checkedUrlField[i].value,
           },
         });
       } else {
@@ -161,23 +176,16 @@ editAddButton.addEventListener('click', async function ()  {
           tabGroupsArray = [];
         });
       }
-
-
     }
-   
   } else {
     for (let i = 0; i < isCheckedArray.length; i += 1) {
-      const inputBox = document.querySelectorAll('.container')[i];
-      const checkedNameField = document.querySelectorAll('.name')[i];
-      const checkedUrlField = document.querySelectorAll('.flex-center')[i];
-      const dropDownBox = document.querySelectorAll('.dropdown')[i];
-      inputBox.style.pointerEvents = 'none';
+      const groupNumber = `GROUP${String(i + 1)}`;
       if (i === isCheckedArray.length - 1) {
         // this is handlign for last check box returns if it is checked so doesn't throw error logic
         if (isCheckedArray[i].checked) {
-          toggleInputDisabled(checkedUrlField);
-          toggleInputDisabled(checkedNameField);
-          toggleDropdownBox(dropDownBox);
+          toggleInputDisabled(checkedUrlField[i]);
+          toggleInputDisabled(checkedNameField[i]);
+          toggleDropdownBox(dropDownBox[i]);
           checkedInputFound = true;
         }
         if (checkedInputFound) {
@@ -193,15 +201,21 @@ editAddButton.addEventListener('click', async function ()  {
         }
       }
       else if (isCheckedArray[i].checked) {
-        toggleInputDisabled(checkedUrlField);
-        toggleInputDisabled(checkedNameField);
-        toggleDropdownBox(dropDownBox);
+        toggleInputDisabled(checkedUrlField[i]);
+        toggleInputDisabled(checkedNameField[i]);
+        toggleDropdownBox(dropDownBox[i]);
         checkedInputFound = true;
       } 
+      else {
+        document.querySelectorAll('.container')[i].style.pointerEvents = 'none';
+      }
     }
     alert('No Group Checked! Please Check Tab Group Rule to Edit or Add!');
   }
 });
+
+
+
 // Set up custom drop down menu color pickers
 const dropDownAll = document.querySelectorAll('.dropdown');
 const boxAll = document.querySelectorAll('.box');
