@@ -45,17 +45,15 @@ const toggleDropdownBox = (elem) => {
 
 //function that returns true if either name or url or color field is blank if it is checked in tool false othersiwe
 const isBlank = (isCheckedArray, checkedNameField, checkedUrlField, boxField) => {
-  for(let i = 0; i < isCheckedArray.length; i+=1) {
+  for(let i = 0; i < isCheckedArray.length; i += 1) {
     if(isCheckedArray[i].checked) {
       if (!checkedNameField[i].value || !checkedUrlField[i].value
         ||boxField[i].getAttribute('value') === 'grey') {
           return true
         }
     }
-    else {
-      return false
-    }
   }
+  return false;
 }
 // functoin to get input value as typed and update that inputs value attribute with what was typed
 function updateInputWhenTyped(e) {
@@ -67,6 +65,7 @@ document.getElementById('first-name').addEventListener('input', updateInputWhenT
 // when delete button clicked removes the group number
 // from google sync and from pop up html of extension
 deleteButton.addEventListener('click', async () => {
+  debugger;
   // logic to see if input is checked
   const isCheckedArray = document.querySelectorAll('.container input');
   let checkedInputFound = false;
@@ -91,9 +90,7 @@ deleteButton.addEventListener('click', async () => {
         // logic to delete rule here
         // logic to remove this from tabsGroup Array which
         // should be array of all groups retrieved from google Sync
-        if (Object.prototype.hasOwnProperty.call(TABGROUPS[i], group)) {
-          tabGroupsArray[i][group] = {};
-        }
+        tabGroupsArray[i][group] = {};
         chrome.storage.sync.set({ TABGROUPS: tabGroupsArray }).then(() => {});
         return;
       }
@@ -112,36 +109,37 @@ deleteButton.addEventListener('click', async () => {
       checkedInputFound = true;
       document.querySelectorAll('.container input')[i].checked = false;
       // logic to delete rule here
-      if (Object.prototype.hasOwnProperty.call(tabGroupsArray[i], group)) {
-        tabGroupsArray[i][group] = {};
-      }
+      // if (Object.prototype.hasOwnProperty.call(tabGroupsArray[i], group)) {
+      //   tabGroupsArray[i][group] = {};
+      // }
+      tabGroupsArray[i][group] = {};
     }
   }
   alert('No Group Checked! Please Check Tab Group Rule to Delete!');
 });
 editAddButton.addEventListener('click', async function ()  {
   const isCheckedArray = document.querySelectorAll('.container input');
-  let checkedInputFound = false;
   const inputBox = document.querySelectorAll('.container');
   const checkedNameField = document.querySelectorAll('.name');
   const checkedUrlField = document.querySelectorAll('.flex-center');
   const dropDownBox = document.querySelectorAll('.dropdown');
   const boxField = document.querySelectorAll('.box');
+
+  let checkedInputFound = false;
   // if save button clicked  because should be only
   // Save Button text when delete button is not visible
   if (window.getComputedStyle(deleteButton, null).display === 'none') {
     tabGroupsArray = [];
-    const blank = isBlank(isCheckedArray, checkedNameField, checkedUrlField, boxField);
-    if(blank) {
+    //logic here loops through all rules if any are checked if they are blank isBlank
+    //returns true and alert displays function returns empty
+    if( isBlank(isCheckedArray, checkedNameField, checkedUrlField, boxField)) {
       alert("Field is blank please set it pleassse");
       return;
     }
-   
     // this coges through and unchecks everything that is checked
     for (let i = 0; i < isCheckedArray.length; i += 1) {
       const groupNumber = `GROUP${String(i + 1)}`;
       inputBox[i].style.pointerEvents = 'auto';
-      //debugger;
       if (isCheckedArray[i].checked) {
           tabGroupsArray.push({
             [groupNumber]: {
