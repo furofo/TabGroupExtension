@@ -124,7 +124,6 @@ editAddButton.addEventListener('click', async function ()  {
   const checkedUrlField = document.querySelectorAll('.flex-center');
   const dropDownBox = document.querySelectorAll('.dropdown');
   const boxField = document.querySelectorAll('.box');
-
   let checkedInputFound = false;
   // if save button clicked  because should be only
   // Save Button text when delete button is not visible
@@ -178,6 +177,7 @@ editAddButton.addEventListener('click', async function ()  {
   } else {
     for (let i = 0; i < isCheckedArray.length; i += 1) {
       const groupNumber = `GROUP${String(i + 1)}`;
+      document.querySelectorAll('.container')[i].style.pointerEvents = 'none';
       if (i === isCheckedArray.length - 1) {
         // this is handlign for last check box returns if it is checked so doesn't throw error logic
         if (isCheckedArray[i].checked) {
@@ -204,9 +204,6 @@ editAddButton.addEventListener('click', async function ()  {
         toggleDropdownBox(dropDownBox[i]);
         checkedInputFound = true;
       } 
-      else {
-        document.querySelectorAll('.container')[i].style.pointerEvents = 'none';
-      }
     }
     alert('No Group Checked! Please Check Tab Group Rule to Edit or Add!');
   }
