@@ -6,7 +6,7 @@
     "background": {
         "service_worker": "background.js"
     },
-    "permissions": ["storage", "activeTab", "scripting", "tabGroups", "tabs"],
+    "permissions": ["storage", "tabGroups", "tabs"],
     "action": {
         "default_popup": "popup.html"
   }
