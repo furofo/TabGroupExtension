@@ -20,10 +20,14 @@ button {
 
   #delete-group {
     background-color: brown;
+    margin-top: 3em;
+    cursor: pointer;
   }
 
   #edit-add-group {
       background-color: blue;
+      margin-top: 3em;
+      cursor: pointer;
   }
   
   button.current {
@@ -230,6 +234,9 @@ button {
   transition: all .3s ease-in-out;
   
 }
+.active-box{
+  cursor: pointer;
+}
 .active-box > div {
   border: 1px solid grey;
   min-height: 40px;
@@ -282,6 +289,7 @@ button {
 }
 
 .dropdown {
+  cursor: pointer;
   display: none;
   position: relative;
   width: 16px;

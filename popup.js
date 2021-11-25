@@ -109,9 +109,6 @@ deleteButton.addEventListener('click', async () => {
       checkedInputFound = true;
       document.querySelectorAll('.container input')[i].checked = false;
       // logic to delete rule here
-      // if (Object.prototype.hasOwnProperty.call(tabGroupsArray[i], group)) {
-      //   tabGroupsArray[i][group] = {};
-      // }
       tabGroupsArray[i][group] = {};
     }
   }
@@ -213,7 +210,7 @@ editAddButton.addEventListener('click', async function ()  {
         checkedInputFound = true;
       } 
     }
-    // alert('No Group Checked! Please Check Tab Group Rule to Edit or Add!');
+    // custom alert  dialog window to display warnign message to user when tryign to edit tab group with nothign selected
     ModalWindow.openModal({
       title:'No Group Checked!',
       content: 'Please Check Tab Group Rule to Edit or Add!'
