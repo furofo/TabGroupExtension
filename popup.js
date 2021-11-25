@@ -115,7 +115,11 @@ deleteButton.addEventListener('click', async () => {
       tabGroupsArray[i][group] = {};
     }
   }
-  alert('No Group Checked! Please Check Tab Group Rule to Delete!');
+  //alert('No Group Checked! Please Check Tab Group Rule to Delete!');
+  ModalWindow.openModal({
+    title:'No Group Checked!',
+    content: 'please check tab group to delete a rule!'
+  })
 });
 editAddButton.addEventListener('click', async function ()  {
   const isCheckedArray = document.querySelectorAll('.container input');
@@ -132,7 +136,11 @@ editAddButton.addEventListener('click', async function ()  {
     //logic here loops through all rules if any are checked if they are blank isBlank
     //returns true and alert displays function returns empty
     if( isBlank(isCheckedArray, checkedNameField, checkedUrlField, boxField)) {
-      alert("Field is blank please set it pleassse");
+      // alert("Field is blank please set it pleassse");
+      ModalWindow.openModal({
+        title:'Field is Blank!',
+        content: 'Make sure name and url fields are not blank, and color box is not grey!'
+      })
       return;
     }
     // this coges through and unchecks everything that is checked
@@ -205,7 +213,11 @@ editAddButton.addEventListener('click', async function ()  {
         checkedInputFound = true;
       } 
     }
-    alert('No Group Checked! Please Check Tab Group Rule to Edit or Add!');
+    // alert('No Group Checked! Please Check Tab Group Rule to Edit or Add!');
+    ModalWindow.openModal({
+      title:'No Group Checked!',
+      content: 'Please Check Tab Group Rule to Edit or Add!'
+    })
   }
 });
 
@@ -299,3 +311,45 @@ window.onload = () => {
     }
   });
 };
+
+const ModalWindow = {
+  init() {
+      document.body.addEventListener('click', e => {
+          if(e.target.classList.contains("modal__close")) {
+              this.closeModal(e.target);
+          }
+      })
+
+  },
+  getHtmlTemplate(modalOptions) {
+      return`
+     <div class="modal__overlay">
+      <div class="modal__window">
+        <div class="modal__titlebar">
+          <span class="modal__title">${modalOptions.title}</span>
+          <button class = "modal__close material-icons">close</button>
+        </div>
+        <div class="modal__content">
+         ${modalOptions.content}
+        </div>
+      </div>
+    </div>`;
+  },
+  openModal(modalOptions = {}) {
+      modalOptions = Object.assign({
+          title: 'Modal Title',
+          content: 'Modal Content'
+      }, modalOptions)
+
+const modalTemplate = this.getHtmlTemplate(modalOptions);
+document.body.insertAdjacentHTML("afterbegin", modalTemplate);
+  },
+  closeModal(closeButton) {
+      const modalOverlay = closeButton.parentElement.parentElement.parentElement;
+     document.body.removeChild(modalOverlay);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  ModalWindow.init();
+});
