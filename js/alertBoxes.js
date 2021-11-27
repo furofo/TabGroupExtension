@@ -1,8 +1,14 @@
 const ModalWindow = {
     init() {
         document.body.addEventListener('click', e => {
-            if(e.target.classList.contains("modal__close")) {
+            if(e.target.classList.contains("modal__close") || e.target.classList.contains("modal__goback__button")) {
                 this.closeModal(e.target);
+            }
+
+            else if (e.target.classList.contains("modal__confirm__button")) {
+              deleteButtonLogic(isCheckedArray, tabGroupsArray);
+              this.closeModal(e.target)
+
             }
         })
   
@@ -49,7 +55,7 @@ const ModalWindow = {
         modalOptions = Object.assign({
             title: 'Modal Title',
             content: 'Modal Content',
-            buttons: true,
+            buttons: false,
         }, modalOptions)
   
   const modalTemplate = this.getHtmlTemplate(modalOptions);

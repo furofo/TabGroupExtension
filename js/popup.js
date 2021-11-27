@@ -4,59 +4,24 @@
 document.getElementById('first-name').addEventListener('input', updateInputWhenTyped);
 // when delete button clicked removes the group number
 // from google sync and from pop up html of extension
+const isCheckedArray = document.querySelectorAll('.container input');
 deleteButton.addEventListener('click', async () => {
-  debugger;
-  // logic to see if input is checked
-  const isCheckedArray = document.querySelectorAll('.container input');
-  let checkedInputFound = false;
-  for (let i = 0; i < isCheckedArray.length; i += 1) {
-    const checkedNameField = document.querySelectorAll('.name')[i];
-    const checkedUrlField = document.querySelectorAll('.flex-center')[i];
-    const box = document.querySelectorAll('.box')[i];
-    const group = `GROUP${String(i + 1)}`;
-    // this runs on last item, if it is checked remove everything and
-    // end here if not just return and do nothing
-    if (i === isCheckedArray.length - 1) {
-      if (isCheckedArray[i].checked) {
-        checkedNameField.setAttribute('value', '');
-        checkedNameField.value = '';
-        checkedUrlField.setAttribute('value', '');
-        checkedUrlField.value = '';
-        box.setAttribute('color', 'grey');
-        box.style.backgroundColor = 'grey';
-        const checkedItem = document.querySelectorAll('.container input')[i];
-        checkedItem.checked = false;
-        checkedInputFound = true;
-        // logic to delete rule here
-        // logic to remove this from tabsGroup Array which
-        // should be array of all groups retrieved from google Sync
-        tabGroupsArray[i][group] = {};
-        chrome.storage.sync.set({ TABGROUPS: tabGroupsArray }).then(() => {});
-        return;
-      }
-      if (checkedInputFound) {
-        chrome.storage.sync.set({ TABGROUPS: tabGroupsArray }).then(() => {});
-        return;
-      }
-    }
-    if (isCheckedArray[i].checked) {
-      checkedNameField.setAttribute('value', '');
-      checkedNameField.value = '';
-      checkedUrlField.setAttribute('value', '');
-      checkedUrlField.value = '';
-      box.setAttribute('color', 'grey');
-      box.style.backgroundColor = 'grey';
-      checkedInputFound = true;
-      document.querySelectorAll('.container input')[i].checked = false;
-      // logic to delete rule here
-      tabGroupsArray[i][group] = {};
-    }
+  //use method isChecked to loop through checkboxes and see if checked or not displaying warnign messages if not
+  if(isChecked(isCheckedArray)) {
+    ModalWindow.openModal({
+      title: "Do you want do delete",
+      content: "Are you sure you want to delete checked rules??",
+      buttons: true
+    })
   }
-  //alert('No Group Checked! Please Check Tab Group Rule to Delete!');
-  ModalWindow.openModal({
+  else {
+     //alert('No Group Checked! Please Check Tab Group Rule to Delete!');
+    ModalWindow.openModal({
     title:'No Group Checked!',
     content: 'please check tab group to delete a rule!'
   })
+  }
+ 
 });
 editAddButton.addEventListener('click', async function ()  {
   const isCheckedArray = document.querySelectorAll('.container input');

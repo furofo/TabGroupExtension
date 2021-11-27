@@ -63,6 +63,7 @@
   }
 
   .modal__goback__button{
+    cursor: pointer;
     padding: 2px;
     font-size: .8em;
     background-color: darkred;
@@ -71,9 +72,21 @@
 
   }
   .modal__confirm__button {
+    cursor: pointer;
     padding: 2px;
     font-size: .8em;
     background-color: darkgreen;
     border: 1px solid grey;
     box-shadow: 10px grey;
+  }
+
+  .modal__goback__button:hover {
+    background-color: lightcoral;
+    font-size: 0.85em;
+    color: black;
+  }
+  .modal__confirm__button:hover {
+    background-color: lightgreen;
+    font-size: 0.85em;
+    color: black;
   }
