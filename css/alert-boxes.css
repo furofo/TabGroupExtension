@@ -56,3 +56,24 @@
     font-size: 0.9em;
 
   }
+  .modal__buttons {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .modal__goback__button{
+    padding: 2px;
+    font-size: .8em;
+    background-color: darkred;
+    border: 1px solid grey;
+    box-shadow: 10px grey;
+
+  }
+  .modal__confirm__button {
+    padding: 2px;
+    font-size: .8em;
+    background-color: darkgreen;
+    border: 1px solid grey;
+    box-shadow: 10px grey;
+  }
