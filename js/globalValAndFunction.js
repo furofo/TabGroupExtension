@@ -172,7 +172,6 @@ let isChecked = (isCheckedArray) => {
 }
 //this is core functinality of delte button empties out all fields and updates chrome storage sync
 let deleteButtonLogic = (isCheckedArray, tabGroupsArray) => {
-    debugger;
     for (let i = 0; i < isCheckedArray.length; i += 1) {
         const checkedNameField = document.querySelectorAll('.name')[i];
         const checkedUrlField = document.querySelectorAll('.flex-center')[i];
