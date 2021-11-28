@@ -8,20 +8,6 @@ function chromeStorageGet(result) {
     }
   });
 }
-
-//unit tests go here
-function test(then, expected) {
-results.total++;
-
-if (then !== expected) {
-    results.bad++;
-    console.log("Expected " + expected + ", but was " + result);
-}
-else{
-  console.log("\nExpected Result found\n", results);
-}
-}
-
 // variables to store objects for groups 1, 2, 3, and put in array to loop through later
 // for any associated tab group ids
 const groupIDArray = [{ GROUP1: {} }, { GROUP2: {} }, { GROUP3: {} }];
