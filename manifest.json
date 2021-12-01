@@ -8,10 +8,13 @@
     },
     "permissions": ["storage", "tabGroups", "tabs"],
     "action": {
-        "default_popup": "popup.html"
-  }
+        "default_popup": "popup.html",
+        "default_icon": {
+            "128": "/resizedTabLogo128.png",
+            "48": "/resizedTabLogo48.png",
+            "16": "/resizedTabLogo16.png"
+        }
+    }
 
-
-  
 }
 

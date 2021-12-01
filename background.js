@@ -29,6 +29,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     // this is promise chain of chrome.storage.get instead of callback
     chromeStorageGet(chrome.storage.sync.get(['TABGROUPS'])).then((result) => {
       const { url } = tab;
+      if(Object.keys(result).length !== 0) {
       for (let i = 0; i < result.TABGROUPS.length; i += 1) {
         const group = `GROUP${String(i + 1)}`;
         if (Object.prototype.hasOwnProperty.call(result.TABGROUPS[i], group)) {
@@ -53,25 +54,12 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                   color: result.TABGROUPS[i][group].COLOR,
                 });
                 groupIDArray[i][group].TABGROUP = id;
-                console.log("New Tab Group Created id is", id, "\n here is groupdIDARRAy in total", groupIDArray);
               });
             }
           }
         }
       }
-
-
-
-             //unit test here
-
-              test(result, result);
-
-
-
-
-
-
-
+    }
 
     });
   }
