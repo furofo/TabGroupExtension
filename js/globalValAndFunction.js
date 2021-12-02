@@ -129,7 +129,7 @@ const toggleInputDisabled = (elem) => {
 const toggleDropdownBox = (elem) => {
   const selectedElem = elem;
   if (window.getComputedStyle(selectedElem, null).display === 'none') {
-    selectedElem.style.display = 'inline-block';
+    selectedElem.style.display = 'flex';
   } else {
     selectedElem.style.display = 'none';
   }

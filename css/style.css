@@ -274,23 +274,20 @@ button {
 }
 
 .purple-box {
-    position: absolute;
+  position: absolute;
   top: 300%;
   left: 0px;
- 
-  
- 
   background-color: purple;
   width: 100%;
   height: 100%;
-  
-  
   padding: 0px;
 }
 
 .dropdown {
-  cursor: pointer;
   display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
   position: relative;
   width: 16px;
   height: 40px;
@@ -299,26 +296,12 @@ button {
   /* margin-left: -4px; */
   padding: 0px;
 }
-
-.fa-angle-double-down {
-  color: white;
-  position: absolute;
-  font-size: 1.4em;
-  width: 100%;
-  height: 100%;
-  display: flex !important;
-  justify-content: center;
-  align-content: center;
+.dropdown svg {
+  width: 80%;
 }
-
-.fa-angle-double-down:hover {
-  font-size: 1.5em;
-  color:lightblue;
-}
-
-.fa-center {
-  line-height: 40px!important;
-  vertical-align: middle;
+.dropdown svg:hover {
+  transform: scale(1.10);
+  fill:lightblue;
 }
 
 
