@@ -13,7 +13,7 @@ deleteButton.addEventListener('click', async () => {
   else {
     ModalWindow.openModal({
     title:'No Group Checked!',
-    content: 'please check tab group to delete a rule!'
+    content: 'Please check tab group to delete a rule!'
   })
   }
 });
@@ -36,7 +36,7 @@ editAddButton.addEventListener('click', async function ()  {
     else {
       ModalWindow.openModal({
       title:'No Group Checked!',
-      content: 'please check tab group to edit/add a rule!'
+      content: 'Please check tab group to edit/add a rule!'
     })
     }
   }
