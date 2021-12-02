@@ -6,7 +6,7 @@ deleteButton.addEventListener('click', async () => {
   if(isChecked(isCheckedArray)) {
     ModalWindow.openModal({
       title: "Do you want to delete?",
-      content: "This will permantly delete selected rules",
+      content: "This will permanently delete selected rules",
       buttons: true
     })
   }

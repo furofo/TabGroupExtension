@@ -14,9 +14,11 @@ const groupIDArray = [{ GROUP1: {} }, { GROUP2: {} }, { GROUP3: {} }];
 // when a tab group is completly removed this fires and clears out local groupIdArSrays TABGROUP Property
 chrome.tabGroups.onRemoved.addListener((tabGroup) => {
   for (let i = 0; i < groupIDArray.length; i += 1) {
-    const group = `GROUP${String(i + 1)}`; 
-    if (Object.prototype.hasOwnProperty.call(groupIDArray[i], group)
-    && groupIDArray[i][group].TABGROUP === tabGroup.id) {
+    const group = `GROUP${String(i + 1)}`;
+    if (
+      Object.prototype.hasOwnProperty.call(groupIDArray[i], group) &&
+      groupIDArray[i][group].TABGROUP === tabGroup.id
+    ) {
       delete groupIDArray[i][group].TABGROUP;
     }
   }
@@ -24,31 +26,29 @@ chrome.tabGroups.onRemoved.addListener((tabGroup) => {
 // listener that can tell if tab changes and new html page loads or if new tab is opened
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   // only exectue if tabs are fully loaded
-
-
-  chrome.tabGroups.query({}).then(
-    (tabGroupObj) => {
-      //debugger;
-  
-  if (changeInfo.status === 'complete' && tab.status === 'complete'
-  && tab.url !== undefined) {
-    // this is promise chain of chrome.storage.get instead of callback
-    chromeStorageGet(chrome.storage.sync.get(['TABGROUPS'])).then((result) => {
-      const { url } = tab;
-      if(Object.keys(result).length !== 0) {
-      for (let i = 0; i < result.TABGROUPS.length; i += 1) {
-        const group = `GROUP${String(i + 1)}`;
-        if (Object.prototype.hasOwnProperty.call(result.TABGROUPS[i], group)) {
-         
-          const searchTerm = result.TABGROUPS[i][group].URL;
-          console.log("this is search term \n", searchTerm);
-          if (url.includes(searchTerm)) {
+  if (changeInfo.status === 'complete' && tab.status === 'complete' &&tab.url !== undefined ) {
+    //this gets a list of all tab groups in broswer and returns an object of them
+    chrome.tabGroups.query({}).then((tabGroupObj) => {
+      // this is promise chain of chrome.storage.get instead of callback
+      chromeStorageGet(chrome.storage.sync.get(['TABGROUPS'])).then(
+        (result) => {
+          const { url } = tab;
+          if (Object.keys(result).length !== 0) {
+            for (let i = 0; i < result.TABGROUPS.length; i += 1) {
+              const group = `GROUP${String(i + 1)}`;
+              if ( Object.prototype.hasOwnProperty.call(result.TABGROUPS[i], group) ) {
+                const searchTerm = result.TABGROUPS[i][group].URL;
+                console.log('this is search term \n', searchTerm);
+                if (url.includes(searchTerm)) {
                   console.log('this is tab group object! \n', tabGroupObj);
-                  console.log("this is result \n", result);
+                  console.log('this is result \n', result);
                   let match = false;
-                  let testid;
                   for (let j = 0; j < tabGroupObj.length; j++) {
-                    if(result.TABGROUPS[i][group] && tab.groupId === -1 && tabGroupObj[j].title === result.TABGROUPS[i][group].NAME ) {
+                    if (
+                      result.TABGROUPS[i][group] &&
+                      tab.groupId === -1 &&
+                      tabGroupObj[j].title === result.TABGROUPS[i][group].NAME
+                    ) {
                       match = true;
                       chrome.tabs.group({
                         tabIds: tabId,
@@ -56,7 +56,8 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                       });
                     }
                   }
-                  if(!match) {
+                  //if it loops through all tab groups in window and no matches found create a new tab group
+                  if (!match) {
                     // if tab doesn't have a group id already and no other tabs following that same
                     // group rule, make a new tab group and update localvariable groupIDArray with a
                     // property TABGROUP that holds that id
@@ -69,33 +70,23 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                     });
                   }
 
+                  // if tab has a group id already do nothing, if it doesn't see if the locla
+                  // object for same group numberhas a property callled tab group, this stores the
+                  // tab group ID and means already a tab that, that follows same group rule and matched,
+                  // if so then group it to that existing tab group id
+                  // if (tab.groupId === -1 && Object.prototype.hasOwnProperty.call(groupIDArray[i][group], 'TABGROUP')) {
 
-
-                
-            
-             // if tab has a group id already do nothing, if it doesn't see if the locla
-            // object for same group numberhas a property callled tab group, this stores the
-            // tab group ID and means already a tab that, that follows same group rule and matched,
-            // if so then group it to that existing tab group id
-            // if (tab.groupId === -1 && Object.prototype.hasOwnProperty.call(groupIDArray[i][group], 'TABGROUP')) {
-           
-              
-            //   chrome.tabs.group({
-            //     tabIds: tabId,
-            //     groupId: groupIDArray[i][group].TABGROUP,
-            //   });
-            // } 
+                  //   chrome.tabs.group({
+                  //     tabIds: tabId,
+                  //     groupId: groupIDArray[i][group].TABGROUP,
+                  //   });
+                  // }
+                }
+              }
+            }
           }
         }
-      }
-    }
-
+      );
     });
   }
-    }
-    );
-
-
-
-
 });
