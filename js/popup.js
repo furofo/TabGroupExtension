@@ -5,7 +5,7 @@ deleteButton.addEventListener('click', async () => {
   // if checked displays conirmation message, if nothing checked displays erro rmessage
   if(isChecked(isCheckedArray)) {
     ModalWindow.openModal({
-      title: "Do you want do delete",
+      title: "Do you want to delete",
       content: "Are you sure you want to delete checked rules??",
       buttons: true
     })
