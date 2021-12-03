@@ -28,12 +28,14 @@ chrome.tabGroups.onRemoved.addListener((tabGroup) => {
 // if any searchTerm in erray is a match return true
 //if it gets to end of loop and ntohign found return false/
 let searchTermInUrl =  (url, searchTerms) => {
-  for(let i = 0; i < searchTerms.length; i++) {
-    if(url.includes(searchTerms[i])) {
-      return true;
+  if(searchTerms) {
+    for(let i = 0; i < searchTerms.length; i++) {
+      if(url.includes(searchTerms[i])) {
+        return true;
+      }
     }
+    return false;
   }
-  return false;
 }
 // listener that can tell if tab changes and new html page loads or if new tab is opened
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
@@ -50,10 +52,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
               const group = `GROUP${String(i + 1)}`;
               if ( Object.prototype.hasOwnProperty.call(result.TABGROUPS[i], group) ) {
                 const searchTerms = result.TABGROUPS[i][group].URL;
-                console.log('this is search term \n', searchTerms);
                 if (searchTermInUrl(url, searchTerms)) {
-                  console.log('this is tab group object! \n', tabGroupObj);
-                  console.log('this is result \n', result);
                   let match = false;
                   for (let j = 0; j < tabGroupObj.length; j++) {
                     if (
@@ -81,18 +80,6 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                       groupIDArray[i][group].TABGROUP = id;
                     });
                   }
-
-                  // if tab has a group id already do nothing, if it doesn't see if the locla
-                  // object for same group numberhas a property callled tab group, this stores the
-                  // tab group ID and means already a tab that, that follows same group rule and matched,
-                  // if so then group it to that existing tab group id
-                  // if (tab.groupId === -1 && Object.prototype.hasOwnProperty.call(groupIDArray[i][group], 'TABGROUP')) {
-
-                  //   chrome.tabs.group({
-                  //     tabIds: tabId,
-                  //     groupId: groupIDArray[i][group].TABGROUP,
-                  //   });
-                  // }
                 }
               }
             }
