@@ -53,9 +53,13 @@ for (let i = 0; i < dropDownAll.length; i += 1) {
 // and doesn't have class of dropdown and doesn't match element in the elmeArr toggles
 // active-box away from it, ignores drop down when clicked since
 // we have a functoin for that already that toggles when that is clicked among other things.
-const aIsInB = (elemArr, elemToMatch) => {
+const determineClickHandlerInB = (elemArr, elemToMatch) => {
   for (let i = 0; i < elemArr.length; i += 1) {
     if (elemToMatch.parentElement) {
+      //logic can be improved here but since usign svg and don't wont mulitpe click events to fire
+      // checking to see if the element is the svg clicked, the path in the svg or dropdown, if any of these
+      //use the other click handler set for dropdown instead
+      //without this two click events are fired leading to issues with drop down boxes not closign properly
       if (!elemToMatch.classList.contains('dropdown')
       && !elemToMatch.parentElement.classList.contains('dropdown') && elemToMatch.tagName !== 'path' 
        && elemToMatch.parentElement !== elemArr[i]) {
@@ -73,7 +77,7 @@ document.addEventListener('mouseup', (e) => {
   // if the target of the click isn't the container nor a descendant of the container
  // debugger;
   const activeBoxes = document.querySelectorAll('.active-box');
-  aIsInB(activeBoxes, e.target);
+  determineClickHandlerInB(activeBoxes, e.target);
 });
 // make chormestorage get a promise instead of callback avoid callback hell
 function chromeStorageGet(result) {
@@ -233,12 +237,21 @@ let saveButtonLogic =  (button, inputBox, isCheckedArray, checkedNameField, chec
   for (let i = 0; i < isCheckedArray.length; i += 1) {
     const groupNumber = `GROUP${String(i + 1)}`;
     inputBox[i].style.pointerEvents = 'auto';
+    let matchingText = checkedUrlField[i].value;
+    let matchingTextSplitComma = matchingText.split(',');
+    let matchingTextRemoveSpace = matchingTextSplitComma.map((item) => item.trim());
+    console.log('this is matching text split by commas', matchingTextSplitComma);
+    console.log('this is matching text with removed space', matchingTextRemoveSpace);
     if (isCheckedArray[i].checked) {
+        // console.log("this is value", checkedUrlField[i].value);
+        // console.log("this is value split", checkedUrlField[i].value.split(','));
+        // console.log("this is value mapped", checkedUrlField[i].value.split(',').map((item) => {item.trim()}));
+
         tabGroupsArray.push({
           [groupNumber]: {
             COLOR: document.querySelectorAll('.box')[i].getAttribute('value'),
             NAME: checkedNameField[i].value,
-            URL: checkedUrlField[i].value,
+            URL: checkedUrlField[i].value.split(',').map((item) => item.trim()),
           },
         });
         toggleInputDisabled(checkedUrlField[i]);
@@ -252,7 +265,7 @@ let saveButtonLogic =  (button, inputBox, isCheckedArray, checkedNameField, chec
         [groupNumber]: {
           COLOR: document.querySelectorAll('.box')[i].getAttribute('value'),
           NAME: checkedNameField[i].value,
-          URL: checkedUrlField[i].value,
+          URL: checkedUrlField[i].value.split(',').map((item) => item.trim()),
         },
       });
     } else {

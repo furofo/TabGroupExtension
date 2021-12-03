@@ -11,7 +11,9 @@ https://www.youtube.com/watch?v=aLIIAZAC4bo
 
 This extensions purpose is to auto sort your chrome tabs using Google Tab Groups (detailed here)  [ URL: ] ( https://blog.google/products/chrome/manage-tabs-with-google-chrome/ ) and rules you set.  You can set up to 3 rules to sort your tabs by and they sort automatically each time a chrome tab is loaded or updated. 
 
-The first column Name is the name of the tabgroup that tab gets sorted into. The second column, MATCHINGTEXT is the string this extension searches in the URL to determine if it goes into this particular tab group. For instance if it is set to "test2" any website you visit with test 2 in the url will be put into this tab group. The final column COLOR, is the color of this tab group that gets set.
+The first column Name is the name of the tabgroup that tab gets sorted into. The second column, MATCHINGTEXT is the string this extension searches in the URL to determine if it goes into this particular tab group. For instance if it is set to "test2" any website you visit with test 2 in the url will be put into this tab group. 
+
+You can also specify multiple terms to search with by separating them wiht commas. For instance if you assign a groupd with NAME column of Colors, and Matching text of blue, yellow, and green; any url you load with those search temrs will go in group Color.  The final column COLOR, is the color of this tab group that gets set.
 
 
 When setting these values no fields can be left blank or the extension will throw a descriptive error. To add  or edit a rule check one or multiple checkboxes on the left and click Edit/Add Group Button. Then make sure NAME and MATCHINGTEXT columns have a value and that color box has a value selected then click SAVE GROUP(s) button.
