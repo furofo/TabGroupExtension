@@ -22,11 +22,13 @@ const toggleButtonText = (btn, str1, str2) => {
 for (let i = 0; i < dropDownAll.length; i += 1) {
   // this assigns unique function to dropdown icon for each color box
   dropDownAll[i].onclick = () => {
+    console.log("Dropdown method triggered \n", dropDownAll[i]);
     for (let j = 0; j < boxAll.length; j += 1) {
       if (i !== j && boxAll[j].classList.contains('active-box')) {
         boxAll[j].classList.toggle('active-box');
       }
     }
+    console.log("Dropdown method toggled display");
     boxAll[i].classList.toggle('active-box');
   };
   boxAll[i].querySelector('.blue-box').onclick = function () {
@@ -54,8 +56,9 @@ for (let i = 0; i < dropDownAll.length; i += 1) {
 const aIsInB = (elemArr, elemToMatch) => {
   for (let i = 0; i < elemArr.length; i += 1) {
     if (elemToMatch.parentElement) {
-      if (!elemToMatch.parentElement.classList.contains('dropdown')
-      && elemToMatch.parentElement !== elemArr[i]) {
+      if (!elemToMatch.classList.contains('dropdown')
+      && !elemToMatch.parentElement.classList.contains('dropdown') && elemToMatch.tagName !== 'path' 
+       && elemToMatch.parentElement !== elemArr[i]) {
         elemArr[i].classList.toggle('active-box');
       }
     }
@@ -68,6 +71,7 @@ document.getElementById('first-name').addEventListener('input', updateInputWhenT
 // used so you click outside of the drop downs to close them
 document.addEventListener('mouseup', (e) => {
   // if the target of the click isn't the container nor a descendant of the container
+ // debugger;
   const activeBoxes = document.querySelectorAll('.active-box');
   aIsInB(activeBoxes, e.target);
 });
