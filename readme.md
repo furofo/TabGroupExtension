@@ -1,15 +1,16 @@
 
-## Auto Tab Group Extension 
----
+## <img src='https://user-images.githubusercontent.com/64287087/157335433-db53e4ab-1e63-4bd5-93ca-ee25a38111b1.png' width=35px /> Auto Tab Group Extension <img src='https://user-images.githubusercontent.com/64287087/157335433-db53e4ab-1e63-4bd5-93ca-ee25a38111b1.png' width=35px />
+
+![tabs](https://user-images.githubusercontent.com/64287087/157336357-667546c5-f42a-47bf-8afe-9c25d617d240.png)
+
 <p align='center'>
-<img src='https://user-images.githubusercontent.com/38140593/144671693-1578d049-bcd5-43fd-9227-e065125ae021.png' width=450px />
+<img src='https://user-images.githubusercontent.com/64287087/157335341-ac6f2629-34cd-4618-a116-59dcb60831b7.png' width=450px />
 </p>
 
 - Chromium browser extension (Chrome/Brave)
-- **[Download the extension here!](https://chrome.google.com/webstore/detail/auto-tab-groups/nicjeeimgboiijpfcgfkbemiclbhfnio?hl=en)**
+- **[Download link](https://chrome.google.com/webstore/detail/auto-tab-groups/nicjeeimgboiijpfcgfkbemiclbhfnio?hl=en)**
 
 ## Youtube Guide
----
 <p align='center'>
 <a href="https://www.youtube.com/watch?v=aLIIAZAC4bo">
 <img width='450px' src="https://img.youtube.com/vi/aLIIAZAC4bo/maxresdefault.jpg" />
@@ -19,13 +20,13 @@
 
 ## Extension Overview 
 
-- Automatically sorts chrome tabs using [Google Tab Groups](https://blog.google/products/chrome/manage-tabs-with-google-chrome/) 
-- Sorts automatically each time a chrome tab is loaded or updated. 
+- Automatically sorts tabs using [Google Tab Groups](https://blog.google/products/chrome/manage-tabs-with-google-chrome/) 
+- Sorts automatically each time a page is loaded or updated. 
 
 ### Inputs
 - `Selector`: Group selector to add/edit/delete
-- `Title`: Name of tabgroup that tab gets sorted into
-- `Domain`: String in URL to determine tab group
+- `Title`: Name of sorted tab group
+- `Domain`: String in URL to determine grouping
 - `Color`: Tab group color
 
 Make sure to set all values ***no fields can be left blank*** or the extension will throw a descriptive error
