@@ -218,7 +218,6 @@ let deleteButtonLogic = (isCheckedArray, tabGroupsArray, dropDownBox, isback) =>
         // end here if not just return and do nothing
         if (i === isCheckedArray.length - 1) {
           if (isCheckedArray[i].checked) {
-            console.log("IN HEER !")
             if (isback){
               toggleInputDisabled(checkedUrlField);
               toggleInputDisabled(checkedNameField);
