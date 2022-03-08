@@ -17,6 +17,12 @@ deleteButton.addEventListener('click', async () => {
   })
   }
 });
+
+gobackButton.addEventListener('click', async () => {
+  const isCheckedArray = document.querySelectorAll('.container input');
+  const dropDownBox = document.querySelectorAll('.dropdown');
+  deleteButtonLogic(isCheckedArray, tabGroupsArray, dropDownBox, true)
+})
 editAddButton.addEventListener('click', async function ()  {
   const isCheckedArray = document.querySelectorAll('.container input');
   const inputBox = document.querySelectorAll('.container');

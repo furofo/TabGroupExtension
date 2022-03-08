@@ -1,5 +1,6 @@
 // get variables for buttons ahere
 const deleteButton = document.getElementById('delete-group');
+const gobackButton = document.getElementById('go-back');
 const editAddButton = document.getElementById('edit-add-group');
 const isCheckedArray = document.querySelectorAll('.container input');
 let tabGroupsArray = [];
@@ -32,21 +33,39 @@ for (let i = 0; i < dropDownAll.length; i += 1) {
     boxAll[i].classList.toggle('active-box');
   };
   boxAll[i].querySelector('.blue-box').onclick = function () {
-    this.parentElement.style.backgroundColor = 'blue';
+    this.parentElement.style.backgroundColor = '#8ab4f7';
     this.parentElement.classList.toggle('active-box');
     this.parentElement.setAttribute('value', 'blue');
   };
 
   boxAll[i].querySelector('.yellow-box').onclick = function () {
-    this.parentElement.style.backgroundColor = 'yellow';
+    this.parentElement.style.backgroundColor = '#fed663';
     this.parentElement.classList.toggle('active-box');
     this.parentElement.setAttribute('value', 'yellow');
   };
 
   boxAll[i].querySelector('.purple-box').onclick = function ()  {
-    this.parentElement.style.backgroundColor = 'purple';
+    this.parentElement.style.backgroundColor = '#c589f9';
     this.parentElement.classList.toggle('active-box');
     this.parentElement.setAttribute('value', 'purple');
+  };
+
+  boxAll[i].querySelector('.green-box').onclick = function ()  {
+    this.parentElement.style.backgroundColor = '#81c895';
+    this.parentElement.classList.toggle('active-box');
+    this.parentElement.setAttribute('value', 'green');
+  };
+
+  boxAll[i].querySelector('.red-box').onclick = function ()  {
+    this.parentElement.style.backgroundColor = '#f18b82';
+    this.parentElement.classList.toggle('active-box');
+    this.parentElement.setAttribute('value', 'red');
+  };
+
+  boxAll[i].querySelector('.pink-box').onclick = function ()  {
+    this.parentElement.style.backgroundColor = '#ff8bcb';
+    this.parentElement.classList.toggle('active-box');
+    this.parentElement.setAttribute('value', 'pink');
   };
 }
 // function that looks at second argument and sees if it has parent element, if ithas parent element
@@ -107,7 +126,8 @@ window.onload = () => {
           names[i].setAttribute('value', result.TABGROUPS[i][group].NAME);
           urls[i].setAttribute('value', result.TABGROUPS[i][group].URL);
           boxes[i].setAttribute('value', result.TABGROUPS[i][group].COLOR);
-          boxes[i].style.backgroundColor = result.TABGROUPS[i][group].COLOR;
+          colors = {'blue': '#8ab4f7', 'yellow': '#fed663', 'purple': '#c589f9', 'green': '#81c895', 'red': '#f18b82', 'pink': '#ff8bcb'}
+          boxes[i].style.backgroundColor = colors[result.TABGROUPS[i][group].COLOR];
         }
       }
     }
@@ -179,7 +199,15 @@ let isChecked = (isCheckedArray) => {
     return true;
 }
 //this is core functinality of delte button empties out all fields and updates chrome storage sync
-let deleteButtonLogic = (isCheckedArray, tabGroupsArray) => {
+let deleteButtonLogic = (isCheckedArray, tabGroupsArray, dropDownBox, isback) => {
+    if (isback) {
+      toggleElementDisplay(document.getElementById('go-back'))
+      toggleElementDisplay(deleteButton)
+      document.querySelectorAll('.container').forEach(e => {
+        e.style.pointerEvents = 'auto';
+      })
+      toggleButtonText(document.getElementById('edit-add-group'), "Select", "Save")
+    }
     for (let i = 0; i < isCheckedArray.length; i += 1) {
         const checkedNameField = document.querySelectorAll('.name')[i];
         const checkedUrlField = document.querySelectorAll('.flex-center')[i];
@@ -190,6 +218,11 @@ let deleteButtonLogic = (isCheckedArray, tabGroupsArray) => {
         // end here if not just return and do nothing
         if (i === isCheckedArray.length - 1) {
           if (isCheckedArray[i].checked) {
+            if (isback){
+              toggleInputDisabled(checkedUrlField);
+              toggleInputDisabled(checkedNameField);
+              toggleDropdownBox(dropDownBox[i]);
+            }
             checkedNameField.setAttribute('value', '');
             checkedNameField.value = '';
             checkedUrlField.setAttribute('value', '');
@@ -200,7 +233,9 @@ let deleteButtonLogic = (isCheckedArray, tabGroupsArray) => {
             // logic to delete rule here
             // logic to remove this from tabsGroup Array which
             // should be array of all groups retrieved from google Sync
-            tabGroupsArray[i][group] = {};
+            if (tabGroupsArray.length > 0) {
+              tabGroupsArray[i][group] = {};
+            }
             chrome.storage.sync.set({ TABGROUPS: tabGroupsArray }).then(() => {});
           }
           else {
@@ -216,7 +251,15 @@ let deleteButtonLogic = (isCheckedArray, tabGroupsArray) => {
           box.style.backgroundColor = 'grey';
           checkedItem.checked = false;
           // logic to delete rule here
-          tabGroupsArray[i][group] = {};
+          console.log(tabGroupsArray)
+          if (tabGroupsArray.length > 0) {
+            tabGroupsArray[i][group] = {};
+          }
+          if (isback){
+            toggleInputDisabled(checkedUrlField);
+            toggleInputDisabled(checkedNameField);
+            toggleDropdownBox(dropDownBox[i]);
+          }
         }
       }
 }
@@ -274,7 +317,8 @@ let saveButtonLogic =  (button, inputBox, isCheckedArray, checkedNameField, chec
     if(i === isCheckedArray.length - 1) {
       //if make it to last array withoug this breaking
       toggleElementDisplay(deleteButton);
-      toggleButtonText(button, 'Save Group(s)', 'Edit/Add Group');
+      toggleElementDisplay(document.getElementById('go-back'))
+      toggleButtonText(button, 'Save', 'Select');
       chrome.storage.sync.set({ TABGROUPS: tabGroupsArray }, () => {
         tabGroupsArray = [];
       });
@@ -292,8 +336,9 @@ let editButtonLogic = (button,  isCheckedArray, checkedNameField, checkedUrlFiel
         toggleInputDisabled(checkedNameField[i]);
         toggleDropdownBox(dropDownBox[i]);
       }
-        toggleButtonText(button, 'Edit/Add Group', 'Save Group(s)');
         toggleElementDisplay(deleteButton);
+        toggleElementDisplay(document.getElementById('go-back'))
+        toggleButtonText(button, 'Save', 'Select');
         return;
     }
     else if (isCheckedArray[i].checked) {

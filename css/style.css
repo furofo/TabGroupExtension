@@ -3,30 +3,35 @@
     justify-content: center;
 }
 body {
-    width: 750px;
+    width: 375px;
+    font-family: sans-serif;
 }
 button {
     height: 30px;
     width: 25%;
+    padding: 0;
     outline: none;
     margin: 10px;
     border: none;
-    border-radius: 2px;
+    border-radius: 10px;
     background-color: brown;
     color: white;
-    font-size: 1.2em;
-    /*margin-top: 7em;*/
+    font-size: .85em;
+  }
+
+  #go-back {
+    display: none;
+    background-color: brown;
+    cursor: pointer;
   }
 
   #delete-group {
     background-color: brown;
-    margin-top: 3em;
     cursor: pointer;
   }
 
   #edit-add-group {
       background-color: blue;
-      margin-top: 3em;
       cursor: pointer;
   }
   
@@ -38,54 +43,47 @@ button {
   #set-rule {
       background-color: blue;
       color: white;
-      font-size: 1.2em;
+      font-size: 1em;
   }
   #rule-input {
       width: 50%;
   }
   .rule-buttons {
-    margin-bottom: 6em;
+    /* margin-bottom: 6em; */
+  }
+  .rule-headings {
+  }
+  .rule-headings h3{
+      display: inline-block;
+      font-size: .85em;
+  }
+  .rule-headings :nth-child(1) {
+    margin-left: 10px;
+    margin-right: 45px;
+  }
+  .rule-headings :nth-child(2) {
+    margin-right: 80px;
   }
 
-  .rule-headings h3{
-      width: 33.33%;
-      text-align:  center;
+  .rule-headings :nth-child(3) {
+    margin-right: 40px;
   }
+
+
 
   .container {
-    align-items: center;
-    height: 100%;
     display: flex;
     position: relative;
     padding-left: 50px;
-    /* margin-bottom: 12px; */
+    padding-bottom: 10px;
     cursor: pointer;
-    font-size: 22px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
     overflow: hidden;
 }
-  /*
 
-.container {
-    align-items: center;
-    height: 50px;
-    display: flex;
-    position: relative;
-    padding-left: 50px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    overflow: hidden;
-}
-*/
-  
   /* Hide the browser's default checkbox */
   .container input {
     position: absolute;
@@ -95,14 +93,14 @@ button {
     width: 0;
   }
   
-  /* Create a custom checkbox */
+  /* Create a custom  */
   .checkmark {
     position: absolute;
     top: 25%;
     left: 10px;
-    /* left: 3%; */
-    height: 25px;
-    width: 25px;
+    border-radius: 5px;
+    height: 15px;
+    width: 15px;
     background-color: #eee;
     border: 2px solid black;
 }
@@ -131,8 +129,7 @@ button {
   
   /* Style the checkmark/indicator */
   .container .checkmark:after {
-    left: 9px;
-    top: 5px;
+    left: 4px;
     width: 5px;
     height: 10px;
     border: solid white;
@@ -143,17 +140,26 @@ button {
   }
 
  .rule-headings{
-     margin-bottom: 1.3em;
+     /* margin-bottom: 1.3em; */
      font-size: 1.3em
  }
  .rule-content {
-  /* overflow: hidden; */
-  height: 5em;
-  /* height: 13%; */
-  width: 33.33%;
+  height: 2em;
+  margin: 0 5px;
+  width: 30%;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-bottom: 1px solid rgb(231, 229, 229);
+  border-radius: 5px;
+}
+.color-content {
+  margin-left: 10px;
+  width: 35px;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
 }
   #color-check-button {
       left: 40%;
@@ -169,13 +175,14 @@ button {
 }
 
 .flex-center {
-    height: 50%;
-    text-align: center;
-    width: 100%;
-    padding: 0px;
-    margin: 0px;
-    justify-content: center;
-    border: none;
+  font-size: 1em;
+  height: 70%;
+  text-align: center;
+  width: 100%;
+  padding: 2px;
+  border-radius: 5px;
+  justify-content: center;
+  border: none;
 }
 
 .flex-center:disabled {
@@ -183,13 +190,13 @@ button {
   background-color: white;
 }
 
-.name-content {
-    justify-content: start;
+#go-back:hover {
+  background-color: rgb(245, 20, 72);
+  color: black;
 }
-
 #delete-group:hover {
-    background-color: rgb(245, 20, 72);
-    color: black;
+  background-color: rgb(245, 20, 72);
+  color: black;
 }
 
 #edit-add-group:hover {
@@ -198,11 +205,14 @@ button {
 }
 
 .name {
-  font-size: 22px;
-  border: none;
-  width: 95%;
-  height: 50%;
-  margin-right: 3%;
+  font-size: 1em;
+    height: 70%;
+    text-align: center;
+    width: 100%;
+    /* padding: 2px; */
+    border-radius: 5px;
+    justify-content: center;
+    border: none;
 }
 
 .name:disabled {
@@ -215,13 +225,10 @@ button {
   border: 2px solid black;
 }
 .box {
-  
-  /* margin-left: 8em; */
-  /* margin-tOP: 3em; */
   display: inline-block;
   background-color: grey;
-  width: 40px;
-  height: 40px;
+  width: 25px;
+  height: 20px;
   position: relative;
   padding: 0px;
 }
@@ -239,8 +246,8 @@ button {
 }
 .active-box > div {
   border: 1px solid grey;
-  min-height: 40px;
-  min-width: 40px;
+  min-height: 20px;
+  min-width: 20px;
   opacity: 1;
   z-index: 3;
 }
@@ -248,7 +255,7 @@ button {
   position: absolute;
   top: 100%;
   left: 0px;
-  background-color:blue;
+  background-color:#8ab4f7;
   width: 100%;
   height: 100%;
   padding: 0px;
@@ -257,7 +264,7 @@ button {
   position: absolute;
   top: 200%;
   left: 0px;
-  background-color:yellow;
+  background-color: #fed663;
   width: 100%;
   height: 100%;
   padding: 0px;
@@ -266,10 +273,55 @@ button {
   position: absolute;
   top: 300%;
   left: 0px;
-  background-color: purple;
+  background-color: #c589f9;
   width: 100%;
   height: 100%;
   padding: 0px;
+}
+.green-box {
+  position: absolute;
+  top: 100%;
+  left: 23px;
+  background-color: #81c895;
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+}
+.red-box {
+  position: absolute;
+  top: 200%;
+  left: 23px;
+  background-color: #f18b82;
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+}
+.pink-box {
+  position: absolute;
+  top: 300%;
+  left: 23px;
+  background-color: #ff8bcb;
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+}
+.blue-box:hover{
+  border-radius: 10px;
+}
+.yellow-box:hover{
+  border-radius: 10px;
+}
+.red-box:hover{
+  border-radius: 10px;
+}
+.green-box:hover{
+  border-radius: 10px;
+}
+.purple-box:hover{
+  border-radius: 10px;
+}
+.pink-box:hover {
+  border-radius: 10px;
 }
 .dropdown {
   display: none;
@@ -278,17 +330,15 @@ button {
   cursor: pointer;
   position: relative;
   width: 16px;
-  height: 40px;
+  height: 20px;
   background-color: black;
-  /*display: inline-block; */
-  /* margin-left: -4px; */
   padding: 0px;
 }
 .dropdown svg {
-  width: 80%;
+  width: 60%;
 }
 .dropdown svg:hover {
-  transform: scale(1.10);
+  transform: scale(1.2);
   fill:lightblue;
 }
 

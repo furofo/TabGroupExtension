@@ -8,9 +8,9 @@ function chromeStorageGet(result) {
     }
   });
 }
-// variables to store objects for groups 1, 2, 3, and put in array to loop through later
+// variables to store objects for groups 1, 2, 3, 4, 5, 6 and put in array to loop through later
 // for any associated tab group ids
-const groupIDArray = [{ GROUP1: {} }, { GROUP2: {} }, { GROUP3: {} }];
+const groupIDArray = [{ GROUP1: {} }, { GROUP2: {} }, { GROUP3: {} }, { GROUP4: {} }, { GROUP5: {} }, { GROUP6: {} }];
 // when a tab group is completly removed this fires and clears out local groupIdArSrays TABGROUP Property
 chrome.tabGroups.onRemoved.addListener((tabGroup) => {
   for (let i = 0; i < groupIDArray.length; i += 1) {
@@ -48,16 +48,18 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
         (result) => {
           const { url } = tab;
           if (Object.keys(result).length !== 0) {
+            let ungroup = true;
             for (let i = 0; i < result.TABGROUPS.length; i += 1) {
               const group = `GROUP${String(i + 1)}`;
               if ( Object.prototype.hasOwnProperty.call(result.TABGROUPS[i], group) ) {
                 const searchTerms = result.TABGROUPS[i][group].URL;
                 if (searchTermInUrl(url, searchTerms)) {
                   let match = false;
+                  ungroup = false;
                   for (let j = 0; j < tabGroupObj.length; j++) {
                     if (
                       result.TABGROUPS[i][group] &&
-                      tab.groupId === -1 &&
+                      // tab.groupId === -1 &&
                       tabGroupObj[j].title === result.TABGROUPS[i][group].NAME
                     ) {
                       match = true;
@@ -83,6 +85,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                 }
               }
             }
+            if (ungroup) {chrome.tabs.ungroup(tabId)}
           }
         }
       );
