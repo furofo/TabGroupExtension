@@ -218,6 +218,7 @@ let deleteButtonLogic = (isCheckedArray, tabGroupsArray, dropDownBox, isback) =>
         // end here if not just return and do nothing
         if (i === isCheckedArray.length - 1) {
           if (isCheckedArray[i].checked) {
+            console.log("IN HEER !")
             if (isback){
               toggleInputDisabled(checkedUrlField);
               toggleInputDisabled(checkedNameField);
@@ -233,9 +234,7 @@ let deleteButtonLogic = (isCheckedArray, tabGroupsArray, dropDownBox, isback) =>
             // logic to delete rule here
             // logic to remove this from tabsGroup Array which
             // should be array of all groups retrieved from google Sync
-            if (tabGroupsArray.length > 0) {
               tabGroupsArray[i][group] = {};
-            }
             chrome.storage.sync.set({ TABGROUPS: tabGroupsArray }).then(() => {});
           }
           else {
@@ -251,10 +250,7 @@ let deleteButtonLogic = (isCheckedArray, tabGroupsArray, dropDownBox, isback) =>
           box.style.backgroundColor = 'grey';
           checkedItem.checked = false;
           // logic to delete rule here
-          console.log(tabGroupsArray)
-          if (tabGroupsArray.length > 0) {
             tabGroupsArray[i][group] = {};
-          }
           if (isback){
             toggleInputDisabled(checkedUrlField);
             toggleInputDisabled(checkedNameField);
