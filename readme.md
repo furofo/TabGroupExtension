@@ -1,8 +1,11 @@
-
-## Auto Tab Group Extension 
+## <img src='https://user-images.githubusercontent.com/64287087/159755213-939e9420-6a14-469c-81fb-d8906f0aa553.png' width=35px />[Auto Tab Group Extension](https://chrome.google.com/webstore/detail/auto-tab-groups/nicjeeimgboiijpfcgfkbemiclbhfnio?hl=en) <img src='https://user-images.githubusercontent.com/64287087/159755213-939e9420-6a14-469c-81fb-d8906f0aa553.png' width=35px />
 ---
+
+<!-- ![bar](https://user-images.githubusercontent.com/64287087/159754725-e75cab4f-845e-4fe5-bee7-703c9184359d.png) -->
+
 <p align='center'>
-<img src='https://user-images.githubusercontent.com/38140593/144671693-1578d049-bcd5-43fd-9227-e065125ae021.png' width=450px />
+  <img src='https://user-images.githubusercontent.com/64287087/159754725-e75cab4f-845e-4fe5-bee7-703c9184359d.png' width=1000px />
+<img src='https://user-images.githubusercontent.com/64287087/159754660-1ce732a5-6ed4-42f5-8bce-1b1940a93ebd.png' width=400px />
 </p>
 
 - Chromium browser extension (Chrome/Brave)
