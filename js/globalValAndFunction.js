@@ -64,7 +64,7 @@ for (let i = 0; i < dropDownAll.length; i += 1) {
   boxAll[i].querySelector('.cyan-box').onclick = function ()  {
     this.parentElement.style.backgroundColor = '#78d9ec';
     this.parentElement.classList.toggle('active-box');
-    this.parentElement.setAttribute('value', 'pink');
+    this.parentElement.setAttribute('value', 'cyan');
   };
 
   boxAll[i].querySelector('.orange-box').onclick = function ()  {
