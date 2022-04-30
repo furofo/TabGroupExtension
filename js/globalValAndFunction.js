@@ -25,53 +25,15 @@ for (let i = 0; i < dropDownAll.length; i += 1) {
     }
     boxAll[i].classList.toggle('active-box');
   };
-  boxAll[i].querySelector('.blue-box').onclick = function () {
-    this.parentElement.style.backgroundColor = '#8ab4f7';
-    this.parentElement.classList.toggle('active-box');
-    this.parentElement.setAttribute('value', 'blue');
-  };
 
-  boxAll[i].querySelector('.yellow-box').onclick = function () {
-    this.parentElement.style.backgroundColor = '#fed663';
-    this.parentElement.classList.toggle('active-box');
-    this.parentElement.setAttribute('value', 'yellow');
-  };
-
-  boxAll[i].querySelector('.purple-box').onclick = function ()  {
-    this.parentElement.style.backgroundColor = '#c589f9';
-    this.parentElement.classList.toggle('active-box');
-    this.parentElement.setAttribute('value', 'purple');
-  };
-
-  boxAll[i].querySelector('.green-box').onclick = function ()  {
-    this.parentElement.style.backgroundColor = '#81c895';
-    this.parentElement.classList.toggle('active-box');
-    this.parentElement.setAttribute('value', 'green');
-  };
-
-  boxAll[i].querySelector('.red-box').onclick = function ()  {
-    this.parentElement.style.backgroundColor = '#f18b82';
-    this.parentElement.classList.toggle('active-box');
-    this.parentElement.setAttribute('value', 'red');
-  };
-
-  boxAll[i].querySelector('.pink-box').onclick = function ()  {
-    this.parentElement.style.backgroundColor = '#ff8bcb';
-    this.parentElement.classList.toggle('active-box');
-    this.parentElement.setAttribute('value', 'pink');
-  };
-
-  boxAll[i].querySelector('.cyan-box').onclick = function ()  {
-    this.parentElement.style.backgroundColor = '#78d9ec';
-    this.parentElement.classList.toggle('active-box');
-    this.parentElement.setAttribute('value', 'cyan');
-  };
-
-  boxAll[i].querySelector('.orange-box').onclick = function ()  {
-    this.parentElement.style.backgroundColor = '#fbac70';
-    this.parentElement.classList.toggle('active-box');
-    this.parentElement.setAttribute('value', 'orange');
-  };
+  for (const color in colors) {
+    if (color==='grey') continue
+    boxAll[i].querySelector(`.${color}-box`).onclick = function () {
+      this.parentElement.style.backgroundColor = colors[color];
+      this.parentElement.classList.toggle('active-box');
+      this.parentElement.setAttribute('value', color);
+    }
+  }
 }
 
 // Looks at second argument for parent element, if it has parent element
