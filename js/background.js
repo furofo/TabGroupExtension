@@ -10,7 +10,7 @@ function chromeStorageGet(result) {
 }
 // variables to store objects for groups 1, 2, 3, 4, 5, 6 and put in array to loop through later
 // for any associated tab group ids
-const groupIDArray = [{ GROUP1: {} }, { GROUP2: {} }, { GROUP3: {} }, { GROUP4: {} }, { GROUP5: {} }, { GROUP6: {} }];
+const groupIDArray = [{ GROUP1: {} }, { GROUP2: {} }, { GROUP3: {} }, { GROUP4: {} }, { GROUP5: {} }, { GROUP6: {} }, { GROUP7: {} }, { GROUP8: {} }];
 // when a tab group is completly removed this fires and clears out local groupIdArSrays TABGROUP Property
 chrome.tabGroups.onRemoved.addListener((tabGroup) => {
   for (let i = 0; i < groupIDArray.length; i += 1) {

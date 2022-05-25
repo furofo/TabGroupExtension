@@ -1,10 +1,13 @@
 
-## <img src='https://user-images.githubusercontent.com/64287087/157335433-db53e4ab-1e63-4bd5-93ca-ee25a38111b1.png' width=35px /> Auto Tab Group Extension <img src='https://user-images.githubusercontent.com/64287087/157335433-db53e4ab-1e63-4bd5-93ca-ee25a38111b1.png' width=35px />
+## <img src='https://user-images.githubusercontent.com/64287087/159755213-939e9420-6a14-469c-81fb-d8906f0aa553.png' width=35px />[Auto Tab Group Extension](https://chrome.google.com/webstore/detail/auto-tab-groups/nicjeeimgboiijpfcgfkbemiclbhfnio?hl=en) <img src='https://user-images.githubusercontent.com/64287087/159755213-939e9420-6a14-469c-81fb-d8906f0aa553.png' width=35px />
+---
 
-![tabs](https://user-images.githubusercontent.com/64287087/157336357-667546c5-f42a-47bf-8afe-9c25d617d240.png)
+<!-- ![bar](https://user-images.githubusercontent.com/64287087/159754725-e75cab4f-845e-4fe5-bee7-703c9184359d.png) -->
 
 <p align='center'>
-<img src='https://user-images.githubusercontent.com/64287087/157335341-ac6f2629-34cd-4618-a116-59dcb60831b7.png' width=450px />
+  <img src='https://user-images.githubusercontent.com/64287087/159754725-e75cab4f-845e-4fe5-bee7-703c9184359d.png' width=1000px />
+<img src='https://user-images.githubusercontent.com/64287087/159754660-1ce732a5-6ed4-42f5-8bce-1b1940a93ebd.png' width=400px />
+
 </p>
 
 - Chromium browser extension (Chrome/Brave)
