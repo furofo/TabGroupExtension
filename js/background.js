@@ -8,26 +8,27 @@ function chromeStorageGet(result) {
     }
   });
 }
-// variables to store objects for groups 1, 2, 3, 4, 5, 6 and put in array to loop through later
+// variables to store objects for groups 1, 2, 3, 4, 5, 6, 7, and 8 and put in array to loop through later
 // for any associated tab group ids
-const groupIDArray = [{ GROUP1: {} }, { GROUP2: {} }, { GROUP3: {} }, { GROUP4: {} }, { GROUP5: {} }, { GROUP6: {} }, { GROUP7: {} }, { GROUP8: {} }];
-// when a tab group is completly removed this fires and clears out local groupIdArSrays TABGROUP Property
-chrome.tabGroups.onRemoved.addListener((tabGroup) => {
-  for (let i = 0; i < groupIDArray.length; i += 1) {
-    const group = `GROUP${String(i + 1)}`;
-    if (
-      Object.prototype.hasOwnProperty.call(groupIDArray[i], group) &&
-      groupIDArray[i][group].TABGROUP === tabGroup.id
-    ) {
-      delete groupIDArray[i][group].TABGROUP;
-    }
-  }
-});
+// const groupIDArray = [{ GROUP1: {} }, { GROUP2: {} }, { GROUP3: {} }, { GROUP4: {} }, { GROUP5: {} }, { GROUP6: {} }, { GROUP7: {} }, { GROUP8: {} }];
+// // when a tab group is completly removed this fires and clears out local groupIdArSrays TABGROUP Property
+// chrome.tabGroups.onRemoved.addListener((tabGroup) => {
+//   for (let i = 0; i < groupIDArray.length; i += 1) {
+//     const group = `GROUP${String(i + 1)}`;
+//      console.log(groupIDArray[i][group]);
+//     if (
+//       Object.prototype.hasOwnProperty.call(groupIDArray[i], group) &&
+//       groupIDArray[i][group].TABGROUP === tabGroup.id
+//     ) {
+//       delete groupIDArray[i][group].TABGROUP;
+//     }
+//   }
+// });
 //function takes two arguments url which will be url of active tab
-// and searchTerms which is an array of Terms to search in URL for
-// if any searchTerm in erray is a match return true
-//if it gets to end of loop and ntohign found return false/
-let searchTermInUrl =  (url, searchTerms) => {
+// and searchTerms which is an array of Terms to search for.
+// If any searchTerm in erray is a match return true
+//If it gets to end of loop and ntohign found return false/
+let isSearchTermInUrl =  (url, searchTerms) => {
   if(searchTerms) {
     for(let i = 0; i < searchTerms.length; i++) {
       if(url.includes(searchTerms[i])) {
@@ -37,15 +38,16 @@ let searchTermInUrl =  (url, searchTerms) => {
     return false;
   }
 }
-// listener that can tell if tab changes and new html page loads or if new tab is opened
+// listener that can tell if a tab changes or a  new html page loads or if a new tab is opened
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   // only exectue if tabs are fully loaded
-  if (changeInfo.status === 'complete' && tab.status === 'complete' &&tab.url !== undefined ) {
+  if (changeInfo.status === 'complete' && tab.status === 'complete' && tab.url !== undefined ) {
     //this gets a list of all tab groups in broswer and returns an object of them
     chrome.tabGroups.query({}).then((tabGroupObj) => {
       // this is promise chain of chrome.storage.get instead of callback
       chromeStorageGet(chrome.storage.sync.get(['TABGROUPS'])).then(
         (result) => {
+          //gets the url of the updated tab
           const { url } = tab;
           if (Object.keys(result).length !== 0) {
             let ungroup = true;
@@ -53,9 +55,10 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
               const group = `GROUP${String(i + 1)}`;
               if ( Object.prototype.hasOwnProperty.call(result.TABGROUPS[i], group) ) {
                 const searchTerms = result.TABGROUPS[i][group].URL;
-                if (searchTermInUrl(url, searchTerms)) {
+                if (isSearchTermInUrl(url, searchTerms)) {
                   let match = false;
                   ungroup = false;
+                  //look through all the currrent tab groups if the name matches the crome storage tab groups name pu tin their
                   for (let j = 0; j < tabGroupObj.length; j++) {
                     if (
                       result.TABGROUPS[i][group] &&
@@ -79,7 +82,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                         title: result.TABGROUPS[i][group].NAME,
                         color: result.TABGROUPS[i][group].COLOR,
                       });
-                      groupIDArray[i][group].TABGROUP = id;
+                      // groupIDArray[i][group].TABGROUP = id;
                     });
                   }
                 }
