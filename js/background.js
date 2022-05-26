@@ -8,26 +8,7 @@ function chromeStorageGet(result) {
     }
   });
 }
-// variables to store objects for groups 1, 2, 3, 4, 5, 6, 7, and 8 and put in array to loop through later
-// for any associated tab group ids
-// const groupIDArray = [{ GROUP1: {} }, { GROUP2: {} }, { GROUP3: {} }, { GROUP4: {} }, { GROUP5: {} }, { GROUP6: {} }, { GROUP7: {} }, { GROUP8: {} }];
-// // when a tab group is completly removed this fires and clears out local groupIdArSrays TABGROUP Property
-// chrome.tabGroups.onRemoved.addListener((tabGroup) => {
-//   for (let i = 0; i < groupIDArray.length; i += 1) {
-//     const group = `GROUP${String(i + 1)}`;
-//      console.log(groupIDArray[i][group]);
-//     if (
-//       Object.prototype.hasOwnProperty.call(groupIDArray[i], group) &&
-//       groupIDArray[i][group].TABGROUP === tabGroup.id
-//     ) {
-//       delete groupIDArray[i][group].TABGROUP;
-//     }
-//   }
-// });
-//function takes two arguments url which will be url of active tab
-// and searchTerms which is an array of Terms to search for.
-// If any searchTerm in erray is a match return true
-//If it gets to end of loop and ntohign found return false/
+
 let isSearchTermInUrl =  (url, searchTerms) => {
   if(searchTerms) {
     for(let i = 0; i < searchTerms.length; i++) {
@@ -82,7 +63,6 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                         title: result.TABGROUPS[i][group].NAME,
                         color: result.TABGROUPS[i][group].COLOR,
                       });
-                      // groupIDArray[i][group].TABGROUP = id;
                     });
                   }
                 }
