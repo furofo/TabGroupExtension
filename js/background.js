@@ -37,7 +37,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
               if ( Object.prototype.hasOwnProperty.call(result.TABGROUPS[i], group) ) {
                 const searchTerms = result.TABGROUPS[i][group].URL;
                 if (isSearchTermInUrl(url, searchTerms)) {
-                  let match = false;
+                  let matchingTabGroupInBrowser = false;
                   ungroup = false;
                   //look through all the currrent tab groups if the name matches the crome storage tab groups name pu tin their
                   for (let j = 0; j < tabGroupObj.length; j++) {
@@ -46,7 +46,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                       // tab.groupId === -1 &&
                       tabGroupObj[j].title === result.TABGROUPS[i][group].NAME
                     ) {
-                      match = true;
+                      matchingTabGroupInBrowser = true;
                       chrome.tabs.group({
                         tabIds: tabId,
                         groupId: tabGroupObj[j].id,
@@ -54,7 +54,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                     }
                   }
                   //if it loops through all tab groups in window and no matches found create a new tab group
-                  if (!match) {
+                  if (!matchingTabGroupInBrowser) {
                     // if tab doesn't have a group id already and no other tabs following that same
                     // group rule, make a new tab group and update localvariable groupIDArray with a
                     // property TABGROUP that holds that id
