@@ -7,13 +7,10 @@ const dropDownAll = document.querySelectorAll('.dropdown');
 const boxAll = document.querySelectorAll('.box');
 const colors = {'blue': '#8ab4f7', 'yellow': '#fed663', 'purple': '#c589f9', 'green': '#81c895', 'red': '#f18b82', 'pink': '#ff8bcb', 'orange': '#fbac70', 'cyan': '#78d9ec', 'grey': 'grey'}
 let tabGroupsArray = [];
-
-
 // function that switches a btn elements inner html between two strings
 const toggleButtonText = (btn, str1, str2) => {
   btn.innerHTML = (btn.innerHTML === str1) ? str2 : str1;
 };
-
 // provides functions for each color picking box => changes color/toggles display when clicked 
 for (let i = 0; i < dropDownAll.length; i += 1) {
   // this assigns unique function to dropdown icon for each color box
@@ -260,15 +257,9 @@ let saveButtonLogic =  (button, inputBox, isCheckedArray, checkedNameField, chec
 let editButtonLogic = (button,  isCheckedArray, checkedNameField, checkedUrlField, dropDownBox) => {
   for (let i = 0; i < isCheckedArray.length; i += 1) {
     document.querySelectorAll('.container')[i].style.pointerEvents = 'none';
-    if (i === isCheckedArray.length - 1) {
-      // Handling for last check box returns if it is checked so doesn't throw error logic
-      if (isCheckedArray[i].checked) {
-        toggleInputAndDropdown(checkedNameField[i], checkedUrlField[i], dropDownBox[i])
-      }
-        toggleDisplays(button)
-        return;
-    } else if (isCheckedArray[i].checked) {
+    if (isCheckedArray[i].checked) {
       toggleInputAndDropdown(checkedNameField[i], checkedUrlField[i], dropDownBox[i])
     } 
   }
+  toggleDisplays(button)
 }
