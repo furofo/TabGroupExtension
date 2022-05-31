@@ -196,34 +196,6 @@ let goBackButtonLogic = (isCheckedArray, dropDownBox) => {
     toggleInputAndDropdown(checkedNameField, checkedUrlField, dropDownBox[i])
   }
 }
-
-// // empties out all fields and updates chrome storage sync
-// let deleteButtonLogic = (isCheckedArray, tabGroupsArray) => {
-//   for (let i = 0; i < isCheckedArray.length; i += 1) {
-//     const checkedNameField = document.querySelectorAll('.name')[i];
-//     const checkedUrlField = document.querySelectorAll('.flex-center')[i];
-//     const box = document.querySelectorAll('.box')[i];
-//     const checkedItem = document.querySelectorAll('.container input')[i];
-//     // runs on last item, if checked => remove everything and end here, if not => return 
-//     if (i === isCheckedArray.length - 1) {
-//       if (isCheckedArray[i].checked) {
-//         setValues(checkedNameField, checkedUrlField, box, '', [''], 'grey')
-//         checkedItem.checked = false;
-//         // remove this from tabsGroupArray which should be array of all groups retrieved from google Sync
-//         tabGroupsArray[i] = {};
-//       }
-//         chrome.storage.sync.set({ TABGROUPS: tabGroupsArray });
-//     }
-//     else if (isCheckedArray[i].checked) {
-//       setValues(checkedNameField, checkedUrlField, box, '', [''], 'grey')
-//       checkedItem.checked = false;
-//       // Delete rule
-//       tabGroupsArray[i] = {};
-//     }
-//   }
-// }
-
-// empties out all fields and updates chrome storage sync
 let deleteButtonLogic = (isCheckedArray, tabGroupsArray) => {
   for (let i = 0; i < isCheckedArray.length; i += 1) {
     const checkedNameField = document.querySelectorAll('.name')[i];
@@ -281,8 +253,8 @@ let saveButtonLogic =  (button, inputBox, isCheckedArray, checkedNameField, chec
     } else {
       tabGroupsArray.push({});
     }
-    if(i === isCheckedArray.length - 1) chrome.storage.sync.set({ TABGROUPS: tabGroupsArray }, () => {});
   }
+  chrome.storage.sync.set({ TABGROUPS: tabGroupsArray });
   toggleDisplays(button)
 }
 let editButtonLogic = (button,  isCheckedArray, checkedNameField, checkedUrlField, dropDownBox) => {
