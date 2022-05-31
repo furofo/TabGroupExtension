@@ -163,39 +163,19 @@ const isBlank = (isCheckedArray, checkedNameField, checkedUrlField, boxField) =>
 function updateInputWhenTyped(e) {
   e.target.setAttribute('value', e.target.value);
 }
-
-// // Loops through list and sees if values are checked, if not returns false otherwise returns true
-// let isChecked = (isCheckedArray) => {
-//     let checkedInput = false;
-//     for (let i = 0; i < isCheckedArray.length; i += 1) {
-//     // this runs on last item, if it is checked return false here and
-//     // end here if not just return and do nothing
-//     if (i === isCheckedArray.length - 1) {
-//       if (isCheckedArray[i].checked) checkedInput = true;
-//       if (!checkedInput) return false;
-//     }
-//     if (isCheckedArray[i].checked) checkedInput = true
-//     }
-//     return true;
-// }
-// Loops through list and sees if values are checked, if not returns false otherwise returns true
+// Loops through list and sees if a value is checked, if not returns false otherwise returns true
 let isChecked = (isCheckedArray) => {
   let checkedInput = false;
   for (let i = 0; i < isCheckedArray.length; i += 1) {
-  // this runs on last item, if it is checked return false here and
-  // end here if not just return and do nothing
   if (isCheckedArray[i].checked) checkedInput = true
   }
   return checkedInput;
 }
-
 let goBackButtonLogic = (isCheckedArray, dropDownBox) => {
   // toggle element display buttons
   toggleDisplays(editAddButton)
-
   // update pointer events for check boxes
   document.querySelectorAll('.container').forEach(e =>  e.style.pointerEvents = 'auto')
-
   // loop through the tabGroupsArray and set corresponding values
   // essentially reverts to original state before edits were made 
   for (let i = 0; i < tabGroupsArray.length; i++){
@@ -203,7 +183,6 @@ let goBackButtonLogic = (isCheckedArray, dropDownBox) => {
     const checkedUrlField = document.querySelectorAll('.flex-center')[i];
     const box = document.querySelectorAll('.box')[i];
     const group = `GROUP${String(i + 1)}`
-
     let title, url, color
     if (Object.keys(tabGroupsArray[i]).length !== 0) {
       [title, url, color] = [tabGroupsArray[i][group].NAME, tabGroupsArray[i][group].URL, tabGroupsArray[i][group].COLOR]
@@ -218,33 +197,48 @@ let goBackButtonLogic = (isCheckedArray, dropDownBox) => {
   }
 }
 
+// // empties out all fields and updates chrome storage sync
+// let deleteButtonLogic = (isCheckedArray, tabGroupsArray) => {
+//   for (let i = 0; i < isCheckedArray.length; i += 1) {
+//     const checkedNameField = document.querySelectorAll('.name')[i];
+//     const checkedUrlField = document.querySelectorAll('.flex-center')[i];
+//     const box = document.querySelectorAll('.box')[i];
+//     const checkedItem = document.querySelectorAll('.container input')[i];
+//     // runs on last item, if checked => remove everything and end here, if not => return 
+//     if (i === isCheckedArray.length - 1) {
+//       if (isCheckedArray[i].checked) {
+//         setValues(checkedNameField, checkedUrlField, box, '', [''], 'grey')
+//         checkedItem.checked = false;
+//         // remove this from tabsGroupArray which should be array of all groups retrieved from google Sync
+//         tabGroupsArray[i] = {};
+//       }
+//         chrome.storage.sync.set({ TABGROUPS: tabGroupsArray });
+//     }
+//     else if (isCheckedArray[i].checked) {
+//       setValues(checkedNameField, checkedUrlField, box, '', [''], 'grey')
+//       checkedItem.checked = false;
+//       // Delete rule
+//       tabGroupsArray[i] = {};
+//     }
+//   }
+// }
+
 // empties out all fields and updates chrome storage sync
-let deleteButtonLogic = (isCheckedArray, tabGroupsArray, dropDownBox) => {
+let deleteButtonLogic = (isCheckedArray, tabGroupsArray) => {
   for (let i = 0; i < isCheckedArray.length; i += 1) {
     const checkedNameField = document.querySelectorAll('.name')[i];
     const checkedUrlField = document.querySelectorAll('.flex-center')[i];
     const box = document.querySelectorAll('.box')[i];
     const checkedItem = document.querySelectorAll('.container input')[i];
     // runs on last item, if checked => remove everything and end here, if not => return 
-    if (i === isCheckedArray.length - 1) {
       if (isCheckedArray[i].checked) {
         setValues(checkedNameField, checkedUrlField, box, '', [''], 'grey')
         checkedItem.checked = false;
         // remove this from tabsGroupArray which should be array of all groups retrieved from google Sync
         tabGroupsArray[i] = {};
-        chrome.storage.sync.set({ TABGROUPS: tabGroupsArray }).then(() => {});
       }
-      else {
-        chrome.storage.sync.set({ TABGROUPS: tabGroupsArray }).then(() => {});
-      }
-    }
-    else if (isCheckedArray[i].checked) {
-      setValues(checkedNameField, checkedUrlField, box, '', [''], 'grey')
-      checkedItem.checked = false;
-      // Delete rule
-      tabGroupsArray[i] = {};
-    }
   }
+   chrome.storage.sync.set({ TABGROUPS: tabGroupsArray });
 }
 // save logic
 let saveButtonLogic =  (button, inputBox, isCheckedArray, checkedNameField, checkedUrlField, boxField, dropDownBox) =>  {
