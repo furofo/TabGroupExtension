@@ -44,34 +44,34 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   // only exectue if tabs are fully loaded
   if (changeInfo.status === 'complete' && tab.status === 'complete' && tab.url !== undefined ) {
     //this gets a list of all tab groups in broswer and returns an object of them
-    chrome.tabGroups.query({}).then((tabGroupObj) => {
+    chrome.tabGroups.query({}).then((browserTabGroupObject) => {
       // this is promise chain of chrome.storage.get instead of callback
       chromeStorageGet(chrome.storage.sync.get(['TABGROUPS'])).then(
-        (result) => {
+        (chromeStorageTabGroupObject) => {
           //gets the url of the updated tab
           const { url } = tab;
-          if (Object.keys(result).length !== 0) {
+          if (Object.keys(chromeStorageTabGroupObject).length !== 0) {
             let ungroup = true;
             let matchingTabGroupInBrowser = false;
-            for (let i = 0; i < result.TABGROUPS.length; i += 1) {
+            for (let i = 0; i < chromeStorageTabGroupObject.TABGROUPS.length; i += 1) {
               const group = `GROUP${String(i + 1)}`;
-              if ( Object.prototype.hasOwnProperty.call(result.TABGROUPS[i], group) ) {
-                const searchTerms = result.TABGROUPS[i][group].URL;
+              const currentChromeStorageTabGroup = chromeStorageTabGroupObject.TABGROUPS[i];
+              if ( Object.prototype.hasOwnProperty.call(currentChromeStorageTabGroup, group) ) {
+                const searchTerms = currentChromeStorageTabGroup[group].URL;
                 if (isSearchTermInUrl(url, searchTerms)) {
                   ungroup = false;
-                  matchingTabGroupInBrowser = groupTabIfTabGroupExistsInBrowser(tabGroupObj, result.TABGROUPS[i][group], tabId);
-                  if (!matchingTabGroupInBrowser) {
-                    // if tab doesn't have a group id already and no other tabs following that same
+                  matchingTabGroupInBrowser = groupTabIfTabGroupExistsInBrowser(browserTabGroupObject, currentChromeStorageTabGroup[group], tabId);
+                  // if tab doesn't have a group id already and no other tabs following that same
                     // group rule, make a new tab group and update localvariable groupIDArray with a
                     // property TABGROUP that holds that id
+                  if (!matchingTabGroupInBrowser) {
                     chrome.tabs.group({ tabIds: tabId }).then((id) => {
                       chrome.tabGroups.update(id, {
-                        title: result.TABGROUPS[i][group].NAME,
-                        color: result.TABGROUPS[i][group].COLOR,
+                        title: chromeStorageTabGroupObject.TABGROUPS[i][group].NAME,
+                        color: chromeStorageTabGroupObject.TABGROUPS[i][group].COLOR,
                       });
                     });
                   }
-                  //if it loops through all tab groups in window and no matches found create a new tab group
               }
             }
           //if this code exectutes no matches where found on this tab id so ungroup this tab id from tabgroups if it is in one.

@@ -11,21 +11,23 @@ let tabGroupsArray = [];
 
 // function that switches a btn elements inner html between two strings
 const toggleButtonText = (btn, str1, str2) => {
-  btn.innerHTML = (btn.innerHTML === str1) ? str2 :str1;
+  btn.innerHTML = (btn.innerHTML === str1) ? str2 : str1;
 };
 
 // provides functions for each color picking box => changes color/toggles display when clicked 
 for (let i = 0; i < dropDownAll.length; i += 1) {
   // this assigns unique function to dropdown icon for each color box
   dropDownAll[i].onclick = () => {
-    for (let j = 0; j < boxAll.length; j += 1) {
+  for (let j = 0; j < boxAll.length; j += 1) {
+    // if there are other drop downs open other than this one clsoe them
       if (i !== j && boxAll[j].classList.contains('active-box')) {
         boxAll[j].classList.toggle('active-box');
       }
     }
     boxAll[i].classList.toggle('active-box');
   };
-
+  // loops through all color options and all boxes and assigns them all functions, if any of these colors are clicked, assigns the parent element the color of them and toggles
+  //active box class. This triggers when the drop down box is opened and a color is clicked.
   for (const color in colors) {
     if (color==='grey') continue
     boxAll[i].querySelector(`.${color}-box`).onclick = function () {
@@ -37,7 +39,7 @@ for (let i = 0; i < dropDownAll.length; i += 1) {
 }
 
 // Looks at second argument for parent element, if it has parent element
-// and doesn't have class of dropdown and doesn't match element in the elmeArr toggles
+// that doesn't have class of dropdown and doesn't match element in the elmeArr toggles
 // active-box away from it, ignores drop down when clicked since
 // we have a functoin for that already that toggles when that is clicked among other things.
 const determineClickHandlerInB = (elemArr, elemToMatch) => {
@@ -57,7 +59,6 @@ const determineClickHandlerInB = (elemArr, elemToMatch) => {
 
 // add listener to first name value and use method to set value attribute of input to what is being typed
 document.getElementById('first-name').addEventListener('input', updateInputWhenTyped);
-
 // click outside drop down to close 
 document.addEventListener('mouseup', (e) => {
   // if the target of the click isn't the container nor a descendant of the container
@@ -163,21 +164,30 @@ function updateInputWhenTyped(e) {
   e.target.setAttribute('value', e.target.value);
 }
 
+// // Loops through list and sees if values are checked, if not returns false otherwise returns true
+// let isChecked = (isCheckedArray) => {
+//     let checkedInput = false;
+//     for (let i = 0; i < isCheckedArray.length; i += 1) {
+//     // this runs on last item, if it is checked return false here and
+//     // end here if not just return and do nothing
+//     if (i === isCheckedArray.length - 1) {
+//       if (isCheckedArray[i].checked) checkedInput = true;
+//       if (!checkedInput) return false;
+//     }
+//     if (isCheckedArray[i].checked) checkedInput = true
+//     }
+//     return true;
+// }
 // Loops through list and sees if values are checked, if not returns false otherwise returns true
 let isChecked = (isCheckedArray) => {
-    let checkedInput = false;
-    for (let i = 0; i < isCheckedArray.length; i += 1) {
-    // this runs on last item, if it is checked remove everything and
-    // end here if not just return and do nothing
-    if (i === isCheckedArray.length - 1) {
-      if (isCheckedArray[i].checked) checkedInput = true;
-      if (!checkedInput) return false;
-    }
-    if (isCheckedArray[i].checked) checkedInput = true
-    }
-    return true;
+  let checkedInput = false;
+  for (let i = 0; i < isCheckedArray.length; i += 1) {
+  // this runs on last item, if it is checked return false here and
+  // end here if not just return and do nothing
+  if (isCheckedArray[i].checked) checkedInput = true
+  }
+  return checkedInput;
 }
-
 
 let goBackButtonLogic = (isCheckedArray, dropDownBox) => {
   // toggle element display buttons
@@ -236,7 +246,6 @@ let deleteButtonLogic = (isCheckedArray, tabGroupsArray, dropDownBox) => {
     }
   }
 }
-
 // save logic
 let saveButtonLogic =  (button, inputBox, isCheckedArray, checkedNameField, checkedUrlField, boxField, dropDownBox) =>  {
   // Loops through all rules if any are checked if they are blank 
@@ -247,7 +256,6 @@ let saveButtonLogic =  (button, inputBox, isCheckedArray, checkedNameField, chec
     })
     return;
   }
-
   tabGroupsArray = [];
   // unchecks everything that is checked
   for (let i = 0; i < isCheckedArray.length; i += 1) {
