@@ -1,22 +1,81 @@
+/* CSS reset */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { 
+  margin:0;
+  padding:0;
+}
+html,body {
+  margin:0;
+  padding:0;
+}
+table {
+  border-collapse:collapse;
+  border-spacing:0;
+}
+fieldset,img { 
+  border:0;
+}
+input{
+  border:1px solid #b0b0b0;
+  padding:3px 5px 4px;
+  color:#979797;
+  width:190px;
+}
+address,caption,cite,code,dfn,th,var {
+  font-style:normal;
+  font-weight:normal;
+}
+ol,ul {
+  list-style:none;
+}
+caption,th {
+  text-align:left;
+}
+h1,h2,h3,h4,h5,h6 {
+  font-size:100%;
+  font-weight:normal;
+}
+q:before,q:after {
+  content:'';
+}
+abbr,acronym { border:0;
+}
+
+
 .center {
-    display: flex;
-    justify-content: center;
+  width: 95%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  font-size: 22px;
+  text-align: center;
 }
 body {
-    width: 375px;
+    width: 800px;
+    
     font-family: sans-serif;
+    
+}
+#selector-heading {
+  width: 16%;
+}
+
+#title-heading, #domain-heading {
+  width: 32%;
+}
+#color-heading {
+  width: 20%;
 }
 button {
     height: 30px;
     width: 25%;
-    padding: 0;
+    padding: 5px;
     outline: none;
     margin: 10px;
     border: none;
     border-radius: 10px;
     background-color: brown;
     color: white;
-    font-size: .85em;
+    font-size: .75em;
   }
 
   #go-back {
@@ -49,15 +108,14 @@ button {
       width: 50%;
   }
   .rule-buttons {
-    margin: 1.5em;
+    margin: 1.5em 0px 1.5em 0px;
   }
-  .rule-headings {
-  }
+
   .rule-headings h3{
       display: inline-block;
-      font-size: .85em;
+      
   }
-  .rule-headings :nth-child(1) {
+  /* .rule-headings :nth-child(1) {
     margin-left: 10px;
     margin-right: 45px;
   }
@@ -66,22 +124,25 @@ button {
   }
 
   .rule-headings :nth-child(3) {
-    margin-right: 40px;
-  }
-
+    margin-right: 30px;
+  } */
 
 
   .container {
+    justify-content: center;
+    align-content: center;
+    width: 16%;
+    height: 30px;
     display: flex;
     position: relative;
-    padding-left: 50px;
-    padding-bottom: 10px;
+    /* padding-left: 50px; */
     cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
     overflow: hidden;
+    /* justify-content: flex-start; */
 }
 
   /* Hide the browser's default checkbox */
@@ -93,18 +154,16 @@ button {
     width: 0;
   }
   
-  /* Create a custom  */
   .checkmark {
     position: absolute;
-    top: 25%;
-    left: 10px;
+    top: 5px;
+    left: 44px;
     border-radius: 5px;
-    height: 15px;
-    width: 15px;
+    height: 20px;
+    width: 20px;
     background-color: rgb(228, 226, 226);
     border: 2px solid black;
 }
-  
   /* On mouse-over, add a grey background color */
   .container:hover input ~ .checkmark {
     background-color: rgb(214, 253, 250);
@@ -129,24 +188,25 @@ button {
   
   /* Style the checkmark/indicator */
   .container .checkmark:after {
-    left: 4px;
+    top: 1px;
+    left: 7px;
     width: 5px;
-    height: 10px;
+    height: 12px;
     border: solid white;
     border-width: 0 3px 3px 0;
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
-  }
-
+}
  .rule-headings{
      /* margin-bottom: 1.3em; */
-     font-size: 1.3em
+     font-size: 22px;
+     margin: 30px 0px 30px 0px;
  }
  .rule-content {
-  height: 2em;
+  height: 30px;
   margin: 0 5px;
-  width: 30%;
+  width: 32%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -154,11 +214,12 @@ button {
   border-radius: 5px;
 }
 .color-content {
-  margin-left: 10px;
-  padding: 2px;
+  width: 20%;
+  /* margin-left: 10px; */
+  /* padding: 2px; */
   display: flex;
   align-items: center;
-  justify-content: baseline;
+  justify-content: center;
 }
   #color-check-button {
       left: 40%;
@@ -226,8 +287,8 @@ button {
 .box {
   display: inline-block;
   background-color: grey;
-  width: 25px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   position: relative;
   padding: 0px;
 }
@@ -245,8 +306,8 @@ button {
 }
 .active-box > div {
   border: 1px solid grey;
-  min-height: 20px;
-  min-width: 20px;
+  min-height: 30px;
+  min-width: 30px;
   opacity: 1;
   z-index: 3;
 }
@@ -280,7 +341,7 @@ button {
 .green-box {
   position: absolute;
   top: 100%;
-  left: 23px;
+  left: 30px;
   background-color: #81c895;
   width: 100%;
   height: 100%;
@@ -289,7 +350,7 @@ button {
 .red-box {
   position: absolute;
   top: 200%;
-  left: 23px;
+  left: 30px;
   background-color: #f18b82;
   width: 100%;
   height: 100%;
@@ -298,7 +359,7 @@ button {
 .pink-box {
   position: absolute;
   top: 300%;
-  left: 23px;
+  left: 30px;
   background-color: #ff8bcb;
   width: 100%;
   height: 100%;
@@ -307,7 +368,7 @@ button {
 .cyan-box {
   position: absolute;
   top: 400%;
-  left: 0px;
+  left: 30px;
   background-color: #78d9ec;
   width: 100%;
   height: 100%;
@@ -316,7 +377,7 @@ button {
 .orange-box {
   position: absolute;
   top: 400%;
-  left: 23px;
+  left: 30px;
   background-color: #fbac70;
   width: 100%;
   height: 100%;
@@ -332,8 +393,8 @@ button {
   justify-content: center;
   cursor: pointer;
   position: relative;
-  width: 16px;
-  height: 20px;
+  width: 20px;
+  height: 30px;
   background-color: black;
   padding: 0px;
 }
