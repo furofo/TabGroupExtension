@@ -15,7 +15,7 @@
 
 ## Youtube Guide
 <p align='center'>
-<a href="https://www.youtube.com/watch?v=aLIIAZAC4bo">
+<a href="https://www.youtube.com/watch?v=sloz6SB8Id0">
 <img width='450px' src="https://img.youtube.com/vi/aLIIAZAC4bo/maxresdefault.jpg" />
 </a>
 </p>
