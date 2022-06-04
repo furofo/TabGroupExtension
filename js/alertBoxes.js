@@ -2,13 +2,15 @@ const ModalWindow = {
     init() {
         document.body.addEventListener('click', e => {
           // IF this is go back or close button clicked return this ModalWindow objects closeMOdeal with teh element that was clicked as argument
-            if(e.target.classList.contains("modal__close") || e.target.classList.contains("modal__goback__button")) {
-                this.closeModal(e.target);
+            if(e.target.classList.contains("modal__close") || 
+            e.target.classList.contains("modal__overlay") ||
+            e.target.classList.contains("modal__goback__button")) {
+                this.closeModal();
             }
             // if confirm button is clicked instead use delet ebutton logic  with argument isCheckedArray and tabGroups array as arguments
             else if (e.target.classList.contains("modal__confirm__button")) {
               deleteButtonLogic(isCheckedArray, tabGroupsArray);
-              this.closeModal(e.target)
+              this.closeModal()
 
             }
         })
@@ -63,8 +65,8 @@ const ModalWindow = {
   const modalTemplate = this.getHtmlTemplate(modalOptions);
   document.body.insertAdjacentHTML("afterbegin", modalTemplate);
     },
-    closeModal(closeButton) {
-        const modalOverlay = closeButton.parentElement.parentElement.parentElement;
+    closeModal() {
+        const modalOverlay = document.querySelector(".modal__overlay");
        document.body.removeChild(modalOverlay);
     }
   }

@@ -66,17 +66,18 @@ body {
   width: 20%;
 }
 button {
-    height: 30px;
-    width: 25%;
-    padding: 5px;
-    outline: none;
-    margin: 10px;
-    border: none;
-    border-radius: 10px;
-    background-color: brown;
-    color: white;
-    font-size: .75em;
-  }
+  /* height: 30px; */
+  width: 25%;
+  padding: 5px;
+  outline: none;
+  margin: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: brown;
+  color: white;
+  font-size: 22px;
+  padding: 10px;
+}
 
   #go-back {
     display: none;
@@ -393,7 +394,7 @@ button {
   justify-content: center;
   cursor: pointer;
   position: relative;
-  width: 20px;
+  width: 15px;
   height: 30px;
   background-color: black;
   padding: 0px;

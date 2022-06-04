@@ -22,14 +22,15 @@
   }
 
   .modal__titlebar {
-    height: 20px;
+    height: 50px;
     background: darkred;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-  }
+    font-size: 20px;
+}
 
   .modal__title{
     margin-left: 15px;
@@ -38,55 +39,51 @@
   }
 
   .modal__close {
-    width: 15px;
+    width: 35px;
     outline: none;
     border: none;
     background: transparent;
     color: #eeeeee;
     cursor: pointer;
-  }
+}
   .modal__close:hover{
     color: grey;
   }
 
-  .modal__content{
+  .modal__content {
     padding: 10px;
-    font-size: 0.9em;
-
-  }
+    font-size: 24px;
+}
   .modal__buttons {
     display: flex;
     justify-content: center;
     width: 100%;
   }
 
-  .modal__goback__button{
-    margin-bottom: 5px;
+  .modal__goback__button {
+    margin-bottom: 19px;
     cursor: pointer;
-    font-size: .7em;
+    font-size: 22px;
     background-color: darkred;
     border: 1px solid grey;
     box-shadow: 10px grey;
-    height: 20px;
-
-  }
+    padding: 10px;
+    height: auto;
+}
   .modal__confirm__button {
-    /* padding: 5px auto; */
-    margin-bottom: 5px;
+    margin-bottom: 19px;
     cursor: pointer;
-    font-size: .8em;
+    font-size: 22px;
     background-color: darkgreen;
     border: 1px solid grey;
     box-shadow: 10px grey;
-    height: 20px;
+    height: auto;
   }
-
   .modal__goback__button:hover {
     background-color: lightcoral;
     color: black;
   }
   .modal__confirm__button:hover {
     background-color: lightgreen;
-    font-size: 0.85em;
     color: black;
   }
