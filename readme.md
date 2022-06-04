@@ -29,7 +29,7 @@
 ### Inputs
 - `Selector`: Group selector to add/edit/delete
 - `Title`: Name of sorted tab group
-- `Domain`: String in URL to determine grouping
+- `Domain`: String in URL to determine grouping, can separate multiple urls with commas
 - `Color`: Tab group color
 
 Make sure to set all values ***no fields can be left blank*** or the extension will throw a descriptive error
