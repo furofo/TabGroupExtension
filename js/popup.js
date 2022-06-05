@@ -49,4 +49,11 @@ editAddButton.addEventListener('click', async function ()  {
   }
 });
 
-
+zoomLg.addEventListener('click', async() => {
+  document.getElementById('page-style').setAttribute('href', "/css/style.css")
+  document.getElementById('alert-style').setAttribute('href', "/css/alert-boxes.css")
+})
+zoomReg.addEventListener('click', async() => {
+  document.getElementById('page-style').setAttribute('href', "/css/styles2.css")
+  document.getElementById('alert-style').setAttribute('href', "/css/alert-boxes2.css")
+})
