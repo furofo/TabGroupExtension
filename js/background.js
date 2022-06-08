@@ -34,7 +34,7 @@ function groupTabIfTabGroupExistsInBrowser(browserTabGroupObject, chromeStorageT
       chrome.tabs.group({
         tabIds: tabId,
         groupId: browserTabGroupObject[i].id,
-      });
+      }).catch((e) => console.log(e));
     }
   }
   return matchingTabGroupInBrowser;
@@ -59,7 +59,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
               if ( Object.prototype.hasOwnProperty.call(currentChromeStorageTabGroup, group) ) {
                 const searchTerms = currentChromeStorageTabGroup[group].URL;
                 if (isSearchTermInUrl(url, searchTerms)) {
-                  ungroup = false;
+                  ungroup = false
                   matchingTabGroupInBrowser = groupTabIfTabGroupExistsInBrowser(browserTabGroupObject, currentChromeStorageTabGroup[group], tabId);
                   // if tab doesn't have a group id already and no other tabs following that same
                     // group rule, make a new tab group and update localvariable groupIDArray with a
@@ -74,9 +74,9 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                   }
               }
             }
+          }
           //if this code exectutes no matches where found on this tab id so ungroup this tab id from tabgroups if it is in one.
           if (ungroup) {chrome.tabs.ungroup(tabId)}
-          }
         }
       }
       );
