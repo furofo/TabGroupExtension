@@ -7,6 +7,9 @@ const dropDownAll = document.querySelectorAll('.dropdown');
 const boxAll = document.querySelectorAll('.box');
 const colors = {'blue': '#8ab4f7', 'yellow': '#fed663', 'purple': '#c589f9', 'green': '#81c895', 'red': '#f18b82', 'pink': '#ff8bcb', 'orange': '#fbac70', 'cyan': '#78d9ec', 'grey': 'grey'}
 let tabGroupsArray = [];
+const zoomLg = document.getElementById('zoom-lg')
+const zoomReg = document.getElementById('zoom-reg')
+
 // function that switches a btn elements inner html between two strings
 const toggleButtonText = (btn, str1, str2) => {
   btn.innerHTML = (btn.innerHTML === str1) ? str2 : str1;
@@ -80,6 +83,7 @@ window.onload = () => {
       const urls = document.querySelectorAll('.flex-center');
       const boxes = document.querySelectorAll('.box');
       for (let i = 0; i < result.TABGROUPS.length; i += 1) {
+        if (result.TABGROUPS[i] === null) result.TABGROUPS[i] = {}
         tabGroupsArray.push(result.TABGROUPS[i]);
         const group = `GROUP${String(i + 1)}`;
         if (
@@ -174,7 +178,8 @@ let goBackButtonLogic = (isCheckedArray, dropDownBox) => {
   // update pointer events for check boxes
   document.querySelectorAll('.container').forEach(e =>  e.style.pointerEvents = 'auto')
   // loop through the tabGroupsArray and set corresponding values
-  // essentially reverts to original state before edits were made 
+  // essentially reverts to original state before edits were made
+  if (tabGroupsArray.length===0) tabGroupsArray = [{},{},{},{},{},{},{},{}]
   for (let i = 0; i < tabGroupsArray.length; i++){
     const checkedNameField = document.querySelectorAll('.name')[i];
     const checkedUrlField = document.querySelectorAll('.flex-center')[i];

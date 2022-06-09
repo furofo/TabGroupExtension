@@ -14,7 +14,10 @@
             "48": "/resizedTabLogo48.png",
             "16": "/resizedTabLogo16.png"
         }
-    }
-
+    },
+    "icons": {
+        "128": "/resizedTabLogo128.png",
+        "48": "/resizedTabLogo48.png",
+        "16": "/resizedTabLogo16.png" }
 }
 

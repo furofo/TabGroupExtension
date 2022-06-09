@@ -1,0 +1,91 @@
+/* custom dialog menu */
+
+.modal__overlay {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+  .modal__window{
+    width: 60%;
+    background: white;
+    font-size: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.25);
+    border-radius: 10px;
+
+  }
+
+  .modal__titlebar {
+    height: 20px;
+    background: darkred;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  .modal__title{
+    margin-left: 15px;
+    font-weight: bold;
+    color: #eeeeee;
+  }
+
+  .modal__close {
+    width: 15px;
+    outline: none;
+    border: none;
+    background: transparent;
+    color: #eeeeee;
+    cursor: pointer;
+  }
+  .modal__close:hover{
+    color: grey;
+  }
+
+  .modal__content{
+    padding: 10px;
+    font-size: 0.9em;
+
+  }
+  .modal__buttons {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .modal__goback__button{
+    margin-bottom: 5px;
+    cursor: pointer;
+    font-size: .7em;
+    background-color: darkred;
+    border: 1px solid grey;
+    box-shadow: 10px grey;
+    height: 20px;
+
+  }
+  .modal__confirm__button {
+    margin-bottom: 5px;
+    cursor: pointer;
+    font-size: .8em;
+    background-color: darkgreen;
+    border: 1px solid grey;
+    box-shadow: 10px grey;
+    height: 20px;
+  }
+
+  .modal__goback__button:hover {
+    background-color: lightcoral;
+    color: black;
+  }
+  .modal__confirm__button:hover {
+    background-color: lightgreen;
+    font-size: 0.85em;
+    color: black;
+  }

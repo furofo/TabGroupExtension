@@ -1,84 +1,23 @@
-/* CSS reset */
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { 
-  margin:0;
-  padding:0;
-}
-html,body {
-  margin:0;
-  padding:0;
-}
-table {
-  border-collapse:collapse;
-  border-spacing:0;
-}
-fieldset,img { 
-  border:0;
-}
-input {
-  border: 1px solid #b0b0b0;
-  padding: 3px 5px 4px;
-  color: darkblue;
-  font-weight: bold;
-  width: 190px;
-}
-address,caption,cite,code,dfn,th,var {
-  font-style:normal;
-  font-weight:normal;
-}
-ol,ul {
-  list-style:none;
-}
-caption,th {
-  text-align:left;
-}
-h1,h2,h3,h4,h5,h6 {
-  font-size:100%;
-  font-weight:normal;
-}
-q:before,q:after {
-  content:'';
-}
-abbr,acronym { border:0;
-}
-
-
 .center {
-  width: 95%;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
-  font-size: 22px;
-  text-align: center;
+    display: flex;
+    justify-content: center;
 }
 body {
-    width: 800px;
-  
+    width: 375px;
     font-family: sans-serif;
-    
-}
-#selector-heading {
-  width: 16%;
-}
-
-#title-heading, #domain-heading {
-  width: 32%;
-}
-#color-heading {
-  width: 20%;
 }
 button {
-  /* height: 30px; */
-  width: 25%;
-  padding: 5px;
-  outline: none;
-  margin: 10px;
-  border: none;
-  border-radius: 10px;
-  background-color: brown;
-  color: white;
-  font-size: 22px;
-  padding: 10px;
-}
+    height: 30px;
+    width: 25%;
+    padding: 0;
+    outline: none;
+    margin: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: brown;
+    color: white;
+    font-size: .85em;
+  }
 
   #go-back {
     display: none;
@@ -110,21 +49,32 @@ button {
       width: 50%;
   }
   .rule-buttons {
-    margin: 1.5em 0px 0 0px;
+    margin: 1.5em 1.5em 0 1.5em;
   }
 
   .rule-headings h3{
       display: inline-block;
-      
+      font-size: .85em;
+  }
+  #selector-heading {
+    margin-right: 45px;
+  }
+  #title-heading {
+    margin-right: 35px;
+  }
+  #domain-heading{
+    margin-left: 30px;
+    margin-right: 5px;
+  }
+  #color-heading{
+    margin-left: 20px;
   }
 
   .container {
-    justify-content: center;
-    align-content: center;
-    width: 16%;
-    height: 30px;
     display: flex;
     position: relative;
+    padding-left: 50px;
+    padding-bottom: 10px;
     cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -142,16 +92,18 @@ button {
     width: 0;
   }
   
+  /* Create a custom  */
   .checkmark {
     position: absolute;
-    top: 5px;
-    left: 44px;
+    top: 25%;
+    left: 10px;
     border-radius: 5px;
-    height: 20px;
-    width: 20px;
+    height: 15px;
+    width: 15px;
     background-color: rgb(228, 226, 226);
     border: 2px solid black;
 }
+  
   /* On mouse-over, add a grey background color */
   .container:hover input ~ .checkmark {
     background-color: rgb(214, 253, 250);
@@ -176,24 +128,24 @@ button {
   
   /* Style the checkmark/indicator */
   .container .checkmark:after {
-    top: 1px;
-    left: 7px;
+    left: 4px;
     width: 5px;
-    height: 12px;
+    height: 10px;
     border: solid white;
     border-width: 0 3px 3px 0;
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
-}
+  }
+
  .rule-headings{
-     font-size: 22px;
-     margin: 30px 0px 30px 0px;
+     /* margin-bottom: 1.3em; */
+     font-size: 1.3em
  }
  .rule-content {
-  height: 30px;
+  height: 2em;
   margin: 0 5px;
-  width: 32%;
+  width: 30%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -201,10 +153,12 @@ button {
   border-radius: 5px;
 }
 .color-content {
-  width: 20%;
+  margin-left: 10px;
+  width: 35px;
+  padding: 2px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: baseline;
 }
   #color-check-button {
       left: 40%;
@@ -212,6 +166,7 @@ button {
 
   #fav-color {
     border-style: none;
+    /* border: none; */
     width: 10%;
     padding: 0px;
     background-color: none;
@@ -223,13 +178,14 @@ button {
   height: 70%;
   text-align: center;
   width: 100%;
+  padding: 2px;
   border-radius: 5px;
   justify-content: center;
   border: none;
 }
 
 .flex-center:disabled {
-  color: rgb(80, 80, 80);
+  color: black;
   background-color: white;
 }
 
@@ -252,15 +208,15 @@ button {
     height: 70%;
     text-align: center;
     width: 100%;
+    /* padding: 2px; */
     border-radius: 5px;
     justify-content: center;
     border: none;
 }
 
 .name:disabled {
-  color: rgb(80, 80, 80);
+  color: black;
   background-color: white;
-  
 }
 
 .box-style {
@@ -270,8 +226,8 @@ button {
 .box {
   display: inline-block;
   background-color: grey;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 20px;
   position: relative;
   padding: 0px;
 }
@@ -289,8 +245,8 @@ button {
 }
 .active-box > div {
   border: 1px solid grey;
-  min-height: 30px;
-  min-width: 30px;
+  min-height: 20px;
+  min-width: 20px;
   opacity: 1;
   z-index: 3;
 }
@@ -324,7 +280,7 @@ button {
 .green-box {
   position: absolute;
   top: 100%;
-  left: 30px;
+  left: 23px;
   background-color: #81c895;
   width: 100%;
   height: 100%;
@@ -333,7 +289,7 @@ button {
 .red-box {
   position: absolute;
   top: 200%;
-  left: 30px;
+  left: 23px;
   background-color: #f18b82;
   width: 100%;
   height: 100%;
@@ -342,7 +298,7 @@ button {
 .pink-box {
   position: absolute;
   top: 300%;
-  left: 30px;
+  left: 23px;
   background-color: #ff8bcb;
   width: 100%;
   height: 100%;
@@ -351,7 +307,7 @@ button {
 .cyan-box {
   position: absolute;
   top: 400%;
-  left: 30px;
+  left: 0px;
   background-color: #78d9ec;
   width: 100%;
   height: 100%;
@@ -360,6 +316,7 @@ button {
 .orange-box {
   position: absolute;
   top: 400%;
+  left: 23px;
   background-color: #fbac70;
   width: 100%;
   height: 100%;
@@ -375,8 +332,8 @@ button {
   justify-content: center;
   cursor: pointer;
   position: relative;
-  width: 15px;
-  height: 30px;
+  width: 16px;
+  height: 20px;
   background-color: black;
   padding: 0px;
 }
@@ -388,29 +345,23 @@ button {
   fill:lightblue;
 }
 
-
 .zoom-container {
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.7em;
-  margin: 0 1.5em 1em 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .zoom {
-  cursor: pointer;
-  color: black;
-  width: 35px;
-  height: 35px;
-  font-size: 1.2em;
-  background-color: #e5dfdf;
-  border: 1px solid black;
-  border-radius: 50%;
-  transition: 200ms;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    cursor: pointer;
+    color: black;
+    width: 25px;
+    height: 25px;
+    background-color: #e5dfdf;
+    font-size: 1.4em;
+    border: 1px solid black;
+    border-radius: 50%;
+    transition: 200ms;
 }
 .zoom:hover {
-  background-color: #2196F3;
+    background-color: #2196F3;
 }
