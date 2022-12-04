@@ -19,6 +19,27 @@ let isSearchTermInUrl =  (url, searchTerms) => {
     return false;
   }
 }
+/*
+URL VALIDATION
+*/
+function validURL(str) {
+  var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+    '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+  return !!pattern.test(str);
+}
+/*
+domain / subdomain match 
+*/
+let isHostMatch = (url,searchTerms)=>{
+  let baseUrl=new URL(url);
+  return searchTerms.filter(function (inUrl){
+    return validURL(inUrl) && (new URL(inUrl)).hostname==baseUrl.hostname;
+  }).length;
+}
 
 //function looks through a current browswerTabGroupObject and a the a chromeStorageTabGroup Object and if the name of one of the tab group objects
 // in the the browser matches the name from chrome storage object it puts in that tab group and returns true, otherwise returns false
@@ -58,7 +79,11 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
               const currentChromeStorageTabGroup = chromeStorageTabGroupObject.TABGROUPS[i];
               if ( Object.prototype.hasOwnProperty.call(currentChromeStorageTabGroup, group) ) {
                 const searchTerms = currentChromeStorageTabGroup[group].URL;
-                if (isSearchTermInUrl(url, searchTerms)) {
+                /*
+                added hostmatch
+                proper url should be used in domain / url inputbox
+                */
+                if (isHostMatch(url, searchTerms) && isSearchTermInUrl(url, searchTerms)) {
                   ungroup = false
                   matchingTabGroupInBrowser = groupTabIfTabGroupExistsInBrowser(browserTabGroupObject, currentChromeStorageTabGroup[group], tabId);
                   // if tab doesn't have a group id already and no other tabs following that same
