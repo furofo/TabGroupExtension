@@ -31,13 +31,16 @@ function validURL(str) {
     '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
   return !!pattern.test(str);
 }
+const withHttp = (url) => url.replace(/^(?:(.*:)?\/\/)?(.*)/i, (match, schemma, nonSchemmaUrl) => schemma ? match : `http://${nonSchemmaUrl}`);
+
 /*
 domain / subdomain match 
 */
 let isHostMatch = (url,searchTerms)=>{
   let baseUrl=new URL(url);
   return searchTerms.filter(function (inUrl){
-    return validURL(inUrl) && (new URL(inUrl)).hostname==baseUrl.hostname;
+    let inUrlWithHttp=withHttp(inUrl);
+    return validURL(inUrlWithHttp) && (new URL(inUrlWithHttp)).hostname==baseUrl.hostname;
   }).length;
 }
 
@@ -45,7 +48,7 @@ let isHostMatch = (url,searchTerms)=>{
 // in the the browser matches the name from chrome storage object it puts in that tab group and returns true, otherwise returns false
 function groupTabIfTabGroupExistsInBrowser(browserTabGroupObject, chromeStorageTabGroupObject, tabId) {
   let matchingTabGroupInBrowser = false;
-  console.log("chrome storage object is " + chromeStorageTabGroupObject);
+ // console.log("chrome storage object is " + chromeStorageTabGroupObject);
   for (let i = 0; i < browserTabGroupObject.length; i++) {
     if (
       chromeStorageTabGroupObject &&
