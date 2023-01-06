@@ -1,0 +1,30 @@
+Google TabGroups
+
+
+Use the chrome.tabs API to interact with the browser's tab system. You can use this API to 
+create, modify, and rearrange tabs in the browser.
+
+
+So chrome.tabs is an API, good way to think of it is a like a library of functions and objects and methods on objects
+tat you can use. So for instance chrome.tabs.group (lets you create and manage tab groups is a method or function)
+
+chrome.tabGroups.query() is function takes two arguments obj with key value pairs that chrome searches for  and a call back function that uses the objects it finds
+ins some way
+
+The objects have folling proprerties
+collapse: boolean true false
+color: string for color value
+id: some number unique identifier of some sort?
+title: title of the group'
+windowId: another identifier possibly for current window???
+
+
+chrome.tabs handles all indiviual tab functions is where you go to manager, and put tabs in gropus too
+takes object as hanlder and does a promise with tab id or group of tab ids as argument can add with chrome.tabs.group(obj with right key value).then to do
+
+
+Right now, my code looks for john and creates a new tab group with new color each time john is found.
+Separate logic for storing things in google sync looks like.
+
+
+
