@@ -87,4 +87,10 @@ chrome.commands.onCommand.addListener((command) => {
   console.log(`Command "${command}" triggered`);
   // alert('KEyboard short cut ctr-shift-y used');
   console.log("custom shortcut ctr + shift + y used")
+  chrome.tabGroups.query({}).then((browserTabGroupObject) => {
+    console.log("tab gorup object is here", browserTabGroupObject)
+    console.log("tab goup object id", browserTabGroupObject[0].id);
+    console.log("tab gorup object length", browserTabGroupObject.length);
+    chrome.tabGroups.update(browserTabGroupObject[0].id , {collapsed: true});
+  });
 });
