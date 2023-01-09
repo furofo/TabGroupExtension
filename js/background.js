@@ -101,18 +101,13 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 // });
 
 //functoin that uses chrome commands api to collapse all tab groups when ctrl + shift + y is pressed 
+// may modify this later to take the broswerTabGroupObjectDirectly
 function closeTabGroupsWhenCtrlShiftY() {
   chrome.commands.onCommand.addListener((command) => {
     console.log(`Command "${command}" triggered`);
     // alert('KEyboard short cut ctr-shift-y used');
     console.log("custom shortcut ctr + shift + y used")
     chrome.tabGroups.query({}).then((browserTabGroupObject) => {
-      console.log("tab gorup object is here", browserTabGroupObject)
-      console.log("tab goup object id", browserTabGroupObject[0].id);
-      console.log("tab gorup object length", browserTabGroupObject.length);
-    //  if(browserTabGroupObject != undefined && browserTabGroupObject.length != 0) {
-    //   chrome.tabGroups.update(browserTabGroupObject[0].id , {collapsed: true});
-    //   }
     if (typeof browserTabGroupObject !== "undefined" && browserTabGroupObject.length > 0) {
       for (let i = 0; i < browserTabGroupObject.length; i++) {
         chrome.tabGroups.update(browserTabGroupObject[i].id, { collapsed: true });
@@ -121,6 +116,5 @@ function closeTabGroupsWhenCtrlShiftY() {
     });
   });
 }
-
 //call my created functions
 closeTabGroupsWhenCtrlShiftY();
