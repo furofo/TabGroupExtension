@@ -20,9 +20,17 @@
         "48": "/resizedTabLogo48.png",
         "16": "/resizedTabLogo16.png" },
     "commands": {
-        "inject-script": {
+        "close-groups": {
             "suggested_key": "Ctrl+Shift+Y",
-            "description": "Inject a script on the page"
+            "description": "Close All Open Tab Groups"
+        },
+        "open-groups": {
+            "suggested_key": "Ctrl+Shift+H",
+            "description": "Open All Open Tab Groups"
+        },
+        "toggle-groups": {
+            "suggested_key": "Ctrl+Shift+U",
+            "description": "Toggle Tab Groups Open Or Closed"
         }
         }
 }

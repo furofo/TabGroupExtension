@@ -100,11 +100,9 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 //   });
 // });
 
-//functoin that uses chrome commands api to collapse all tab groups when ctrl + shift + y is pressed 
+//functoin that uses chrome commands api to collapse all tab groups when ctrl + shift + c is pressed 
 // may modify this later to take the broswerTabGroupObjectDirectly
 function closeTabGroupsWhenCtrlShiftY() {
-  chrome.commands.onCommand.addListener((command) => {
-    console.log(`Command "${command}" triggered`);
     // alert('KEyboard short cut ctr-shift-y used');
     console.log("custom shortcut ctr + shift + y used")
     chrome.tabGroups.query({}).then((browserTabGroupObject) => {
@@ -114,7 +112,46 @@ function closeTabGroupsWhenCtrlShiftY() {
       }
     }
     });
+}
+//functoin that uses chrome commands api to open all tab groups when ctrl + shift + i is pressed 
+// may modify this later to take the broswerTabGroupObjectDirectly
+function openTabGroupsWhenCtrlShiftH() {
+  // alert('KEyboard short cut ctr-shift-y used');
+  console.log("custom shortcut ctr + shift + h used")
+  chrome.tabGroups.query({}).then((browserTabGroupObject) => {
+  if (typeof browserTabGroupObject !== "undefined" && browserTabGroupObject.length > 0) {
+    for (let i = 0; i < browserTabGroupObject.length; i++) {
+      chrome.tabGroups.update(browserTabGroupObject[i].id, { collapsed: false });
+    }
+  }
   });
 }
-//call my created functions
-closeTabGroupsWhenCtrlShiftY();
+////functoin that uses chrome commands api to toggle all tab groups when ctrl + shift + t is pressed 
+function toggleTabGroupsWhenCtrlShiftU() {
+  // alert('KEyboard short cut ctr-shift-t used');
+  console.log("custom shortcut ctr + shift + u used");
+  chrome.tabGroups.query({}).then((browserTabGroupObject) => {
+    if (typeof browserTabGroupObject !== "undefined" && browserTabGroupObject.length > 0) {
+      // Get the collapsed value of the first tab group
+      const collapsedValue = browserTabGroupObject[0].collapsed;
+      // Toggle the collapsed value for all tab groups
+      for (let i = 0; i < browserTabGroupObject.length; i++) {
+        chrome.tabGroups.update(browserTabGroupObject[i].id, { collapsed: !collapsedValue });
+      }
+    }
+  });
+}
+
+// listen for commands and call correct functoin to close or toggle groups accordingly 
+chrome.commands.onCommand.addListener((command) => {
+  console.log(" comman dis ", command);
+  if(command == "toggle-groups") {
+    toggleTabGroupsWhenCtrlShiftU()
+  }
+  else if (command == "close-groups") {
+    closeTabGroupsWhenCtrlShiftY()
+  }
+  else if (command == "open-groups") {
+    openTabGroupsWhenCtrlShiftH()
+  }
+});
