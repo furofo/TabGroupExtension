@@ -37,7 +37,6 @@ for (let i = 0; i < dropDownAll.length; i += 1) {
     }
   }
 }
-
 // Looks at second argument for parent element, if it has parent element
 // that doesn't have class of dropdown and doesn't match element in the elmeArr toggles
 // active-box away from it, ignores drop down when clicked since
@@ -66,17 +65,8 @@ document.addEventListener('mouseup', (e) => {
   determineClickHandlerInB(activeBoxes, e.target);
 });
 // make chormestorage get a promise instead of callback avoid callback hell
-function chromeStorageGet(result) {
-  return new Promise((resolve, reject) => {
-    if (resolve) {
-      resolve(result);
-    } else {
-      reject();
-    }
-  });
-}
-window.onload = () => {
-  chromeStorageGet(chrome.storage.sync.get(['TABGROUPS'])).then((result) => {
+window.onload = async () => {
+    let result = await chrome.storage.sync.get(['TABGROUPS']);
     if (Object.keys(result).length !== 0) {
       tabGroupsArray = [];
       const names = document.querySelectorAll('.name');
@@ -97,7 +87,6 @@ window.onload = () => {
         }
       }
     }
-  });
 };
 
 // Switches an elements display between none and block
