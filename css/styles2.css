@@ -103,7 +103,12 @@ button {
     background-color: rgb(228, 226, 226);
     border: 2px solid black;
 }
-  
+.rules-container {
+  height: 110px;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+}
   /* On mouse-over, add a grey background color */
   .container:hover input ~ .checkmark {
     background-color: rgb(214, 253, 250);

@@ -50,6 +50,12 @@ abbr,acronym { border:0;
   font-size: 22px;
   text-align: center;
 }
+.rules-container {
+  height: 110px;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+}
 body {
     width: 800px;
   

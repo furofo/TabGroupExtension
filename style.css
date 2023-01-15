@@ -21,7 +21,12 @@ button {
     font-size: 1.2em;
     margin-top: 7em;
   }
+  .rules-container {
+    height: 110px;
+    overflow-x: hidden;
+    overflow-y: auto;
 
+  }
   #delete-group {
     background-color: brown;
   }
