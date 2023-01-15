@@ -78,6 +78,7 @@ window.onload = async () => {
     let centerRuleDiv = document.createElement("div");
     centerRuleDiv.classList.add("center");
     centerRuleDiv.classList.add("rule");
+   
 
     let containerLabel = document.createElement("label");
     containerLabel.classList.add("container");
@@ -87,7 +88,7 @@ window.onload = async () => {
     containerLabelSpanChild.classList.add("checkmark");
     containerLabel.appendChild(containerLabelChildInput);
     containerLabel.appendChild(containerLabelSpanChild);
-    
+    centerRuleDiv.appendChild(containerLabel);
     let nameContentDiv = document.createElement("div");
     nameContentDiv.classList.add("rule-content");
     nameContentDiv.classList.add("name-content");
@@ -98,16 +99,18 @@ window.onload = async () => {
     nameContentChildInput.value = "";
     nameContentChildInput.disabled = true;
     nameContentDiv.appendChild(nameContentChildInput);
+    centerRuleDiv.appendChild(nameContentDiv);
 
     let urlContentDiv = document.createElement("div");
     urlContentDiv.classList.add("rule-content");
     let urlContentChildInput = document.createElement("input");
-    urlContentChildInput.classList.add("name");
+    urlContentChildInput.classList.add("flex-center");
     urlContentChildInput.setAttribute("id", "first-url");
     urlContentChildInput.setAttribute("value", "");
     urlContentChildInput.value = "";
     urlContentChildInput.disabled = true;
     urlContentDiv.appendChild(urlContentChildInput);
+    centerRuleDiv.appendChild(urlContentDiv);
 
     let colorContentDiv = document.createElement("div");
     colorContentDiv.classList.add("color-content");
@@ -156,6 +159,7 @@ window.onload = async () => {
     // append cololorContent ChildBox div as child to color content
 
     colorContentDiv.appendChild(colorContentChildBoxDiv);
+    centerRuleDiv.appendChild(colorContentDiv);
 
     let dropdown = document.createElement("div");
     dropdown.classList.add("dropdown");
@@ -168,7 +172,8 @@ window.onload = async () => {
 
     svg.appendChild(path);
     dropdown.appendChild(svg);
-    console.log("dropdwon is  ", dropdown);
+    centerRuleDiv.appendChild(dropdown)
+    console.log("center rule  is  ", centerRuleDiv);
 
 
 
