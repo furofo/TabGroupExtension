@@ -56,17 +56,160 @@ const determineClickHandlerInB = (elemArr, elemToMatch) => {
   }
 };
 
-// add listener to first name value and use method to set value attribute of input to what is being typed
-document.getElementById('first-name').addEventListener('input', updateInputWhenTyped);
-// click outside drop down to close 
-document.addEventListener('mouseup', (e) => {
-  // if the target of the click isn't the container nor a descendant of the container
-  const activeBoxes = document.querySelectorAll('.active-box');
-  determineClickHandlerInB(activeBoxes, e.target);
-});
-// make chormestorage get a promise instead of callback avoid callback hell
+
+
+// // add listener to first name value and use method to set value attribute of input to what is being typed
+// document.getElementById('first-name').addEventListener('input', updateInputWhenTyped);
+// // click outside drop down to close 
+// document.addEventListener('mouseup', (e) => {
+//   // if the target of the click isn't the container nor a descendant of the container
+//   const activeBoxes = document.querySelectorAll('.active-box');
+//   determineClickHandlerInB(activeBoxes, e.target);
+// });
+
+
+
+// get chrome storage tabgropus object 
 window.onload = async () => {
     let result = await chrome.storage.sync.get(['TABGROUPS']);
+    let rulesContainerElement = document.querySelector(".rules-container");
+
+
+    let centerRuleDiv = document.createElement("div");
+    centerRuleDiv.classList.add("center");
+    centerRuleDiv.classList.add("rule");
+
+    let containerLabel = document.createElement("label");
+    containerLabel.classList.add("container");
+    let containerLabelChildInput = document.createElement("input");
+    containerLabelChildInput.type = "checkbox";
+    let containerLabelSpanChild = document.createElement("span");
+    containerLabelSpanChild.classList.add("checkmark");
+    containerLabel.appendChild(containerLabelChildInput);
+    containerLabel.appendChild(containerLabelSpanChild);
+    
+    let nameContentDiv = document.createElement("div");
+    nameContentDiv.classList.add("rule-content");
+    nameContentDiv.classList.add("name-content");
+    let nameContentChildInput = document.createElement("input");
+    nameContentChildInput.classList.add("name");
+    nameContentChildInput.setAttribute("id", "first-name");
+    nameContentChildInput.setAttribute("value", "");
+    nameContentChildInput.value = "";
+    nameContentChildInput.disabled = true;
+    nameContentDiv.appendChild(nameContentChildInput);
+
+    let urlContentDiv = document.createElement("div");
+    urlContentDiv.classList.add("rule-content");
+    let urlContentChildInput = document.createElement("input");
+    urlContentChildInput.classList.add("name");
+    urlContentChildInput.setAttribute("id", "first-url");
+    urlContentChildInput.setAttribute("value", "");
+    urlContentChildInput.value = "";
+    urlContentChildInput.disabled = true;
+    urlContentDiv.appendChild(urlContentChildInput);
+
+    let colorContentDiv = document.createElement("div");
+    colorContentDiv.classList.add("color-content");
+    let colorContentChildBoxDiv = document.createElement("div");
+    colorContentChildBoxDiv.classList.add("box");
+    colorContentChildBoxDiv.setAttribute("id", "first-box");
+    colorContentChildBoxDiv.setAttribute("value", "grey");
+    colorContentChildBoxDiv.value = "grey";
+    //create divs for all box colors that are not gray 
+    // let blueBox = document.createElement("div")
+    // let yellowBox = document.createElement("div")
+    // let purpleBox = document.createElement("div")
+    // let greenBox = document.createElement("div")
+    // let pinkBox = document.createElement("div")
+    // let redBox = document.createElement("div")
+    // let orangeBox = document.createElement("div")
+    // let cyanBox = document.createElement("div")
+    
+    // blueBox.classList.add("blue-box");
+    //make all color boxes divs and give them correct claass names
+    let blueBox = document.createElement("div")
+    blueBox.classList.add("blue-box");
+    let yellowBox = document.createElement("div")
+    yellowBox.classList.add("yellow-box");
+    let purpleBox = document.createElement("div")
+    purpleBox.classList.add("purple-box");
+    let greenBox = document.createElement("div")
+    greenBox.classList.add("green-box");
+    let pinkBox = document.createElement("div")
+    pinkBox.classList.add("pink-box");
+    let redBox = document.createElement("div")
+    redBox.classList.add("red-box");
+    let orangeBox = document.createElement("div")
+    orangeBox.classList.add("orange-box");
+    let cyanBox = document.createElement("div")
+    cyanBox.classList.add("cyan-box");
+    // append them as child to color Content Child Box
+    colorContentChildBoxDiv.appendChild(blueBox);
+    colorContentChildBoxDiv.appendChild(yellowBox);
+    colorContentChildBoxDiv.appendChild(purpleBox);
+    colorContentChildBoxDiv.appendChild(greenBox);
+    colorContentChildBoxDiv.appendChild(pinkBox);
+    colorContentChildBoxDiv.appendChild(redBox);
+    colorContentChildBoxDiv.appendChild(orangeBox);
+    colorContentChildBoxDiv.appendChild(cyanBox);
+    // append cololorContent ChildBox div as child to color content
+
+    colorContentDiv.appendChild(colorContentChildBoxDiv);
+
+    let dropdown = document.createElement("div");
+    dropdown.classList.add("dropdown");
+    let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+    svg.setAttribute("viewBox", "0 0 320 512");
+    svg.setAttribute("fill", "white");
+    let path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("d", "M143 256.3L7 120.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0L313 86.3c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.4 9.5-24.6 9.5-34 .1zm34 192l136-136c9.4-9.4 9.4-24.6 0-33.9l-22.6-22.6c-9.4-9.4-24.6-9.4-33.9 0L160 352.1l-96.4-96.4c-9.4-9.4-24.6-9.4-33.9 0L7 278.3c-9.4 9.4-9.4 24.6 0 33.9l136 136c9.4 9.5 24.6 9.5 34 .1z");
+
+    svg.appendChild(path);
+    dropdown.appendChild(svg);
+    console.log("dropdwon is  ", dropdown);
+
+
+
+  
+//     <div class = "center rule">
+//     <label class="container">
+//        <input type="checkbox" >
+//        <span class="checkmark"></span>
+//        </label>
+//     <div class = "rule-content name-content">
+//        <input class = "name" id = "first-name" value = "" disabled/>
+//     </div>
+//     <div class = "rule-content">
+//        <input class = "flex-center" id = "first-url" value ="" disabled />
+//     </div>
+//     <div class = "color-content">
+//        <div class = "box" id = "first-box" value = "grey">
+//           <div class = "blue-box" >
+//           </div>
+//           <div class = "yellow-box">
+//           </div>
+//           <div class = "purple-box">
+//           </div>
+//           <div class = "green-box">
+//           </div>
+//           <div class = "pink-box">
+//           </div>
+//           <div class = "red-box">
+//           </div>
+//           <div class = "orange-box">
+//           </div>
+//           <div class = "cyan-box">
+//           </div>
+//        </div>
+      //  <div class = "dropdown">
+      //     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" fill = "white">
+      //        <path d="M143 256.3L7 120.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0L313 86.3c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.4 9.5-24.6 9.5-34 .1zm34 192l136-136c9.4-9.4 9.4-24.6 0-33.9l-22.6-22.6c-9.4-9.4-24.6-9.4-33.9 0L160 352.1l-96.4-96.4c-9.4-9.4-24.6-9.4-33.9 0L7 278.3c-9.4 9.4-9.4 24.6 0 33.9l136 136c9.4 9.5 24.6 9.5 34 .1z"/>
+      //     </svg>
+      //  </div>
+//     </div>
+//  </div>
     if (Object.keys(result).length !== 0) {
       tabGroupsArray = [];
       const names = document.querySelectorAll('.name');
