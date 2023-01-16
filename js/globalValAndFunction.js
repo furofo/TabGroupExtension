@@ -73,6 +73,7 @@ window.onload = async () => {
       for (let i = 0; i < result.TABGROUPS.length; i += 1) {
         let ruleElement = createRuleElement();
         let selectorInput = ruleElement.querySelector(".container > input")
+        selectorInput.disabled = true;
         const checkedNameField = ruleElement.querySelector('.name-content > input');
         const checkedUrlField = ruleElement.querySelector('.flex-center');
         let box = ruleElement.querySelector('.box');
@@ -101,6 +102,7 @@ window.onload = async () => {
 
           checkedUrlField.value = result.TABGROUPS[i][group].URL
           checkedNameField.value = result.TABGROUPS[i][group].NAME
+      
          
 
         }

@@ -165,6 +165,8 @@ addButton.addEventListener('click', async(elem) => {
   toggleElementDisplay(document.getElementById('go-back'));
   toggleElementDisplay(document.getElementById('delete-group'));
   toggleButtonText(document.getElementById('edit-add-group'), "Select", "Save")
+  checkedNameField.focus();
+       
 })
 gobackButton.addEventListener('click', async () => {
   const isCheckedArray = document.querySelectorAll('.container input');
