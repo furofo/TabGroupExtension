@@ -123,8 +123,16 @@ addButton.addEventListener('click', async(elem) => {
   // console.log("add button clicked", this, elem.target)
   let addButton = elem.target;
   let ruleElement = createRuleElement();
+  let selectorInput = ruleElement.querySelector(".container > input")
+  const checkedNameField = ruleElement.querySelector('.name-content > input');
+  const checkedUrlField = ruleElement.querySelector('.flex-center');
+  let dropDown = ruleElement.querySelector('.dropdown')
   console.log(ruleElement.querySelector(".container > input"));
-  ruleElement.querySelector(".container > input").checked = true;
+  selectorInput.checked = true;
+  toggleInputDisabled(checkedNameField);
+  toggleInputDisabled(checkedUrlField);
+  toggleDropdownBox(dropDown);
+
   // let selectedElemetn = document.querySelector("body > div.rules-container > div")
   // // let selectedElement = document.querySelector(ruleElement);
   // console.log(selectedElement);
