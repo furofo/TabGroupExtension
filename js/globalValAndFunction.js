@@ -1,11 +1,13 @@
+
 // get variables for buttons ahere
 const deleteButton = document.getElementById('delete-group');
 const gobackButton = document.getElementById('go-back');
 const addButton = document.getElementById('add-group');
 const editAddButton = document.getElementById('edit-add-group');
 const isCheckedArray = document.querySelectorAll('.container input');
-const dropDownAll = document.querySelectorAll('.dropdown');
-const boxAll = document.querySelectorAll('.box');
+let dropDownAll = document.querySelectorAll('.dropdown');
+console.log("drop down all is.... " ,)
+let boxAll = document.querySelectorAll('.box');
 const colors = {'blue': '#8ab4f7', 'yellow': '#fed663', 'purple': '#c589f9', 'green': '#81c895', 'red': '#f18b82', 'pink': '#ff8bcb', 'orange': '#fbac70', 'cyan': '#78d9ec', 'grey': 'grey'}
 let tabGroupsArray = [];
 const zoomLg = document.getElementById('zoom-lg')
@@ -56,18 +58,6 @@ const determineClickHandlerInB = (elemArr, elemToMatch) => {
     }
   }
 };
-
-
-
-// // add listener to first name value and use method to set value attribute of input to what is being typed
-// document.getElementById('first-name').addEventListener('input', updateInputWhenTyped);
-// // click outside drop down to close 
-// document.addEventListener('mouseup', (e) => {
-//   // if the target of the click isn't the container nor a descendant of the container
-//   const activeBoxes = document.querySelectorAll('.active-box');
-//   determineClickHandlerInB(activeBoxes, e.target);
-// });
-
 
 
 // get chrome storage tabgropus object 
