@@ -1,6 +1,7 @@
 // get variables for buttons ahere
 const deleteButton = document.getElementById('delete-group');
 const gobackButton = document.getElementById('go-back');
+const addButton = document.getElementById('add-group');
 const editAddButton = document.getElementById('edit-add-group');
 const isCheckedArray = document.querySelectorAll('.container input');
 const dropDownAll = document.querySelectorAll('.dropdown');
@@ -72,6 +73,7 @@ const determineClickHandlerInB = (elemArr, elemToMatch) => {
 // get chrome storage tabgropus object 
 window.onload = async () => {
     let result = await chrome.storage.sync.get(['TABGROUPS']);
+    console.log("Chrome Tab rules are as follows!" , result);
     let rulesContainerElement = document.querySelector(".rules-container");
 
 
@@ -217,9 +219,9 @@ window.onload = async () => {
 //  </div>
     if (Object.keys(result).length !== 0) {
       tabGroupsArray = [];
-      const names = document.querySelectorAll('.name');
-      const urls = document.querySelectorAll('.flex-center');
-      const boxes = document.querySelectorAll('.box');
+      // const names = document.querySelectorAll('.name');
+      // const urls = document.querySelectorAll('.flex-center');
+      // const boxes = document.querySelectorAll('.box');
       for (let i = 0; i < result.TABGROUPS.length; i += 1) {
         if (result.TABGROUPS[i] === null) result.TABGROUPS[i] = {}
         tabGroupsArray.push(result.TABGROUPS[i]);
@@ -228,10 +230,10 @@ window.onload = async () => {
           Object.prototype.hasOwnProperty.call(result.TABGROUPS[i], group)
           && result.TABGROUPS[i][group].NAME !== undefined
         ) {
-          names[i].setAttribute('value', result.TABGROUPS[i][group].NAME);
-          urls[i].setAttribute('value', result.TABGROUPS[i][group].URL);
-          boxes[i].setAttribute('value', result.TABGROUPS[i][group].COLOR);
-          boxes[i].style.backgroundColor = colors[result.TABGROUPS[i][group].COLOR];
+          // names[i].setAttribute('value', result.TABGROUPS[i][group].NAME);
+          // urls[i].setAttribute('value', result.TABGROUPS[i][group].URL);
+          // boxes[i].setAttribute('value', result.TABGROUPS[i][group].COLOR);
+          // boxes[i].style.backgroundColor = colors[result.TABGROUPS[i][group].COLOR];
         }
       }
     }

@@ -97,6 +97,11 @@ button {
     cursor: pointer;
   }
 
+  #add-group {
+    background-color: green;
+    cursor: pointer;
+  }
+
   #edit-add-group {
       background-color: blue;
       cursor: pointer;
@@ -245,6 +250,10 @@ button {
 }
 #delete-group:hover {
   background-color: rgb(245, 20, 72);
+  color: black;
+}
+#add-group:hover {
+  background-color: #DBFFCB;
   color: black;
 }
 

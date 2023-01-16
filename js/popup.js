@@ -17,7 +17,9 @@ deleteButton.addEventListener('click', async () => {
   })
   }
 });
-
+addButton.addEventListener('click', async() => {
+  console.log("add button clicked")
+})
 gobackButton.addEventListener('click', async () => {
   const isCheckedArray = document.querySelectorAll('.container input');
   const dropDownBox = document.querySelectorAll('.dropdown');
