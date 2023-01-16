@@ -71,8 +71,19 @@ window.onload = async () => {
       // const urls = document.querySelectorAll('.flex-center');
       // const boxes = document.querySelectorAll('.box');
       for (let i = 0; i < result.TABGROUPS.length; i += 1) {
-        if (result.TABGROUPS[i] === null) result.TABGROUPS[i] = {}
-        tabGroupsArray.push(result.TABGROUPS[i]);
+        let ruleElement = createRuleElement();
+        let selectorInput = ruleElement.querySelector(".container > input")
+        const checkedNameField = ruleElement.querySelector('.name-content > input');
+        const checkedUrlField = ruleElement.querySelector('.flex-center');
+        let box = ruleElement.querySelector('.box');
+        let dropDown = ruleElement.querySelector('.dropdown')
+        dropDownAll = document.querySelectorAll('.dropdown');
+        boxAll = document.querySelectorAll('.box');
+        if (result.TABGROUPS[i] === null)  { console.log ('empty tab group found??')}
+        else {
+          tabGroupsArray.push(result.TABGROUPS[i]);
+        }
+
         const group = `GROUP${String(i + 1)}`;
         if (
           Object.prototype.hasOwnProperty.call(result.TABGROUPS[i], group)
@@ -82,6 +93,16 @@ window.onload = async () => {
           // urls[i].setAttribute('value', result.TABGROUPS[i][group].URL);
           // boxes[i].setAttribute('value', result.TABGROUPS[i][group].COLOR);
           // boxes[i].style.backgroundColor = colors[result.TABGROUPS[i][group].COLOR];
+          checkedNameField.setAttribute('value', result.TABGROUPS[i][group].NAME);
+          checkedUrlField.setAttribute('value', result.TABGROUPS[i][group].URL);
+          box.setAttribute('value', result.TABGROUPS[i][group].COLOR);
+          box.style.backgroundColor = colors[result.TABGROUPS[i][group].COLOR];
+
+
+          checkedUrlField.value = result.TABGROUPS[i][group].URL
+          checkedNameField.value = result.TABGROUPS[i][group].NAME
+         
+
         }
       }
     }
@@ -212,6 +233,7 @@ let saveButtonLogic =  (button, inputBox, isCheckedArray, checkedNameField, chec
     return;
   }
   tabGroupsArray = [];
+  isCheckedArray = document.querySelectorAll('.container input');
   // unchecks everything that is checked
   for (let i = 0; i < isCheckedArray.length; i += 1) {
     const groupNumber = `GROUP${String(i + 1)}`;
