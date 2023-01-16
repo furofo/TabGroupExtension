@@ -1,12 +1,8 @@
 let createRuleElement = function() {
   let rulesContainerElement = document.querySelector(".rules-container");
-
-
     let centerRuleDiv = document.createElement("div");
     centerRuleDiv.classList.add("center");
     centerRuleDiv.classList.add("rule");
-   
-
     let containerLabel = document.createElement("label");
     containerLabel.classList.add("container");
     let containerLabelChildInput = document.createElement("input");
@@ -96,13 +92,12 @@ let createRuleElement = function() {
     svg.setAttribute("fill", "white");
     let path = document.createElementNS("http://www.w3.org/2000/svg", "path");
     path.setAttribute("d", "M143 256.3L7 120.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0L313 86.3c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.4 9.5-24.6 9.5-34 .1zm34 192l136-136c9.4-9.4 9.4-24.6 0-33.9l-22.6-22.6c-9.4-9.4-24.6-9.4-33.9 0L160 352.1l-96.4-96.4c-9.4-9.4-24.6-9.4-33.9 0L7 278.3c-9.4 9.4-9.4 24.6 0 33.9l136 136c9.4 9.5 24.6 9.5 34 .1z");
-
     svg.appendChild(path);
     dropdown.appendChild(svg);
     centerRuleDiv.appendChild(dropdown)
-    console.log("center rule  is  ", centerRuleDiv);
+    // console.log("center rule  is  ", centerRuleDiv);
     rulesContainerElement.appendChild(centerRuleDiv);
-  
+    return centerRuleDiv;
 }
 
 // when delete button clicked removes the group number
@@ -124,9 +119,20 @@ deleteButton.addEventListener('click', async () => {
   })
   }
 });
-addButton.addEventListener('click', async() => {
-  console.log("add button clicked")
-  createRuleElement();
+addButton.addEventListener('click', async(elem) => {
+  // console.log("add button clicked", this, elem.target)
+  let addButton = elem.target;
+  let ruleElement = createRuleElement();
+  console.log(ruleElement.querySelector(".container > input"));
+  ruleElement.querySelector(".container > input").checked = true;
+  // let selectedElemetn = document.querySelector("body > div.rules-container > div")
+  // // let selectedElement = document.querySelector(ruleElement);
+  // console.log(selectedElement);
+  console.log(ruleElement);
+  toggleElementDisplay(addButton);
+  toggleElementDisplay(document.getElementById('go-back'));
+  toggleElementDisplay(document.getElementById('delete-group'));
+  toggleButtonText(document.getElementById('edit-add-group'), "Select", "Save")
 })
 gobackButton.addEventListener('click', async () => {
   const isCheckedArray = document.querySelectorAll('.container input');
