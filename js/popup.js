@@ -121,6 +121,22 @@ deleteButton.addEventListener('click', async () => {
 });
 addButton.addEventListener('click', async(elem) => {
   // console.log("add button clicked", this, elem.target)
+  // toggleInputDisabled(nameField);
+  // toggleInputDisabled(urlField)
+
+  // uncheck all other selectorrs other than one added
+  let otherSelectorInputContainers = document.querySelectorAll('.container');
+  for(let i = 0; i < otherSelectorInputContainers.length; i++) {
+    otherSelectorInputContainers[i].querySelector('input').checked = false;
+    otherSelectorInputContainers[i].style.pointerEvents = 'none';
+  }
+  
+
+  // let currentNames = document.querySelectorAll(".container > input");
+  // for(let i = 0; i < currentNames.length; i++) {
+  //   console.log("current name is ", currentNames[i]);
+  //   toggleInputDisabled(currentNames[i]);
+  // }
   let addButton = elem.target;
   let ruleElement = createRuleElement();
   let selectorInput = ruleElement.querySelector(".container > input")
@@ -129,6 +145,7 @@ addButton.addEventListener('click', async(elem) => {
   let dropDown = ruleElement.querySelector('.dropdown')
   dropDownAll = document.querySelectorAll('.dropdown');
   boxAll = document.querySelectorAll('.box');
+ 
   for (let i = 0; i < dropDownAll.length; i += 1) {
     // this assigns unique function to dropdown icon for each color box
     dropDownAll[i].onclick = () => {
@@ -171,6 +188,7 @@ addButton.addEventListener('click', async(elem) => {
 gobackButton.addEventListener('click', async () => {
   const isCheckedArray = document.querySelectorAll('.container input');
   const dropDownBox = document.querySelectorAll('.dropdown');
+  
   // deleteButtonLogic(isCheckedArray, tabGroupsArray, dropDownBox, true)
   goBackButtonLogic(isCheckedArray, dropDownBox)
 })

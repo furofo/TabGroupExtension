@@ -73,7 +73,6 @@ window.onload = async () => {
       for (let i = 0; i < result.TABGROUPS.length; i += 1) {
         let ruleElement = createRuleElement();
         let selectorInput = ruleElement.querySelector(".container > input")
-        selectorInput.disabled = true;
         const checkedNameField = ruleElement.querySelector('.name-content > input');
         const checkedUrlField = ruleElement.querySelector('.flex-center');
         let box = ruleElement.querySelector('.box');
@@ -183,14 +182,17 @@ let isChecked = (isCheckedArray) => {
   return checkedInput;
 }
 let goBackButtonLogic = (isCheckedArray, dropDownBox) => {
+ 
   // toggle element display buttons
   toggleDisplays(editAddButton)
+  toggleElementDisplay(addButton);
   // update pointer events for check boxes
   document.querySelectorAll('.container').forEach(e =>  e.style.pointerEvents = 'auto')
   // loop through the tabGroupsArray and set corresponding values
   // essentially reverts to original state before edits were made
-  if (tabGroupsArray.length===0) tabGroupsArray = [{},{},{},{},{},{},{},{}]
+  let allRules = document.querySelectorAll(".center.rule");
   for (let i = 0; i < tabGroupsArray.length; i++){
+    console.log("allRules", allRules);
     const checkedNameField = document.querySelectorAll('.name')[i];
     const checkedUrlField = document.querySelectorAll('.flex-center')[i];
     const box = document.querySelectorAll('.box')[i];
@@ -202,11 +204,16 @@ let goBackButtonLogic = (isCheckedArray, dropDownBox) => {
       [title, url, color] = ['', [''], 'grey']
     }
     setValues(checkedNameField, checkedUrlField, box, title, url, color)
-
     if (!isCheckedArray[i].checked) continue
     isCheckedArray[i].checked = false;
     toggleInputAndDropdown(checkedNameField, checkedUrlField, dropDownBox[i])
   }
+
+  if(allRules.length > tabGroupsArray.length) {
+    allRules[allRules.length - 1].remove();
+
+  }
+  
 }
 let deleteButtonLogic = (isCheckedArray, tabGroupsArray) => {
   for (let i = 0; i < isCheckedArray.length; i += 1) {
@@ -277,5 +284,6 @@ let editButtonLogic = (button,  isCheckedArray, checkedNameField, checkedUrlFiel
       toggleInputAndDropdown(checkedNameField[i], checkedUrlField[i], dropDownBox[i])
     } 
   }
-  toggleDisplays(button)
+  toggleDisplays(button);
+  toggleElementDisplay(addButton);
 }
