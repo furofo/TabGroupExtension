@@ -4,7 +4,7 @@ const deleteButton = document.getElementById('delete-group');
 const gobackButton = document.getElementById('go-back');
 const addButton = document.getElementById('add-group');
 const editAddButton = document.getElementById('edit-add-group');
-const isCheckedArray = document.querySelectorAll('.container input');
+let isCheckedArray = document.querySelectorAll('.container input');
 let dropDownAll = document.querySelectorAll('.dropdown');
 console.log("drop down all is.... " ,)
 let boxAll = document.querySelectorAll('.box');
@@ -216,6 +216,8 @@ let goBackButtonLogic = (isCheckedArray, dropDownBox) => {
   
 }
 let deleteButtonLogic = (isCheckedArray, tabGroupsArray) => {
+  const ruleElement = document.querySelectorAll('.center.rule');
+  let ruleElementIndexesToRemove = [];
   for (let i = 0; i < isCheckedArray.length; i += 1) {
     const checkedNameField = document.querySelectorAll('.name')[i];
     const checkedUrlField = document.querySelectorAll('.flex-center')[i];
@@ -225,9 +227,15 @@ let deleteButtonLogic = (isCheckedArray, tabGroupsArray) => {
       if (isCheckedArray[i].checked) {
         setValues(checkedNameField, checkedUrlField, box, '', [''], 'grey')
         checkedItem.checked = false;
+        ruleElementIndexesToRemove.push(i);
         // remove this from tabsGroupArray which should be array of all groups retrieved from google Sync
-        tabGroupsArray[i] = {};
+        console.log("tabGroupsArray incex to remove", i,  tabGroupsArray);
+        tabGroupsArray.splice(i, 1);
+        console.log("tabGroupsArray", tabGroupsArray);
       }
+  }
+  for(let i = 0; i < ruleElementIndexesToRemove.length; i++) {
+    ruleElement[ruleElementIndexesToRemove[i]].remove();
   }
    chrome.storage.sync.set({ TABGROUPS: tabGroupsArray });
 }

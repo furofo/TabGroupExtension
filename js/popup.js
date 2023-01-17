@@ -105,6 +105,7 @@ let createRuleElement = function() {
 deleteButton.addEventListener('click', async () => {
   //use method isChecked to loop through checkboxes and see if checked or not 
   // if checked displays conirmation message, if nothing checked displays erro rmessage
+  isCheckedArray = document.querySelectorAll('.container input');
   if(isChecked(isCheckedArray)) {
     ModalWindow.openModal({
       title: "Do you want to delete?",
