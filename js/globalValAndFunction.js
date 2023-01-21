@@ -76,10 +76,12 @@ window.onload = async () => {
    
     if (Object.keys(result).length !== 0) {
       tabGroupsArray = [];
+      console.log("all keys of tabggrups", Object.keys(result['TABGROUPS']));
       // const names = document.querySelectorAll('.name');
       // const urls = document.querySelectorAll('.flex-center');
       // const boxes = document.querySelectorAll('.box');
       for (let i = 0; i < result.TABGROUPS.length; i += 1) {
+        console.log("all keys of tabggrups in for loops", Object.keys(result['TABGROUPS'][i]));
         let ruleElement = createRuleElement();
         let selectorInput = ruleElement.querySelector(".container > input")
         const checkedNameField = ruleElement.querySelector('.name-content > input');
@@ -93,7 +95,13 @@ window.onload = async () => {
           tabGroupsArray.push(result.TABGROUPS[i]);
         }
 
-        const group = `GROUP${String(i + 1)}`;
+        // const group = `GROUP${String(i + 1)}`;
+
+        const group = Object.keys(result['TABGROUPS'][i]);
+
+        console.log("group is ", group)
+        //how to get random group number
+        console.log("random group number is ", Date.now() + Math.random());
         if (
           Object.prototype.hasOwnProperty.call(result.TABGROUPS[i], group)
           && result.TABGROUPS[i][group].NAME !== undefined
@@ -262,7 +270,8 @@ let saveButtonLogic =  (button, inputBox, isCheckedArray, checkedNameField, chec
   isCheckedArray = document.querySelectorAll('.container input');
   // unchecks everything that is checked
   for (let i = 0; i < isCheckedArray.length; i += 1) {
-    const groupNumber = `GROUP${String(i + 1)}`;
+    // const groupNumber = `GROUP${String(i + 1)}`;
+    const groupNumber =  Date.now() + Math.random();
     inputBox[i].style.pointerEvents = 'auto';
     // let matchingText = checkedUrlField[i].value;
     // let matchingTextSplitComma = matchingText.split(',');
@@ -387,3 +396,5 @@ let editButtonLogic = (button,  isCheckedArray, checkedNameField, checkedUrlFiel
 //       }
 //   }
 // ]
+
+// it only printed colors and vehicles and everything else blank
