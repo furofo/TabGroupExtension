@@ -59,9 +59,18 @@ const determineClickHandlerInB = (elemArr, elemToMatch) => {
   }
 };
 
+// USE THIS FOR TESTING TO REMOVE ALL TABGROUPS WHEN DELETE AND ADDD FUNCTOINS MES THINGS UP
+
+function removeTabGroups() {
+  chrome.storage.sync.remove('TABGROUPS', function() {
+      console.log('Tab Groups property removed from chrome storage');
+  });
+}
 
 // get chrome storage tabgropus object 
 window.onload = async () => {
+    // //uncomment this to remoe all tabgroups on load for testing 
+    // removeTabGroups();
     let result = await chrome.storage.sync.get(['TABGROUPS']);
     console.log("Chrome Tab rules are as follows!" , result);
    
@@ -283,7 +292,8 @@ let saveButtonLogic =  (button, inputBox, isCheckedArray, checkedNameField, chec
     }
   }
   chrome.storage.sync.set({ TABGROUPS: tabGroupsArray });
-  toggleDisplays(button)
+  toggleDisplays(button);
+  toggleElementDisplay(addButton);
 }
 let editButtonLogic = (button,  isCheckedArray, checkedNameField, checkedUrlField, dropDownBox) => {
   for (let i = 0; i < isCheckedArray.length; i += 1) {
@@ -295,3 +305,85 @@ let editButtonLogic = (button,  isCheckedArray, checkedNameField, checkedUrlFiel
   toggleDisplays(button);
   toggleElementDisplay(addButton);
 }
+
+
+
+
+//input
+// [
+//   {
+//       "GROUP1": {
+//           "COLOR": "red",
+//           "NAME": "colors",
+//           "URL": [
+//               "red",
+//               "yellow.blue"
+//           ]
+//       }
+//   },
+//   {
+//       "GROUP2": {
+//           "COLOR": "red",
+//           "NAME": "vehicles",
+//           "URL": [
+//               "green",
+//               "blue",
+//               "yellow"
+//           ]
+//       }
+//   },
+//   {
+//       "GROUP3": {
+//           "COLOR": "green",
+//           "NAME": "trucks",
+//           "URL": [
+//               "nissan"
+//           ]
+//       }
+//   },
+//   {
+//       "GROUP4": {
+//           "COLOR": "pink",
+//           "NAME": "pokemon",
+//           "URL": [
+//               "pikachu",
+//               "storm"
+//           ]
+//       }
+//   }
+// ]
+
+//deleted group 3 this is what happened after 
+// [
+//   {
+//       "GROUP1": {
+//           "COLOR": "red",
+//           "NAME": "colors",
+//           "URL": [
+//               "red",
+//               "yellow.blue"
+//           ]
+//       }
+//   },
+//   {
+//       "GROUP2": {
+//           "COLOR": "red",
+//           "NAME": "vehicles",
+//           "URL": [
+//               "green",
+//               "blue",
+//               "yellow"
+//           ]
+//       }
+//   },
+//   {
+//       "GROUP4": {
+//           "COLOR": "pink",
+//           "NAME": "pokemon",
+//           "URL": [
+//               "pikachu",
+//               "storm"
+//           ]
+//       }
+//   }
+// ]
