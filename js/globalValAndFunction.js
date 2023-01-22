@@ -199,7 +199,7 @@ let isChecked = (isCheckedArray) => {
   return checkedInput;
 }
 let goBackButtonLogic = (isCheckedArray, dropDownBox) => {
- 
+ console.log("this is tab grops array", tabGroupsArray);
   // toggle element display buttons
   toggleDisplays(editAddButton)
   toggleElementDisplay(addButton);
@@ -213,8 +213,10 @@ let goBackButtonLogic = (isCheckedArray, dropDownBox) => {
     const checkedNameField = document.querySelectorAll('.name')[i];
     const checkedUrlField = document.querySelectorAll('.flex-center')[i];
     const box = document.querySelectorAll('.box')[i];
-    const group = `GROUP${String(i + 1)}`
+    // const group = `GROUP${String(i + 1)}`
+    const group = Object.keys(tabGroupsArray[i])[0];
     let title, url, color
+    debugger;
     if (Object.keys(tabGroupsArray[i]).length !== 0) {
       [title, url, color] = [tabGroupsArray[i][group].NAME, tabGroupsArray[i][group].URL, tabGroupsArray[i][group].COLOR]
     } else {
@@ -314,8 +316,34 @@ let editButtonLogic = (button,  isCheckedArray, checkedNameField, checkedUrlFiel
   toggleDisplays(button);
   toggleElementDisplay(addButton);
 }
+// this functoin finds duplicates in an array and returns an object showing if ther are any essentially testing functoin
+function findDuplicates(arr) {
+  let indices = [];
+  let seen = new Set();
+  for (let i = 0; i < arr.length; i++) {
+    if (seen.has(arr[i])) {
+      indices.push(i);
+    } else {
+      seen.add(arr[i]);
+    }
+  }
+  return {
+    hasDuplicates: indices.length > 0,
+    indices: indices
+  }
+}
 
+//testing fucntion to go in and put  a bunch of random values in an arra test up to a million 
 
+function generateRandomValuesAndPushToArray(arrayLength) {
+  let randomNumbersArray = [];
+  for(let i = 0; i < arrayLength; i++) {
+    setTimeout(randomNumbersArray.push(Date.now() + Math.random(), 500));
+  
+  }
+  return randomNumbersArray;
+}
+let testArray = [1, 2, 3 , 4, 5]
 
 
 //input
