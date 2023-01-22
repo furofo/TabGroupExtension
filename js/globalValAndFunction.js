@@ -216,7 +216,6 @@ let goBackButtonLogic = (isCheckedArray, dropDownBox) => {
     // const group = `GROUP${String(i + 1)}`
     const group = Object.keys(tabGroupsArray[i])[0];
     let title, url, color
-    debugger;
     if (Object.keys(tabGroupsArray[i]).length !== 0) {
       [title, url, color] = [tabGroupsArray[i][group].NAME, tabGroupsArray[i][group].URL, tabGroupsArray[i][group].COLOR]
     } else {
