@@ -122,9 +122,6 @@ deleteButton.addEventListener('click', async () => {
   }
 });
 addButton.addEventListener('click', async(elem) => {
-  // console.log("add button clicked", this, elem.target)
-  // toggleInputDisabled(nameField);
-  // toggleInputDisabled(urlField)
 
   // uncheck all other selectorrs other than one added
   let otherSelectorInputContainers = document.querySelectorAll('.container');
@@ -132,49 +129,18 @@ addButton.addEventListener('click', async(elem) => {
     otherSelectorInputContainers[i].querySelector('input').checked = false;
     otherSelectorInputContainers[i].style.pointerEvents = 'none';
   }
-  
-
-  // let currentNames = document.querySelectorAll(".container > input");
-  // for(let i = 0; i < currentNames.length; i++) {
-  //   console.log("current name is ", currentNames[i]);
-  //   toggleInputDisabled(currentNames[i]);
-  // }
   let addButton = elem.target;
   let ruleElement = createRuleElement();
   let selectorInput = ruleElement.querySelector(".container > input")
   const checkedNameField = ruleElement.querySelector('.name-content > input');
   const checkedUrlField = ruleElement.querySelector('.flex-center');
   let dropDown = ruleElement.querySelector('.dropdown')
-  dropDownAll = document.querySelectorAll('.dropdown');
-  boxAll = document.querySelectorAll('.box');
- 
-  for (let i = 0; i < dropDownAll.length; i += 1) {
-    // this assigns unique function to dropdown icon for each color box
-    dropDownAll[i].onclick = () => {
-    for (let j = 0; j < boxAll.length; j += 1) {
-      // if there are other drop downs open other than this one clsoe them
-        if (i !== j && boxAll[j].classList.contains('active-box')) {
-          boxAll[j].classList.toggle('active-box');
-        }
-      }
-      boxAll[i].classList.toggle('active-box');
-    };
-    // loops through all color options and all boxes and assigns them all functions, if any of these colors are clicked, assigns the parent element the color of them and toggles
-    //active box class. This triggers when the drop down box is opened and a color is clicked.
-    for (const color in colors) {
-      if (color==='grey') continue
-      boxAll[i].querySelector(`.${color}-box`).onclick = function () {
-        this.parentElement.style.backgroundColor = colors[color];
-        this.parentElement.classList.toggle('active-box');
-        this.parentElement.setAttribute('value', color);
-      }
-    }
-  }
   console.log(ruleElement.querySelector(".container > input"));
   selectorInput.checked = true;
   toggleInputDisabled(checkedNameField);
   toggleInputDisabled(checkedUrlField);
   toggleDropdownBox(dropDown);
+  addDropDownMenuOnClickListeners();
 
   // let selectedElemetn = document.querySelector("body > div.rules-container > div")
   // // let selectedElement = document.querySelector(ruleElement);
@@ -195,34 +161,8 @@ gobackButton.addEventListener('click', async () => {
   goBackButtonLogic(isCheckedArray, dropDownBox)
 })
 editAddButton.addEventListener('click', async function ()  {
-  dropDownAll = document.querySelectorAll('.dropdown');
-  console.log("drop down all is.... " , dropDownAll)
-    boxAll = document.querySelectorAll('.box');
-      // add listeners to all the drop down elements
-      for (let i = 0; i < dropDownAll.length; i += 1) {
-        // this assigns unique function to dropdown icon for each color box
-        dropDownAll[i].onclick = () => {
-        for (let j = 0; j < boxAll.length; j += 1) {
-          // if there are other drop downs open other than this one clsoe them
-            if (i !== j && boxAll[j].classList.contains('active-box')) {
-              boxAll[j].classList.toggle('active-box');
-            }
-          }
-          boxAll[i].classList.toggle('active-box');
-        };
-        // loops through all color options and all boxes and assigns them all functions, if any of these colors are clicked, assigns the parent element the color of them and toggles
-        //active box class. This triggers when the drop down box is opened and a color is clicked.
-        for (const color in colors) {
-          if (color==='grey') continue
-          boxAll[i].querySelector(`.${color}-box`).onclick = function () {
-            this.parentElement.style.backgroundColor = colors[color];
-            this.parentElement.classList.toggle('active-box');
-            this.parentElement.setAttribute('value', color);
-          }
-        }
-      }
-
-      
+ 
+  addDropDownMenuOnClickListeners();
   const isCheckedArray = document.querySelectorAll('.container input');
   const inputBox = document.querySelectorAll('.container');
   const checkedNameField = document.querySelectorAll('.name');

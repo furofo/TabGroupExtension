@@ -5,9 +5,9 @@ const gobackButton = document.getElementById('go-back');
 const addButton = document.getElementById('add-group');
 const editAddButton = document.getElementById('edit-add-group');
 let isCheckedArray = document.querySelectorAll('.container input');
-let dropDownAll = document.querySelectorAll('.dropdown');
-console.log("drop down all is.... " ,)
-let boxAll = document.querySelectorAll('.box');
+// let dropDownAll = document.querySelectorAll('.dropdown');
+// console.log("drop down all is.... " ,)
+// let boxAll = document.querySelectorAll('.box');
 const colors = {'blue': '#8ab4f7', 'yellow': '#fed663', 'purple': '#c589f9', 'green': '#81c895', 'red': '#f18b82', 'pink': '#ff8bcb', 'orange': '#fbac70', 'cyan': '#78d9ec', 'grey': 'grey'}
 let tabGroupsArray = [];
 const zoomLg = document.getElementById('zoom-lg')
@@ -17,29 +17,8 @@ const zoomReg = document.getElementById('zoom-reg')
 const toggleButtonText = (btn, str1, str2) => {
   btn.innerHTML = (btn.innerHTML === str1) ? str2 : str1;
 };
-// provides functions for each color picking box => changes color/toggles display when clicked 
-for (let i = 0; i < dropDownAll.length; i += 1) {
-  // this assigns unique function to dropdown icon for each color box
-  dropDownAll[i].onclick = () => {
-  for (let j = 0; j < boxAll.length; j += 1) {
-    // if there are other drop downs open other than this one clsoe them
-      if (i !== j && boxAll[j].classList.contains('active-box')) {
-        boxAll[j].classList.toggle('active-box');
-      }
-    }
-    boxAll[i].classList.toggle('active-box');
-  };
-  // loops through all color options and all boxes and assigns them all functions, if any of these colors are clicked, assigns the parent element the color of them and toggles
-  //active box class. This triggers when the drop down box is opened and a color is clicked.
-  for (const color in colors) {
-    if (color==='grey') continue
-    boxAll[i].querySelector(`.${color}-box`).onclick = function () {
-      this.parentElement.style.backgroundColor = colors[color];
-      this.parentElement.classList.toggle('active-box');
-      this.parentElement.setAttribute('value', color);
-    }
-  }
-}
+
+
 // Looks at second argument for parent element, if it has parent element
 // that doesn't have class of dropdown and doesn't match element in the elmeArr toggles
 // active-box away from it, ignores drop down when clicked since
@@ -58,6 +37,36 @@ const determineClickHandlerInB = (elemArr, elemToMatch) => {
     }
   }
 };
+
+// this loops through all visible drop down boxes and assigns htem on click listeners
+function addDropDownMenuOnClickListeners() {
+  let dropDownAll = document.querySelectorAll('.dropdown');
+  console.log("drop down all is.... " , dropDownAll)
+   let  boxAll = document.querySelectorAll('.box');
+      // add listeners to all the drop down elements
+      for (let i = 0; i < dropDownAll.length; i += 1) {
+        // this assigns unique function to dropdown icon for each color box
+        dropDownAll[i].onclick = () => {
+        for (let j = 0; j < boxAll.length; j += 1) {
+          // if there are other drop downs open other than this one clsoe them
+            if (i !== j && boxAll[j].classList.contains('active-box')) {
+              boxAll[j].classList.toggle('active-box');
+            }
+          }
+          boxAll[i].classList.toggle('active-box');
+        };
+        // loops through all color options and all boxes and assigns them all functions, if any of these colors are clicked, assigns the parent element the color of them and toggles
+        //active box class. This triggers when the drop down box is opened and a color is clicked.
+        for (const color in colors) {
+          if (color==='grey') continue
+          boxAll[i].querySelector(`.${color}-box`).onclick = function () {
+            this.parentElement.style.backgroundColor = colors[color];
+            this.parentElement.classList.toggle('active-box');
+            this.parentElement.setAttribute('value', color);
+          }
+        }
+      }
+}
 
 // USE THIS FOR TESTING TO REMOVE ALL TABGROUPS WHEN DELETE AND ADDD FUNCTOINS MES THINGS UP
 
@@ -83,44 +92,25 @@ window.onload = async () => {
       for (let i = 0; i < result.TABGROUPS.length; i += 1) {
         console.log("all keys of tabggrups in for loops", Object.keys(result['TABGROUPS'][i]));
         let ruleElement = createRuleElement();
-        let selectorInput = ruleElement.querySelector(".container > input")
         const checkedNameField = ruleElement.querySelector('.name-content > input');
         const checkedUrlField = ruleElement.querySelector('.flex-center');
         let box = ruleElement.querySelector('.box');
-        let dropDown = ruleElement.querySelector('.dropdown')
-        dropDownAll = document.querySelectorAll('.dropdown');
-        boxAll = document.querySelectorAll('.box');
         if (result.TABGROUPS[i] === null)  { console.log ('empty tab group found??')}
         else {
           tabGroupsArray.push(result.TABGROUPS[i]);
         }
-
         // const group = `GROUP${String(i + 1)}`;
-
         const group = Object.keys(result['TABGROUPS'][i]);
-
-        console.log("group is ", group)
-        //how to get random group number
-        console.log("random group number is ", Date.now() + Math.random());
         if (
           Object.prototype.hasOwnProperty.call(result.TABGROUPS[i], group)
           && result.TABGROUPS[i][group].NAME !== undefined
         ) {
-          // names[i].setAttribute('value', result.TABGROUPS[i][group].NAME);
-          // urls[i].setAttribute('value', result.TABGROUPS[i][group].URL);
-          // boxes[i].setAttribute('value', result.TABGROUPS[i][group].COLOR);
-          // boxes[i].style.backgroundColor = colors[result.TABGROUPS[i][group].COLOR];
           checkedNameField.setAttribute('value', result.TABGROUPS[i][group].NAME);
           checkedUrlField.setAttribute('value', result.TABGROUPS[i][group].URL);
           box.setAttribute('value', result.TABGROUPS[i][group].COLOR);
           box.style.backgroundColor = colors[result.TABGROUPS[i][group].COLOR];
-
-
           checkedUrlField.value = result.TABGROUPS[i][group].URL
           checkedNameField.value = result.TABGROUPS[i][group].NAME
-      
-         
-
         }
       }
     }
