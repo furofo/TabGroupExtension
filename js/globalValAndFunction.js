@@ -68,7 +68,7 @@ function addDropDownMenuOnClickListeners() {
       }
 }
 
-// USE THIS FOR TESTING TO REMOVE ALL TABGROUPS WHEN DELETE AND ADDD FUNCTOINS MES THINGS UP
+// USE THIS FOR TESTING TO REMOVE ALL TABGROUPS WHEN DELETE AND ADDD FUNCTOINS MES THINGS UP testing functoin
 
 function removeTabGroups() {
   chrome.storage.sync.remove('TABGROUPS', function() {
@@ -76,41 +76,117 @@ function removeTabGroups() {
   });
 }
 
+//use this to manualy setTabGroups to testing function
+function setTabGroups(tabGroupsArray) {
+  chrome.storage.sync.set({ TABGROUPS: tabGroupsArray});
+
+}
+let tabGroupsObjectNotInOrder = 
+[
+  {
+      "GROUP1": {
+          "COLOR": "red",
+          "NAME": "colors",
+          "URL": [
+              "red",
+              "blue",
+              "yellow"
+          ]
+      }
+  },
+  {
+    "GROUP4": {
+      "COLOR": "blue",
+      "NAME": "colors",
+      "URL": [
+          "red",
+          "blue",
+          "yellow"
+      ]
+  }
+
+  },
+  {
+    "dsfafds": {
+      "COLOR": "yellow",
+      "NAME": "colors",
+      "URL": [
+          "red",
+          "blue",
+          "yellow"
+      ]
+  }
+},
+{
+  "GROUP3": {
+    "COLOR": "green",
+    "NAME": "colors",
+    "URL": [
+        "red",
+        "blue",
+        "yellow"
+    ]
+}
+}
+]
+//this takes an array of Object representing tabGroup Rules and this returns an copy array of Objects but renames the property of them to represent the GROUP number
+//starts with GROUP1 and goes on until the end of the array.
+function reorderTabGroups(tabGroupsArrayOfObjects) {
+  let newTabGroups = [];
+  for (let i = 0; i < tabGroupsArrayOfObjects.length; i++) {
+      for (let key in tabGroupsArrayOfObjects[i]) {
+          let newKey = "GROUP" + (i + 1);
+          let newObject = {};
+          newObject[newKey] = tabGroupsArrayOfObjects[i][key];
+          newTabGroups.push(newObject);
+      }
+  }
+  return newTabGroups;
+}
+
+
 // get chrome storage tabgropus object 
 window.onload = async () => {
     // //uncomment this to remoe all tabgroups on load for testing 
     // removeTabGroups();
+    // setTabGroups(tabGroupsObjectNotInOrder);
     let result = await chrome.storage.sync.get(['TABGROUPS']);
     console.log("Chrome Tab rules are as follows!" , result);
-   
+    //put all TabGroup Rules in to TabGroups Array
     if (Object.keys(result).length !== 0) {
+      //first thing we do is initzlze array to blank array to make sure it wlways starts empty 
       tabGroupsArray = [];
-      console.log("all keys of tabggrups", Object.keys(result['TABGROUPS']));
-      // const names = document.querySelectorAll('.name');
-      // const urls = document.querySelectorAll('.flex-center');
-      // const boxes = document.querySelectorAll('.box');
       for (let i = 0; i < result.TABGROUPS.length; i += 1) {
-        console.log("all keys of tabggrups in for loops", Object.keys(result['TABGROUPS'][i]));
-        let ruleElement = createRuleElement();
-        const checkedNameField = ruleElement.querySelector('.name-content > input');
-        const checkedUrlField = ruleElement.querySelector('.flex-center');
-        let box = ruleElement.querySelector('.box');
         if (result.TABGROUPS[i] === null)  { console.log ('empty tab group found??')}
         else {
           tabGroupsArray.push(result.TABGROUPS[i]);
         }
+      }
+      tabGroupsArray = reorderTabGroups(tabGroupsArray);
+    }
+    if (Object.keys(result).length !== 0) {
+      console.log("all keys of tabggrups", Object.keys(result['TABGROUPS']));
+      // const names = document.querySelectorAll('.name');
+      // const urls = document.querySelectorAll('.flex-center');
+      // const boxes = document.querySelectorAll('.box');
+      for (let i = 0; i < tabGroupsArray.length; i += 1) {
+        let ruleElement = createRuleElement();
+        const checkedNameField = ruleElement.querySelector('.name-content > input');
+        const checkedUrlField = ruleElement.querySelector('.flex-center');
+        let box = ruleElement.querySelector('.box');
         // const group = `GROUP${String(i + 1)}`;
-        const group = Object.keys(result['TABGROUPS'][i]);
+        console.log("key of tabGroup Array is", Object.keys(tabGroupsArray[i])[0]);
+        const group = Object.keys(tabGroupsArray[i])[0];
         if (
-          Object.prototype.hasOwnProperty.call(result.TABGROUPS[i], group)
-          && result.TABGROUPS[i][group].NAME !== undefined
+          Object.prototype.hasOwnProperty.call(tabGroupsArray[i], group)
+          && tabGroupsArray[i][group].NAME !== undefined
         ) {
-          checkedNameField.setAttribute('value', result.TABGROUPS[i][group].NAME);
-          checkedUrlField.setAttribute('value', result.TABGROUPS[i][group].URL);
-          box.setAttribute('value', result.TABGROUPS[i][group].COLOR);
-          box.style.backgroundColor = colors[result.TABGROUPS[i][group].COLOR];
-          checkedUrlField.value = result.TABGROUPS[i][group].URL
-          checkedNameField.value = result.TABGROUPS[i][group].NAME
+          checkedNameField.setAttribute('value', tabGroupsArray[i][group].NAME);
+          checkedUrlField.setAttribute('value', tabGroupsArray[i][group].URL);
+          box.setAttribute('value', tabGroupsArray[i][group].COLOR);
+          box.style.backgroundColor = colors[tabGroupsArray[i][group].COLOR];
+          checkedUrlField.value = tabGroupsArray[i][group].URL
+          checkedNameField.value = tabGroupsArray[i][group].NAME
         }
       }
     }
