@@ -81,6 +81,22 @@ function setTabGroups(tabGroupsArray) {
   chrome.storage.sync.set({ TABGROUPS: tabGroupsArray});
 
 }
+
+let createXNumbersTabGroupsArray = function(numTestRules) {
+  let tabGroupsArray = [];
+  for (let i = 0; i < numTestRules; i++) {
+    let groupNumber = "GROUP" + (i + 1);
+    tabGroupsArray.push ( {
+      [groupNumber]: {
+        "COLOR": "blue",
+        "NAME": "TEST" + (i+1),
+        "URL":["TEST" + i]
+      }
+    });
+    
+  }
+  return tabGroupsArray;
+}
 let tabGroupsObjectNotInOrder = 
 [
   {
@@ -149,6 +165,8 @@ function reorderTabGroups(tabGroupsArrayOfObjects) {
 window.onload = async () => {
     // //uncomment this to remoe all tabgroups on load for testing 
     // removeTabGroups();
+    // let testTabGroups = createXNumbersTabGroupsArray(9);
+    // setTabGroups(testTabGroups);
     // setTabGroups(tabGroupsObjectNotInOrder);
     let result = await chrome.storage.sync.get(['TABGROUPS']);
     console.log("Chrome Tab rules are as follows!" , result);
@@ -165,10 +183,6 @@ window.onload = async () => {
       tabGroupsArray = reorderTabGroups(tabGroupsArray);
     }
     if (Object.keys(result).length !== 0) {
-      console.log("all keys of tabggrups", Object.keys(result['TABGROUPS']));
-      // const names = document.querySelectorAll('.name');
-      // const urls = document.querySelectorAll('.flex-center');
-      // const boxes = document.querySelectorAll('.box');
       for (let i = 0; i < tabGroupsArray.length; i += 1) {
         let ruleElement = createRuleElement();
         const checkedNameField = ruleElement.querySelector('.name-content > input');
@@ -300,7 +314,8 @@ let goBackButtonLogic = (isCheckedArray, dropDownBox) => {
   
 }
 let deleteButtonLogic = (isCheckedArray, tabGroupsArray) => {
-  const ruleElement = document.querySelectorAll('.center.rule');
+  const ruleElements = document.querySelectorAll('.center.rule');
+  console.log("rule elements before deleing", ruleElements);
   let ruleElementIndexesToRemove = [];
   for (let i = 0; i < isCheckedArray.length; i += 1) {
     const checkedNameField = document.querySelectorAll('.name')[i];
@@ -314,13 +329,15 @@ let deleteButtonLogic = (isCheckedArray, tabGroupsArray) => {
         ruleElementIndexesToRemove.push(i);
         // remove this from tabsGroupArray which should be array of all groups retrieved from google Sync
         console.log("tabGroupsArray incex to remove", i,  tabGroupsArray);
-        tabGroupsArray.splice(i, 1);
+        tabGroupsArray.splice(i, 1, {});
         console.log("tabGroupsArray", tabGroupsArray);
       }
   }
   for(let i = 0; i < ruleElementIndexesToRemove.length; i++) {
-    ruleElement[ruleElementIndexesToRemove[i]].remove();
+    ruleElements[ruleElementIndexesToRemove[i]].remove();
+    console.log("rule elemtens after deleing", ruleElements);
   }
+   tabGroupsArray = reorderTabGroups(tabGroupsArray);
    chrome.storage.sync.set({ TABGROUPS: tabGroupsArray });
 }
 // save logic
@@ -337,8 +354,8 @@ let saveButtonLogic =  (button, inputBox, isCheckedArray, checkedNameField, chec
   isCheckedArray = document.querySelectorAll('.container input');
   // unchecks everything that is checked
   for (let i = 0; i < isCheckedArray.length; i += 1) {
-    // const groupNumber = `GROUP${String(i + 1)}`;
-    const groupNumber =  Date.now() + Math.random();
+    const groupNumber = `GROUP${String(i + 1)}`;
+    // const groupNumber =  Date.now() + Math.random();
     inputBox[i].style.pointerEvents = 'auto';
     // let matchingText = checkedUrlField[i].value;
     // let matchingTextSplitComma = matchingText.split(',');
