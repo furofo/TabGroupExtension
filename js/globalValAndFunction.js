@@ -68,83 +68,6 @@ function addDropDownMenuOnClickListeners() {
       }
 }
 
-// USE THIS FOR TESTING TO REMOVE ALL TABGROUPS WHEN DELETE AND ADDD FUNCTOINS MES THINGS UP testing functoin
-
-function removeTabGroups() {
-  chrome.storage.sync.remove('TABGROUPS', function() {
-      console.log('Tab Groups property removed from chrome storage');
-  });
-}
-
-//use this to manualy setTabGroups to testing function
-function setTabGroups(tabGroupsArray) {
-  chrome.storage.sync.set({ TABGROUPS: tabGroupsArray});
-
-}
-
-let createXNumbersTabGroupsArray = function(numTestRules) {
-  let tabGroupsArray = [];
-  for (let i = 0; i < numTestRules; i++) {
-    let groupNumber = "GROUP" + (i + 1);
-    tabGroupsArray.push ( {
-      [groupNumber]: {
-        "COLOR": "blue",
-        "NAME": "TEST" + (i+1),
-        "URL":["TEST" + i]
-      }
-    });
-    
-  }
-  return tabGroupsArray;
-}
-let tabGroupsObjectNotInOrder = 
-[
-  {
-      "GROUP1": {
-          "COLOR": "red",
-          "NAME": "colors",
-          "URL": [
-              "red",
-              "blue",
-              "yellow"
-          ]
-      }
-  },
-  {
-    "GROUP4": {
-      "COLOR": "blue",
-      "NAME": "colors",
-      "URL": [
-          "red",
-          "blue",
-          "yellow"
-      ]
-  }
-
-  },
-  {
-    "dsfafds": {
-      "COLOR": "yellow",
-      "NAME": "colors",
-      "URL": [
-          "red",
-          "blue",
-          "yellow"
-      ]
-  }
-},
-{
-  "GROUP3": {
-    "COLOR": "green",
-    "NAME": "colors",
-    "URL": [
-        "red",
-        "blue",
-        "yellow"
-    ]
-}
-}
-]
 //this takes an array of Object representing tabGroup Rules and this returns an copy array of Objects but renames the property of them to represent the GROUP number
 //starts with GROUP1 and goes on until the end of the array.
 function reorderTabGroups(tabGroupsArrayOfObjects) {
@@ -165,9 +88,8 @@ function reorderTabGroups(tabGroupsArrayOfObjects) {
 window.onload = async () => {
     // //uncomment this to remoe all tabgroups on load for testing 
     // removeTabGroups();
-    // let testTabGroups = createXNumbersTabGroupsArray(9);
-    // setTabGroups(testTabGroups);
-    // setTabGroups(tabGroupsObjectNotInOrder);
+    let testTabGroups = createXNumbersTabGroupsArray(9);
+    setTabGroups(testTabGroups);
     let result = await chrome.storage.sync.get(['TABGROUPS']);
     console.log("Chrome Tab rules are as follows!" , result);
     //put all TabGroup Rules in to TabGroups Array
