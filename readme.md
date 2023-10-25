@@ -20,6 +20,10 @@
 </a>
 </p>
 
+## UPDATE AS OF 10/25/2023
+
+-- Working on integrating typescript and CI/CD pipeline using JEST to run unit tests on code, will comment on code and read me accordingly.
+
 
 ## Extension Overview 
 
