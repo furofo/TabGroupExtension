@@ -1,3 +1,4 @@
+// looks through a list of search terms and tells you if url is in them
 let isSearchTermInUrl =  (url, searchTerms) => {
   if(searchTerms) {
     for(let i = 0; i < searchTerms.length; i++) {

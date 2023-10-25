@@ -69,7 +69,8 @@ function addDropDownMenuOnClickListeners() {
 }
 
 //this takes an array of Object representing tabGroup Rules and this returns an copy array of Objects but renames the property of them to represent the GROUP number
-//starts with GROUP1 and goes on until the end of the array.
+//starts with GROUP1 and goes on until the end of the array. This is to prevent situation where Tab Group 1 deleted last time and tab group 2 repeats for instance, guarinties unique tab
+// group names
 function reorderTabGroups(tabGroupsArrayOfObjects) {
   let newTabGroups = [];
   for (let i = 0; i < tabGroupsArrayOfObjects.length; i++) {
@@ -88,9 +89,10 @@ function reorderTabGroups(tabGroupsArrayOfObjects) {
 window.onload = async () => {
     // //uncomment this to remoe all tabgroups on load for testing 
     // removeTabGroups();
-    let testTabGroups = createXNumbersTabGroupsArray(9);
-    setTabGroups(testTabGroups);
+    // let testTabGroups = createXNumbersTabGroupsArray(9);
+    // setTabGroups(testTabGroups);
     let result = await chrome.storage.sync.get(['TABGROUPS']);
+    console.log("result is", result);
     console.log("Chrome Tab rules are as follows!" , result);
     //put all TabGroup Rules in to TabGroups Array
     if (Object.keys(result).length !== 0) {

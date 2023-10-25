@@ -1,10 +1,10 @@
 {
     "name": "Auto Tab Groups",
     "description": "Automatically Set Your Tab Groups!",
-    "version": "1.5",
+    "version": "1.6",
     "manifest_version": 3,
     "background": {
-        "service_worker": "js/background.js"
+        "service_worker": "dist/background.js"
     },
     "permissions": ["storage", "tabGroups", "tabs"],
     "action": {
