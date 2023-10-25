@@ -10,15 +10,15 @@
     "action": {
         "default_popup": "popup.html",
         "default_icon": {
-            "128": "/resizedTabLogo128.png",
-            "48": "/resizedTabLogo48.png",
-            "16": "/resizedTabLogo16.png"
+            "128": "/img/resizedTabLogo128.png",
+            "48": "/img/resizedTabLogo48.png",
+            "16": "/img/resizedTabLogo16.png"
         }
     },
     "icons": {
-        "128": "/resizedTabLogo128.png",
-        "48": "/resizedTabLogo48.png",
-        "16": "/resizedTabLogo16.png" },
+        "128": "/img/resizedTabLogo128.png",
+        "48": "/img/resizedTabLogo48.png",
+        "16": "/img/resizedTabLogo16.png" },
     "commands": {
         "close-groups": {
             "suggested_key": "Ctrl+Shift+Y",
