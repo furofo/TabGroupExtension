@@ -318,9 +318,9 @@ let saveButtonLogic =  (button, inputBox, isCheckedArray, checkedNameField, chec
   toggleDisplays(button);
   toggleElementDisplay(addButton);
 }
-let editButtonLogic = (button,  isCheckedArray, checkedNameField, checkedUrlField, dropDownBox) => {
+let editButtonLogic = (button: any, isCheckedArray: any, checkedNameField: any, checkedUrlField: any, dropDownBox: any) => {
   for (let i = 0; i < isCheckedArray.length; i += 1) {
-    document.querySelectorAll('.container')[i].style.pointerEvents = 'none';
+    (document.querySelectorAll('.container')[i] as HTMLElement).style.pointerEvents = 'none';
     if (isCheckedArray[i].checked) {
       toggleInputAndDropdown(checkedNameField[i], checkedUrlField[i], dropDownBox[i])
     } 
@@ -328,10 +328,11 @@ let editButtonLogic = (button,  isCheckedArray, checkedNameField, checkedUrlFiel
   toggleDisplays(button);
   toggleElementDisplay(addButton);
 }
+
 // this functoin finds duplicates in an array and returns an object showing if ther are any essentially testing functoin
-function findDuplicates(arr) {
-  let indices = [];
-  let seen = new Set();
+function findDuplicates(arr: number[]): { hasDuplicates: boolean; indices: number[] } {
+  let indices: number[] = [];
+  let seen = new Set<number>();
   for (let i = 0; i < arr.length; i++) {
     if (seen.has(arr[i])) {
       indices.push(i);
@@ -342,7 +343,7 @@ function findDuplicates(arr) {
   return {
     hasDuplicates: indices.length > 0,
     indices: indices
-  }
+  };
 }
 
 //testing fucntion to go in and put  a bunch of random values in an arra test up to a million 
