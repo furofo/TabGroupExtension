@@ -59,8 +59,12 @@ Make sure to set all values ***no fields can be left blank*** or the extension w
 Rule preferences are saved and retrieved using chrome.storage API detailed here https://developer.chrome.com/docs/extensions/reference/storage/ 
 
 ## Running locally
+
 ---
+
 -Project is configured to run via typescript and when files are compiled to javascript are moved to dist folder.
+
 -Tests are configured to run via Jest.
+
 -To run locally make sure typescript installed, clone repo, make sure dist folder is added to root of project.
 
