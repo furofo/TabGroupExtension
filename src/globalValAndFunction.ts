@@ -243,7 +243,15 @@ let goBackButtonLogic = (isCheckedArray, dropDownBox) => {
   }
   
 }
-let deleteButtonLogic = (isCheckedArray, tabGroupsArray) => {
+type TabGroup = {
+  [key: string]: {
+    COLOR: string | null;
+    NAME: string;
+    URL: string[];
+  };
+};
+
+let deleteButtonLogic = (isCheckedArray: NodeListOf<Element>, tabGroupsArray: TabGroup[]) => {
   const ruleElements = document.querySelectorAll('.center.rule');
   console.log("rule elements before deleing", ruleElements);
   let ruleElementIndexesToRemove = [];
@@ -251,9 +259,9 @@ let deleteButtonLogic = (isCheckedArray, tabGroupsArray) => {
     const checkedNameField = document.querySelectorAll('.name')[i];
     const checkedUrlField = document.querySelectorAll('.flex-center')[i];
     const box = document.querySelectorAll('.box')[i];
-    const checkedItem = document.querySelectorAll('.container input')[i];
+    const checkedItem = document.querySelectorAll('.container input')[i] as HTMLInputElement;
     // runs on last item, if checked => remove everything and end here, if not => return 
-      if (isCheckedArray[i].checked) {
+      if ((isCheckedArray[i] as HTMLInputElement).checked) {
         setValues(checkedNameField, checkedUrlField, box, '', [''], 'grey')
         checkedItem.checked = false;
         ruleElementIndexesToRemove.push(i);
@@ -270,9 +278,25 @@ let deleteButtonLogic = (isCheckedArray, tabGroupsArray) => {
    tabGroupsArray = reorderTabGroups(tabGroupsArray);
    chrome.storage.sync.set({ TABGROUPS: tabGroupsArray });
 }
+
+type ButtonType = HTMLButtonElement; // Replace with actual type
+type InputBoxType = HTMLInputElement[]; // Replace with actual type
+type IsCheckedArrayType = HTMLInputElement[]; // Replace with actual type
+type CheckedNameFieldType = HTMLInputElement[]; // Replace with actual type
+type CheckedUrlFieldType = HTMLInputElement[]; // Replace with actual type
+type BoxFieldType = HTMLElement[]; // Replace with actual type
+type DropDownBoxType = HTMLElement[]; // Replace with actual type
 // save logic
-let saveButtonLogic =  (button, inputBox, isCheckedArray, checkedNameField, checkedUrlField, boxField, dropDownBox) =>  {
-  // Loops through all rules if any are checked if they are blank 
+let saveButtonLogic = (
+  button: ButtonType, 
+  inputBox: InputBoxType, 
+  isCheckedArray: IsCheckedArrayType,
+  checkedNameField: CheckedNameFieldType,
+  checkedUrlField: CheckedUrlFieldType,
+  boxField: BoxFieldType, 
+  dropDownBox: DropDownBoxType
+) => {
+  // your existing code here
   if( isBlank(isCheckedArray, checkedNameField, checkedUrlField, boxField)) {
     ModalWindow.openModal({
       title:'Field is Blank!',
@@ -291,7 +315,7 @@ let saveButtonLogic =  (button, inputBox, isCheckedArray, checkedNameField, chec
   let tabGroupsArray: TabGroup[] = [];
   
   
-  isCheckedArray = document.querySelectorAll('.container input');
+  isCheckedArray = Array.from(document.querySelectorAll('.container input')) as HTMLInputElement[];
   // unchecks everything that is checked
   for (let i = 0; i < isCheckedArray.length; i += 1) {
     const groupNumber = `GROUP${String(i + 1)}`;
@@ -328,6 +352,64 @@ let saveButtonLogic =  (button, inputBox, isCheckedArray, checkedNameField, chec
   toggleDisplays(button);
   toggleElementDisplay(addButton);
 }
+// old save button logic
+// let saveButtonLogic =  (button, inputBox, isCheckedArray, checkedNameField, checkedUrlField, boxField, dropDownBox) =>  {
+//   // Loops through all rules if any are checked if they are blank 
+//   if( isBlank(isCheckedArray, checkedNameField, checkedUrlField, boxField)) {
+//     ModalWindow.openModal({
+//       title:'Field is Blank!',
+//       content: 'Make sure name and url fields are not blank, and color box is not grey!'
+//     })
+//     return;
+//   }
+//   type TabGroup = {
+//     [key: string]: {
+//       COLOR: string | null;
+//       NAME: string;
+//       URL: string[];
+//     };
+//   };
+  
+//   let tabGroupsArray: TabGroup[] = [];
+  
+  
+//   isCheckedArray = document.querySelectorAll('.container input');
+//   // unchecks everything that is checked
+//   for (let i = 0; i < isCheckedArray.length; i += 1) {
+//     const groupNumber = `GROUP${String(i + 1)}`;
+//     // const groupNumber =  Date.now() + Math.random();
+//     inputBox[i].style.pointerEvents = 'auto';
+//     // let matchingText = checkedUrlField[i].value;
+//     // let matchingTextSplitComma = matchingText.split(',');
+//     // let matchingTextRemoveSpace = matchingTextSplitComma.map((item) => item.trim());
+//     if (isCheckedArray[i].checked) {
+//         tabGroupsArray.push({
+//           [groupNumber]: {
+//             COLOR: document.querySelectorAll('.box')[i].getAttribute('value'),
+//             NAME: checkedNameField[i].value,
+//             URL: checkedUrlField[i].value.split(',').map((item: string) => item.trim()),
+//           },
+//         });
+//         toggleInputAndDropdown(checkedNameField[i], checkedUrlField[i], dropDownBox[i])
+//         isCheckedArray[i].checked = false;
+//     } 
+//     else if (checkedNameField[i].value && checkedUrlField[i].value
+//       && boxField[i].getAttribute('value') !== 'grey') {
+//       tabGroupsArray.push({
+//         [groupNumber]: {
+//           COLOR: document.querySelectorAll('.box')[i].getAttribute('value'),
+//           NAME: checkedNameField[i].value,
+//           URL: checkedUrlField[i].value.split(',').map((item: string) => item.trim()),
+//         },
+//       });
+//     } else {
+//       tabGroupsArray.push({});
+//     }
+//   }
+//   chrome.storage.sync.set({ TABGROUPS: tabGroupsArray });
+//   toggleDisplays(button);
+//   toggleElementDisplay(addButton);
+// }
 let editButtonLogic = (button: any, isCheckedArray: any, checkedNameField: any, checkedUrlField: any, dropDownBox: any) => {
   for (let i = 0; i < isCheckedArray.length; i += 1) {
     (document.querySelectorAll('.container')[i] as HTMLElement).style.pointerEvents = 'none';
