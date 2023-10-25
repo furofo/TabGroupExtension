@@ -1,3 +1,4 @@
+import {toggleInputDisabled, toggleDropdownBox, addDropDownMenuOnClickListeners} from './globalValAndFunction'
 // this funcitn uses javascript to generate all html elements that will make up the rules and their dropdown color boxes etc
 let createRuleElement = function() {
   let rulesContainerElement = document.querySelector(".rules-container");
@@ -97,7 +98,7 @@ let createRuleElement = function() {
     dropdown.appendChild(svg);
     colorContentDiv.appendChild(dropdown);
     // console.log("center rule  is  ", centerRuleDiv);
-    rulesContainerElement.appendChild(centerRuleDiv);
+    rulesContainerElement!.appendChild(centerRuleDiv);
     return centerRuleDiv;
 }
 

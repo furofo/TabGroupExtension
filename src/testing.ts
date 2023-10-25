@@ -6,12 +6,6 @@ function removeTabGroups() {
         console.log('Tab Groups property removed from chrome storage');
     });
   }
-  
-  //use this to manualy setTabGroups to testing function
-  function setTabGroups(tabGroupsArray) {
-    chrome.storage.sync.set({ TABGROUPS: tabGroupsArray});
-  
-  }
   type TabGroup = {
     [key: string]: {
       COLOR: string;
@@ -20,6 +14,12 @@ function removeTabGroups() {
     };
   };
   
+  //use this to manualy setTabGroups to testing function
+  function setTabGroups(tabGroupsArray: TabGroup[]) {
+    chrome.storage.sync.set({ TABGROUPS: tabGroupsArray});
+  
+  }
+ 
   let createXNumbersTabGroupsArray = function(numTestRules: number): TabGroup[] {
     let tabGroupsArray: TabGroup[] = [];
     for (let i = 0; i < numTestRules; i++) {
