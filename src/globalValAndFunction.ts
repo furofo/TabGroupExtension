@@ -14,7 +14,7 @@ const zoomLg = document.getElementById('zoom-lg')
 const zoomReg = document.getElementById('zoom-reg')
 
 // function that switches a btn elements inner html between two strings
-const toggleButtonText = (btn, str1, str2) => {
+export const toggleButtonText = (btn, str1, str2) => {
   btn.innerHTML = (btn.innerHTML === str1) ? str2 : str1;
 };
 
@@ -341,10 +341,10 @@ function findDuplicates(arr) {
 
 //testing fucntion to go in and put  a bunch of random values in an arra test up to a million 
 
-function generateRandomValuesAndPushToArray(arrayLength) {
-  let randomNumbersArray = [];
+function generateRandomValuesAndPushToArray(arrayLength:number):number[] {
+  let randomNumbersArray:number[] = [];
   for(let i = 0; i < arrayLength; i++) {
-    setTimeout(randomNumbersArray.push(Date.now() + Math.random(), 500));
+    randomNumbersArray.push(Math.random())
   
   }
   return randomNumbersArray;
