@@ -48,7 +48,7 @@ const determineClickHandlerInB = (elemArr: HTMLElement[], elemToMatch:  HTMLElem
 };
 
 // this loops through all visible drop down boxes and assigns htem on click listeners
-function addDropDownMenuOnClickListeners() {
+export function addDropDownMenuOnClickListeners() {
   let dropDownAll = document.querySelectorAll('.dropdown') as NodeListOf<HTMLElement>;
   let boxAll = document.querySelectorAll('.box') as NodeListOf<HTMLElement>;
 
@@ -157,12 +157,12 @@ const toggleElementDisplay = (elem: HTMLElement) => {
 };
 
 // Toggles input disabled from true and false and border to none and solid px effectively
-const toggleInputDisabled = (elem: HTMLInputElement) => {
+export const toggleInputDisabled = (elem: HTMLInputElement) => {
   elem.disabled = !elem.disabled;
   elem.style.border = elem.disabled ? 'none' : '1px solid grey';
 };
 // Hides and unhides the dropdown box for the color picker box
-const toggleDropdownBox = (elem: HTMLInputElement) => {
+export const toggleDropdownBox = (elem: HTMLInputElement) => {
   const selectedElem = elem;
   selectedElem.style.display = (window.getComputedStyle(selectedElem, null).display === 'none') ? 'flex' : 'none'
 };
