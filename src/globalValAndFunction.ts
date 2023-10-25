@@ -14,9 +14,10 @@ const zoomLg = document.getElementById('zoom-lg')
 const zoomReg = document.getElementById('zoom-reg')
 
 // function that switches a btn elements inner html between two strings
-export const toggleButtonText = (btn, str1, str2) => {
+export const toggleButtonText = (btn: HTMLElement, str1: string, str2: string): void => {
   btn.innerHTML = (btn.innerHTML === str1) ? str2 : str1;
 };
+
 
 
 // Looks at second argument for parent element, if it has parent element
@@ -40,32 +41,37 @@ const determineClickHandlerInB = (elemArr, elemToMatch) => {
 
 // this loops through all visible drop down boxes and assigns htem on click listeners
 function addDropDownMenuOnClickListeners() {
-  let dropDownAll = document.querySelectorAll('.dropdown');
-  console.log("drop down all is.... " , dropDownAll)
-   let  boxAll = document.querySelectorAll('.box');
-      // add listeners to all the drop down elements
-      for (let i = 0; i < dropDownAll.length; i += 1) {
-        // this assigns unique function to dropdown icon for each color box
-        dropDownAll[i].onclick = () => {
-        for (let j = 0; j < boxAll.length; j += 1) {
-          // if there are other drop downs open other than this one clsoe them
-            if (i !== j && boxAll[j].classList.contains('active-box')) {
-              boxAll[j].classList.toggle('active-box');
-            }
-          }
-          boxAll[i].classList.toggle('active-box');
-        };
-        // loops through all color options and all boxes and assigns them all functions, if any of these colors are clicked, assigns the parent element the color of them and toggles
-        //active box class. This triggers when the drop down box is opened and a color is clicked.
-        for (const color in colors) {
-          if (color==='grey') continue
-          boxAll[i].querySelector(`.${color}-box`).onclick = function () {
-            this.parentElement.style.backgroundColor = colors[color];
-            this.parentElement.classList.toggle('active-box');
-            this.parentElement.setAttribute('value', color);
-          }
+  let dropDownAll = document.querySelectorAll('.dropdown') as NodeListOf<HTMLElement>;
+  let boxAll = document.querySelectorAll('.box') as NodeListOf<HTMLElement>;
+
+  for (let i = 0; i < dropDownAll.length; i++) {
+    dropDownAll[i].onclick = () => {
+      for (let j = 0; j < boxAll.length; j++) {
+        if (i !== j && boxAll[j].classList.contains('active-box')) {
+          boxAll[j].classList.toggle('active-box');
         }
       }
+      boxAll[i].classList.toggle('active-box');
+    };
+
+    for (const color in colors) {
+      if (color === 'grey') continue;
+
+      const colorBox = boxAll[i].querySelector(`.${color}-box`) as HTMLElement; // Casting here
+
+      if (colorBox !== null) {
+        colorBox.onclick = (event: Event) => { // Using event parameter
+          const targetElement = event.currentTarget as HTMLElement;
+
+          if (targetElement && targetElement.parentElement) {
+            targetElement.parentElement.style.backgroundColor = colors[color];
+            targetElement.parentElement.classList.toggle('active-box');
+            targetElement.parentElement.setAttribute('value', color);
+          }
+        };
+      }
+    }
+  }
 }
 
 //this takes an array of Object representing tabGroup Rules and this returns an copy array of Objects but renames the property of them to represent the GROUP number
