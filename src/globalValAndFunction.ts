@@ -280,7 +280,17 @@ let saveButtonLogic =  (button, inputBox, isCheckedArray, checkedNameField, chec
     })
     return;
   }
-  tabGroupsArray = [];
+  type TabGroup = {
+    [key: string]: {
+      COLOR: string | null;
+      NAME: string;
+      URL: string[];
+    };
+  };
+  
+  let tabGroupsArray: TabGroup[] = [];
+  
+  
   isCheckedArray = document.querySelectorAll('.container input');
   // unchecks everything that is checked
   for (let i = 0; i < isCheckedArray.length; i += 1) {
@@ -295,7 +305,7 @@ let saveButtonLogic =  (button, inputBox, isCheckedArray, checkedNameField, chec
           [groupNumber]: {
             COLOR: document.querySelectorAll('.box')[i].getAttribute('value'),
             NAME: checkedNameField[i].value,
-            URL: checkedUrlField[i].value.split(',').map((item) => item.trim()),
+            URL: checkedUrlField[i].value.split(',').map((item: string) => item.trim()),
           },
         });
         toggleInputAndDropdown(checkedNameField[i], checkedUrlField[i], dropDownBox[i])
@@ -307,7 +317,7 @@ let saveButtonLogic =  (button, inputBox, isCheckedArray, checkedNameField, chec
         [groupNumber]: {
           COLOR: document.querySelectorAll('.box')[i].getAttribute('value'),
           NAME: checkedNameField[i].value,
-          URL: checkedUrlField[i].value.split(',').map((item) => item.trim()),
+          URL: checkedUrlField[i].value.split(',').map((item: string) => item.trim()),
         },
       });
     } else {
