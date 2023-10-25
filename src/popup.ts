@@ -1,5 +1,20 @@
-import {toggleInputDisabled, toggleDropdownBox, addDropDownMenuOnClickListeners} from './globalValAndFunction'
-// this funcitn uses javascript to generate all html elements that will make up the rules and their dropdown color boxes etc
+import {
+  toggleInputDisabled,
+  toggleDropdownBox, 
+  addDropDownMenuOnClickListeners,
+  toggleElementDisplay,
+  toggleButtonText,
+  editButtonLogic,
+  saveButtonLogic,
+  isChecked
+} from './globalValAndFunction';
+
+let addButton = document.getElementById('addButton');
+let deleteButton = document.getElementById('deleteButton');
+let gobackButton = document.getElementById('goBackButton'); 
+let editAddButton = document.getElementById('editAddButton');
+let zoomLg = document.getElementById('zoomLg');
+let zoomReg = document.getElementById('zoomReg');
 let createRuleElement = function() {
   let rulesContainerElement = document.querySelector(".rules-container");
     let centerRuleDiv = document.createElement("div");
@@ -154,14 +169,14 @@ addButton.addEventListener('click', async(elem) => {
   checkedNameField.focus();
        
 })
-gobackButton.addEventListener('click', async () => {
+gobackButton!.addEventListener('click', async () => {
   const isCheckedArray = document.querySelectorAll('.container input');
   const dropDownBox = document.querySelectorAll('.dropdown');
   
   // deleteButtonLogic(isCheckedArray, tabGroupsArray, dropDownBox, true)
   goBackButtonLogic(isCheckedArray, dropDownBox)
 })
-editAddButton.addEventListener('click', async function ()  {
+editAddButton!.addEventListener('click', async function ()  {
  
   addDropDownMenuOnClickListeners();
   const isCheckedArray = document.querySelectorAll('.container input');

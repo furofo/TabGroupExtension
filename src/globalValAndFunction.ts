@@ -147,7 +147,7 @@ window.onload = async () => {
 };
 
 // Switches an elements display between none and block
-const toggleElementDisplay = (elem: HTMLElement) => {
+export const toggleElementDisplay = (elem: HTMLElement) => {
   const selectedElem = elem;
   if (window.getComputedStyle(selectedElem, null).display === 'block') {
     selectedElem.style.display = 'none';
@@ -218,7 +218,7 @@ function updateInputWhenTyped(e: InputEvent) {
 }
 
 // Loops through list and sees if a value is checked, if not returns false otherwise returns true
-let isChecked = (isCheckedArray: NodeListOf<Element>) => {
+export let isChecked = (isCheckedArray: NodeListOf<Element>) => {
   let checkedInput = false;
   for (let i = 0; i < isCheckedArray.length; i += 1) {
   if ((isCheckedArray[i] as HTMLInputElement).checked ) checkedInput = true
@@ -306,7 +306,7 @@ type CheckedUrlFieldType = HTMLInputElement[]; // Replace with actual type
 type BoxFieldType = HTMLElement[]; // Replace with actual type
 type DropDownBoxType = HTMLElement[]; // Replace with actual type
 // save logic
-let saveButtonLogic = (
+export let saveButtonLogic = (
   button: ButtonType, 
   inputBox: InputBoxType, 
   isCheckedArray: IsCheckedArrayType,
@@ -429,7 +429,7 @@ let saveButtonLogic = (
 //   toggleDisplays(button);
 //   toggleElementDisplay(addButton);
 // }
-let editButtonLogic = (button: any, isCheckedArray: any, checkedNameField: any, checkedUrlField: any, dropDownBox: any) => {
+export let editButtonLogic = (button: any, isCheckedArray: any, checkedNameField: any, checkedUrlField: any, dropDownBox: any) => {
   for (let i = 0; i < isCheckedArray.length; i += 1) {
     (document.querySelectorAll('.container')[i] as HTMLElement).style.pointerEvents = 'none';
     if (isCheckedArray[i].checked) {
@@ -469,84 +469,3 @@ function generateRandomValuesAndPushToArray(arrayLength:number):number[] {
 }
 let testArray = [1, 2, 3 , 4, 5]
 
-
-//input
-// [
-//   {
-//       "GROUP1": {
-//           "COLOR": "red",
-//           "NAME": "colors",
-//           "URL": [
-//               "red",
-//               "yellow.blue"
-//           ]
-//       }
-//   },
-//   {
-//       "GROUP2": {
-//           "COLOR": "red",
-//           "NAME": "vehicles",
-//           "URL": [
-//               "green",
-//               "blue",
-//               "yellow"
-//           ]
-//       }
-//   },
-//   {
-//       "GROUP3": {
-//           "COLOR": "green",
-//           "NAME": "trucks",
-//           "URL": [
-//               "nissan"
-//           ]
-//       }
-//   },
-//   {
-//       "GROUP4": {
-//           "COLOR": "pink",
-//           "NAME": "pokemon",
-//           "URL": [
-//               "pikachu",
-//               "storm"
-//           ]
-//       }
-//   }
-// ]
-
-//deleted group 3 this is what happened after 
-// [
-//   {
-//       "GROUP1": {
-//           "COLOR": "red",
-//           "NAME": "colors",
-//           "URL": [
-//               "red",
-//               "yellow.blue"
-//           ]
-//       }
-//   },
-//   {
-//       "GROUP2": {
-//           "COLOR": "red",
-//           "NAME": "vehicles",
-//           "URL": [
-//               "green",
-//               "blue",
-//               "yellow"
-//           ]
-//       }
-//   },
-//   {
-//       "GROUP4": {
-//           "COLOR": "pink",
-//           "NAME": "pokemon",
-//           "URL": [
-//               "pikachu",
-//               "storm"
-//           ]
-//       }
-//   }
-// ]
-
-// it only printed colors and vehicles and everything else blank
