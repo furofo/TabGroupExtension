@@ -9,7 +9,14 @@ let isCheckedArray = document.querySelectorAll('.container input');
 // console.log("drop down all is.... " ,)
 // let boxAll = document.querySelectorAll('.box');
 const colors = {'blue': '#8ab4f7', 'yellow': '#fed663', 'purple': '#c589f9', 'green': '#81c895', 'red': '#f18b82', 'pink': '#ff8bcb', 'orange': '#fbac70', 'cyan': '#78d9ec', 'grey': 'grey'}
-let tabGroupsArray = [];
+type TabGroup = {
+  [key: string]: {
+    NAME: string;
+    URL: string[];
+    COLOR: string;
+  };
+};
+let tabGroupsArray: TabGroup[] = [];
 const zoomLg = document.getElementById('zoom-lg')
 const zoomReg = document.getElementById('zoom-reg')
 
@@ -24,7 +31,7 @@ export const toggleButtonText = (btn: HTMLElement, str1: string, str2: string): 
 // that doesn't have class of dropdown and doesn't match element in the elmeArr toggles
 // active-box away from it, ignores drop down when clicked since
 // we have a functoin for that already that toggles when that is clicked among other things.
-const determineClickHandlerInB = (elemArr, elemToMatch) => {
+const determineClickHandlerInB = (elemArr: HTMLElement[], elemToMatch:  HTMLElement) => {
   for (let i = 0; i < elemArr.length; i += 1) {
     if (elemToMatch.parentElement) {
       // check if the element is the svg clicked, the path in the svg or dropdown, if any of these
@@ -64,7 +71,8 @@ function addDropDownMenuOnClickListeners() {
           const targetElement = event.currentTarget as HTMLElement;
 
           if (targetElement && targetElement.parentElement) {
-            targetElement.parentElement.style.backgroundColor = colors[color];
+            targetElement.parentElement!.style.backgroundColor = colors[color as keyof typeof colors];
+
             targetElement.parentElement.classList.toggle('active-box');
             targetElement.parentElement.setAttribute('value', color);
           }
@@ -77,12 +85,12 @@ function addDropDownMenuOnClickListeners() {
 //this takes an array of Object representing tabGroup Rules and this returns an copy array of Objects but renames the property of them to represent the GROUP number
 //starts with GROUP1 and goes on until the end of the array. This is to prevent situation where Tab Group 1 deleted last time and tab group 2 repeats for instance, guarinties unique tab
 // group names
-function reorderTabGroups(tabGroupsArrayOfObjects) {
+function reorderTabGroups(tabGroupsArrayOfObjects: TabGroup[]) {
   let newTabGroups = [];
   for (let i = 0; i < tabGroupsArrayOfObjects.length; i++) {
       for (let key in tabGroupsArrayOfObjects[i]) {
           let newKey = "GROUP" + (i + 1);
-          let newObject = {};
+          let newObject: TabGroup = {}; 
           newObject[newKey] = tabGroupsArrayOfObjects[i][key];
           newTabGroups.push(newObject);
       }
@@ -125,12 +133,13 @@ window.onload = async () => {
           Object.prototype.hasOwnProperty.call(tabGroupsArray[i], group)
           && tabGroupsArray[i][group].NAME !== undefined
         ) {
-          checkedNameField.setAttribute('value', tabGroupsArray[i][group].NAME);
-          checkedUrlField.setAttribute('value', tabGroupsArray[i][group].URL);
-          box.setAttribute('value', tabGroupsArray[i][group].COLOR);
-          box.style.backgroundColor = colors[tabGroupsArray[i][group].COLOR];
-          checkedUrlField.value = tabGroupsArray[i][group].URL
-          checkedNameField.value = tabGroupsArray[i][group].NAME
+          checkedNameField!.setAttribute('value', tabGroupsArray[i][group].NAME);
+          checkedUrlField!.setAttribute('value', tabGroupsArray[i][group].URL.join(', '));
+          box!.setAttribute('value', tabGroupsArray[i][group].COLOR);
+          (box! as HTMLElement).style.backgroundColor = colors[tabGroupsArray[i][group].COLOR! as keyof typeof colors];
+          (checkedUrlField! as HTMLInputElement).value = tabGroupsArray[i][group].URL.join(', ');  // Assuming URL is an array of strings
+          (checkedNameField! as HTMLInputElement).value = tabGroupsArray[i][group].NAME;
+
         }
       }
     }
@@ -184,9 +193,9 @@ let setValues = (nameField, urlField, box, title, url, color) => {
 }
 
 // Returns true if either name or url or color field is blank if it is checked in tool false othersiwe
-const isBlank = (isCheckedArray, checkedNameField, checkedUrlField, boxField) => {
+const isBlank = (isCheckedArray: NodeListOf<Element>, checkedNameField: HTMLInputElement[], checkedUrlField: HTMLInputElement[], boxField:  HTMLElement[]) => {
   for(let i = 0; i < isCheckedArray.length; i += 1) {
-    if(isCheckedArray[i].checked) {
+    if((isCheckedArray[i] as HTMLInputElement).checked) {
       if (!checkedNameField[i].value || !checkedUrlField[i].value
         ||boxField[i].getAttribute('value') === 'grey') {
           return true
@@ -196,25 +205,29 @@ const isBlank = (isCheckedArray, checkedNameField, checkedUrlField, boxField) =>
   return false;
 }
 
-// Get input value as typed and update its value attribute 
-function updateInputWhenTyped(e) {
-  e.target.setAttribute('value', e.target.value);
+function updateInputWhenTyped(e: InputEvent) {
+  const target = e.target as HTMLInputElement;
+  target.setAttribute('value', target.value);
 }
+
 // Loops through list and sees if a value is checked, if not returns false otherwise returns true
-let isChecked = (isCheckedArray) => {
+let isChecked = (isCheckedArray: NodeListOf<Element>) => {
   let checkedInput = false;
   for (let i = 0; i < isCheckedArray.length; i += 1) {
-  if (isCheckedArray[i].checked) checkedInput = true
+  if ((isCheckedArray[i] as HTMLInputElement).checked ) checkedInput = true
   }
   return checkedInput;
 }
-let goBackButtonLogic = (isCheckedArray, dropDownBox) => {
+let goBackButtonLogic = (isCheckedArray: NodeListOf<Element>, dropDownBox: HTMLElement[]) => {
  console.log("this is tab grops array", tabGroupsArray);
   // toggle element display buttons
   toggleDisplays(editAddButton)
   toggleElementDisplay(addButton);
   // update pointer events for check boxes
-  document.querySelectorAll('.container').forEach(e =>  e.style.pointerEvents = 'auto')
+  document.querySelectorAll('.container').forEach(e => {
+    (e as HTMLElement).style.pointerEvents = 'auto';
+  });
+  
   // loop through the tabGroupsArray and set corresponding values
   // essentially reverts to original state before edits were made
   let allRules = document.querySelectorAll(".center.rule");
@@ -232,8 +245,8 @@ let goBackButtonLogic = (isCheckedArray, dropDownBox) => {
       [title, url, color] = ['', [''], 'grey']
     }
     setValues(checkedNameField, checkedUrlField, box, title, url, color)
-    if (!isCheckedArray[i].checked) continue
-    isCheckedArray[i].checked = false;
+    if (!(isCheckedArray[i] as HTMLInputElement).checked) continue
+    (isCheckedArray[i] as HTMLInputElement).checked = false;
     toggleInputAndDropdown(checkedNameField, checkedUrlField, dropDownBox[i])
   }
 
@@ -243,13 +256,7 @@ let goBackButtonLogic = (isCheckedArray, dropDownBox) => {
   }
   
 }
-type TabGroup = {
-  [key: string]: {
-    COLOR: string | null;
-    NAME: string;
-    URL: string[];
-  };
-};
+
 
 let deleteButtonLogic = (isCheckedArray: NodeListOf<Element>, tabGroupsArray: TabGroup[]) => {
   const ruleElements = document.querySelectorAll('.center.rule');
