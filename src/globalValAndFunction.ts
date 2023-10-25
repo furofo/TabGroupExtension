@@ -3,7 +3,8 @@
 const deleteButton = document.getElementById('delete-group');
 const gobackButton = document.getElementById('go-back');
 const addButton = document.getElementById('add-group');
-const editAddButton = document.getElementById('edit-add-group');
+const editAddButton: HTMLButtonElement = document.getElementById('edit-add-group') as HTMLButtonElement;
+
 let isCheckedArray = document.querySelectorAll('.container input');
 // let dropDownAll = document.querySelectorAll('.dropdown');
 // console.log("drop down all is.... " ,)
@@ -146,7 +147,7 @@ window.onload = async () => {
 };
 
 // Switches an elements display between none and block
-const toggleElementDisplay = (elem) => {
+const toggleElementDisplay = (elem: HTMLElement) => {
   const selectedElem = elem;
   if (window.getComputedStyle(selectedElem, null).display === 'block') {
     selectedElem.style.display = 'none';
@@ -156,44 +157,50 @@ const toggleElementDisplay = (elem) => {
 };
 
 // Toggles input disabled from true and false and border to none and solid px effectively
-const toggleInputDisabled = (elem) => {
-  const selectedElem = elem;
-  selectedElem.disabled = !selectedElem.disabled;
-  selectedElem.style.border = selectedElem.disabled ? 'none' : '1px solid grey'
+const toggleInputDisabled = (elem: HTMLInputElement) => {
+  elem.disabled = !elem.disabled;
+  elem.style.border = elem.disabled ? 'none' : '1px solid grey';
 };
-
 // Hides and unhides the dropdown box for the color picker box
-const toggleDropdownBox = (elem) => {
+const toggleDropdownBox = (elem: HTMLInputElement) => {
   const selectedElem = elem;
   selectedElem.style.display = (window.getComputedStyle(selectedElem, null).display === 'none') ? 'flex' : 'none'
 };
 
  // helper function for toggling input and dropdown
-const toggleInputAndDropdown = (nameField, urlField, dropDown) => {
+const toggleInputAndDropdown = (nameField: HTMLInputElement, urlField: HTMLInputElement, dropDown: HTMLInputElement) => {
   toggleInputDisabled(nameField);
   toggleInputDisabled(urlField);
   toggleDropdownBox(dropDown);
 }
 
 // helper function for toggling display elements
-let toggleDisplays = (button) => {
-  toggleElementDisplay(document.getElementById('go-back'))
-  toggleElementDisplay(deleteButton)
-  toggleButtonText(button, "Select", "Save")
-}
+let toggleDisplays = (button: HTMLButtonElement) => {
+  const goBackButton = document.getElementById('go-back');
+  const deleteButton = document.getElementById('delete-button');
+  
+  if (goBackButton) {
+    toggleElementDisplay(goBackButton);
+  }
 
+  if (deleteButton) {
+    toggleElementDisplay(deleteButton);
+  }
+  
+  toggleButtonText(button, "Select", "Save");
+};
 // helper function for setting field values
-let setValues = (nameField, urlField, box, title, url, color) => {
+let setValues = (nameField: HTMLInputElement , urlField: HTMLInputElement, box: HTMLElement, title: string, url: string, color: string) => {
   nameField.setAttribute('value', title)
   nameField.value = title
   urlField.setAttribute('value', url[0])
   urlField.value = url[0]
   box.setAttribute('color', color);
-  box.style.backgroundColor = colors[color]
+  box.style.backgroundColor = colors[color as keyof typeof colors];
 }
 
 // Returns true if either name or url or color field is blank if it is checked in tool false othersiwe
-const isBlank = (isCheckedArray: NodeListOf<Element>, checkedNameField: HTMLInputElement[], checkedUrlField: HTMLInputElement[], boxField:  HTMLElement[]) => {
+const isBlank = (isCheckedArray: HTMLInputElement[], checkedNameField: HTMLInputElement[], checkedUrlField: HTMLInputElement[], boxField:  HTMLElement[]) => {
   for(let i = 0; i < isCheckedArray.length; i += 1) {
     if((isCheckedArray[i] as HTMLInputElement).checked) {
       if (!checkedNameField[i].value || !checkedUrlField[i].value
@@ -221,8 +228,12 @@ let isChecked = (isCheckedArray: NodeListOf<Element>) => {
 let goBackButtonLogic = (isCheckedArray: NodeListOf<Element>, dropDownBox: HTMLElement[]) => {
  console.log("this is tab grops array", tabGroupsArray);
   // toggle element display buttons
-  toggleDisplays(editAddButton)
-  toggleElementDisplay(addButton);
+  if (editAddButton && addButton) {
+    // toggle element display buttons
+    toggleDisplays(editAddButton);
+    toggleElementDisplay(addButton);
+  }
+
   // update pointer events for check boxes
   document.querySelectorAll('.container').forEach(e => {
     (e as HTMLElement).style.pointerEvents = 'auto';
@@ -244,10 +255,11 @@ let goBackButtonLogic = (isCheckedArray: NodeListOf<Element>, dropDownBox: HTMLE
     } else {
       [title, url, color] = ['', [''], 'grey']
     }
-    setValues(checkedNameField, checkedUrlField, box, title, url, color)
+    url = url.join(', ');
+    setValues(checkedNameField as HTMLInputElement, checkedUrlField as HTMLInputElement, box as HTMLInputElement, title, url, color)
     if (!(isCheckedArray[i] as HTMLInputElement).checked) continue
     (isCheckedArray[i] as HTMLInputElement).checked = false;
-    toggleInputAndDropdown(checkedNameField, checkedUrlField, dropDownBox[i])
+    toggleInputAndDropdown(checkedNameField as HTMLInputElement, checkedUrlField as HTMLInputElement, dropDownBox[i] as HTMLInputElement)
   }
 
   if(allRules.length > tabGroupsArray.length) {
@@ -269,7 +281,7 @@ let deleteButtonLogic = (isCheckedArray: NodeListOf<Element>, tabGroupsArray: Ta
     const checkedItem = document.querySelectorAll('.container input')[i] as HTMLInputElement;
     // runs on last item, if checked => remove everything and end here, if not => return 
       if ((isCheckedArray[i] as HTMLInputElement).checked) {
-        setValues(checkedNameField, checkedUrlField, box, '', [''], 'grey')
+        setValues(checkedNameField as HTMLInputElement, checkedUrlField as HTMLInputElement, box as HTMLInputElement, '', '', 'grey')
         checkedItem.checked = false;
         ruleElementIndexesToRemove.push(i);
         // remove this from tabsGroupArray which should be array of all groups retrieved from google Sync
@@ -339,7 +351,7 @@ let saveButtonLogic = (
             URL: checkedUrlField[i].value.split(',').map((item: string) => item.trim()),
           },
         });
-        toggleInputAndDropdown(checkedNameField[i], checkedUrlField[i], dropDownBox[i])
+        toggleInputAndDropdown(checkedNameField[i], checkedUrlField[i], dropDownBox[i] as HTMLInputElement)
         isCheckedArray[i].checked = false;
     } 
     else if (checkedNameField[i].value && checkedUrlField[i].value
@@ -357,7 +369,7 @@ let saveButtonLogic = (
   }
   chrome.storage.sync.set({ TABGROUPS: tabGroupsArray });
   toggleDisplays(button);
-  toggleElementDisplay(addButton);
+  toggleElementDisplay(addButton!);
 }
 // old save button logic
 // let saveButtonLogic =  (button, inputBox, isCheckedArray, checkedNameField, checkedUrlField, boxField, dropDownBox) =>  {
@@ -425,7 +437,7 @@ let editButtonLogic = (button: any, isCheckedArray: any, checkedNameField: any, 
     } 
   }
   toggleDisplays(button);
-  toggleElementDisplay(addButton);
+  toggleElementDisplay(addButton!);
 }
 
 // this functoin finds duplicates in an array and returns an object showing if ther are any essentially testing functoin
