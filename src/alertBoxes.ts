@@ -1,4 +1,5 @@
-const ModalWindow = {
+namespace AutoTabGroups {
+  export const ModalWindow = {
     init() {
         document.body.addEventListener('click', e => {
           // IF this is go back or close button clicked return this ModalWindow objects closeMOdeal with teh element that was clicked as argument
@@ -17,7 +18,7 @@ const ModalWindow = {
   
     },
     //function of Modal window that returns html of the modal window 
-    getHtmlTemplate(modalOptions) {
+      getHtmlTemplate(modalOptions) {
       if(modalOptions.buttons){
         return`
         <div class="modal__overlay">
@@ -74,3 +75,4 @@ const ModalWindow = {
   document.addEventListener("DOMContentLoaded", () => {
     ModalWindow.init();
   });
+}

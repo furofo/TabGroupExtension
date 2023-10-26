@@ -1,5 +1,6 @@
+namespace AutoTabGroups {
 // looks through a list of search terms and tells you if url is in them
-let isSearchTermInUrl =  (url, searchTerms) => {
+let isSearchTermInUrl =  (url: string, searchTerms) => {
   if(searchTerms) {
     for(let i = 0; i < searchTerms.length; i++) {
       if(url.includes(searchTerms[i])) {
@@ -8,6 +9,11 @@ let isSearchTermInUrl =  (url, searchTerms) => {
     }
     return false;
   }
+}
+
+interface BrowserTabGroup {
+  title: string;
+  id: number;
 }
 
 //function looks through a current browswerTabGroupObject and a then a chromeStorageTabGroup Object and if the name of one of the tab group objects
@@ -118,3 +124,4 @@ chrome.commands.onCommand.addListener((command) => {
     openTabGroupsWhenCtrlShiftH()
   }
 });
+}

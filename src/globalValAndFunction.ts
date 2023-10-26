@@ -1,11 +1,11 @@
-
+namespace AutoTabGroups {
 // get variables for buttons ahere
-const deleteButton = document.getElementById('delete-group');
-const gobackButton = document.getElementById('go-back');
-const addButton = document.getElementById('add-group');
-const editAddButton: HTMLButtonElement = document.getElementById('edit-add-group') as HTMLButtonElement;
+ export const deleteButton = document.getElementById('delete-group');
+ export const gobackButton = document.getElementById('go-back');
+ export const addButton = document.getElementById('add-group');
+ export const editAddButton: HTMLButtonElement = document.getElementById('edit-add-group') as HTMLButtonElement;
 
-let isCheckedArray = document.querySelectorAll('.container input');
+export let isCheckedArray = document.querySelectorAll('.container input');
 // let dropDownAll = document.querySelectorAll('.dropdown');
 // console.log("drop down all is.... " ,)
 // let boxAll = document.querySelectorAll('.box');
@@ -18,11 +18,11 @@ type TabGroup = {
   };
 };
 let tabGroupsArray: TabGroup[] = [];
-const zoomLg = document.getElementById('zoom-lg')
-const zoomReg = document.getElementById('zoom-reg')
+ export const zoomLg = document.getElementById('zoom-lg')
+ export const zoomReg = document.getElementById('zoom-reg')
 
 // function that switches a btn elements inner html between two strings
-export const toggleButtonText = (btn: HTMLElement, str1: string, str2: string): void => {
+ export const toggleButtonText = (btn: HTMLElement, str1: string, str2: string): void => {
   btn.innerHTML = (btn.innerHTML === str1) ? str2 : str1;
 };
 
@@ -32,7 +32,7 @@ export const toggleButtonText = (btn: HTMLElement, str1: string, str2: string): 
 // that doesn't have class of dropdown and doesn't match element in the elmeArr toggles
 // active-box away from it, ignores drop down when clicked since
 // we have a functoin for that already that toggles when that is clicked among other things.
-const determineClickHandlerInB = (elemArr: HTMLElement[], elemToMatch:  HTMLElement) => {
+export const determineClickHandlerInB = (elemArr: HTMLElement[], elemToMatch:  HTMLElement) => {
   for (let i = 0; i < elemArr.length; i += 1) {
     if (elemToMatch.parentElement) {
       // check if the element is the svg clicked, the path in the svg or dropdown, if any of these
@@ -48,7 +48,7 @@ const determineClickHandlerInB = (elemArr: HTMLElement[], elemToMatch:  HTMLElem
 };
 
 // this loops through all visible drop down boxes and assigns htem on click listeners
-export function addDropDownMenuOnClickListeners() {
+ export function addDropDownMenuOnClickListeners() {
   let dropDownAll = document.querySelectorAll('.dropdown') as NodeListOf<HTMLElement>;
   let boxAll = document.querySelectorAll('.box') as NodeListOf<HTMLElement>;
 
@@ -86,7 +86,7 @@ export function addDropDownMenuOnClickListeners() {
 //this takes an array of Object representing tabGroup Rules and this returns an copy array of Objects but renames the property of them to represent the GROUP number
 //starts with GROUP1 and goes on until the end of the array. This is to prevent situation where Tab Group 1 deleted last time and tab group 2 repeats for instance, guarinties unique tab
 // group names
-function reorderTabGroups(tabGroupsArrayOfObjects: TabGroup[]) {
+export function reorderTabGroups(tabGroupsArrayOfObjects: TabGroup[]) {
   let newTabGroups = [];
   for (let i = 0; i < tabGroupsArrayOfObjects.length; i++) {
       for (let key in tabGroupsArrayOfObjects[i]) {
@@ -157,25 +157,25 @@ export const toggleElementDisplay = (elem: HTMLElement) => {
 };
 
 // Toggles input disabled from true and false and border to none and solid px effectively
-export const toggleInputDisabled = (elem: HTMLInputElement) => {
+ export const toggleInputDisabled = (elem: HTMLInputElement) => {
   elem.disabled = !elem.disabled;
   elem.style.border = elem.disabled ? 'none' : '1px solid grey';
 };
 // Hides and unhides the dropdown box for the color picker box
-export const toggleDropdownBox = (elem: HTMLInputElement) => {
+ export const toggleDropdownBox = (elem: HTMLInputElement) => {
   const selectedElem = elem;
   selectedElem.style.display = (window.getComputedStyle(selectedElem, null).display === 'none') ? 'flex' : 'none'
 };
 
  // helper function for toggling input and dropdown
-const toggleInputAndDropdown = (nameField: HTMLInputElement, urlField: HTMLInputElement, dropDown: HTMLInputElement) => {
+export const toggleInputAndDropdown = (nameField: HTMLInputElement, urlField: HTMLInputElement, dropDown: HTMLInputElement) => {
   toggleInputDisabled(nameField);
   toggleInputDisabled(urlField);
   toggleDropdownBox(dropDown);
 }
 
 // helper function for toggling display elements
-let toggleDisplays = (button: HTMLButtonElement) => {
+export let toggleDisplays = (button: HTMLButtonElement) => {
   const goBackButton = document.getElementById('go-back');
   const deleteButton = document.getElementById('delete-button');
   
@@ -200,7 +200,7 @@ let setValues = (nameField: HTMLInputElement , urlField: HTMLInputElement, box: 
 }
 
 // Returns true if either name or url or color field is blank if it is checked in tool false othersiwe
-const isBlank = (isCheckedArray: HTMLInputElement[], checkedNameField: HTMLInputElement[], checkedUrlField: HTMLInputElement[], boxField:  HTMLElement[]) => {
+export const isBlank = (isCheckedArray: HTMLInputElement[], checkedNameField: HTMLInputElement[], checkedUrlField: HTMLInputElement[], boxField:  HTMLElement[]) => {
   for(let i = 0; i < isCheckedArray.length; i += 1) {
     if((isCheckedArray[i] as HTMLInputElement).checked) {
       if (!checkedNameField[i].value || !checkedUrlField[i].value
@@ -212,20 +212,20 @@ const isBlank = (isCheckedArray: HTMLInputElement[], checkedNameField: HTMLInput
   return false;
 }
 
-function updateInputWhenTyped(e: InputEvent) {
+export function updateInputWhenTyped(e: InputEvent) {
   const target = e.target as HTMLInputElement;
   target.setAttribute('value', target.value);
 }
 
 // Loops through list and sees if a value is checked, if not returns false otherwise returns true
-export let isChecked = (isCheckedArray: NodeListOf<Element>) => {
+ export let isChecked = (isCheckedArray: NodeListOf<Element>) => {
   let checkedInput = false;
   for (let i = 0; i < isCheckedArray.length; i += 1) {
   if ((isCheckedArray[i] as HTMLInputElement).checked ) checkedInput = true
   }
   return checkedInput;
 }
-let goBackButtonLogic = (isCheckedArray: NodeListOf<Element>, dropDownBox: HTMLElement[]) => {
+ export let goBackButtonLogic = (isCheckedArray: NodeListOf<Element>, dropDownBox: HTMLElement[]) => {
  console.log("this is tab grops array", tabGroupsArray);
   // toggle element display buttons
   if (editAddButton && addButton) {
@@ -270,7 +270,7 @@ let goBackButtonLogic = (isCheckedArray: NodeListOf<Element>, dropDownBox: HTMLE
 }
 
 
-let deleteButtonLogic = (isCheckedArray: NodeListOf<Element>, tabGroupsArray: TabGroup[]) => {
+export let deleteButtonLogic = (isCheckedArray: NodeListOf<Element>, tabGroupsArray: TabGroup[]) => {
   const ruleElements = document.querySelectorAll('.center.rule');
   console.log("rule elements before deleing", ruleElements);
   let ruleElementIndexesToRemove = [];
@@ -306,7 +306,7 @@ type CheckedUrlFieldType = HTMLInputElement[]; // Replace with actual type
 type BoxFieldType = HTMLElement[]; // Replace with actual type
 type DropDownBoxType = HTMLElement[]; // Replace with actual type
 // save logic
-export let saveButtonLogic = (
+ export let saveButtonLogic = (
   button: ButtonType, 
   inputBox: InputBoxType, 
   isCheckedArray: IsCheckedArrayType,
@@ -371,65 +371,7 @@ export let saveButtonLogic = (
   toggleDisplays(button);
   toggleElementDisplay(addButton!);
 }
-// old save button logic
-// let saveButtonLogic =  (button, inputBox, isCheckedArray, checkedNameField, checkedUrlField, boxField, dropDownBox) =>  {
-//   // Loops through all rules if any are checked if they are blank 
-//   if( isBlank(isCheckedArray, checkedNameField, checkedUrlField, boxField)) {
-//     ModalWindow.openModal({
-//       title:'Field is Blank!',
-//       content: 'Make sure name and url fields are not blank, and color box is not grey!'
-//     })
-//     return;
-//   }
-//   type TabGroup = {
-//     [key: string]: {
-//       COLOR: string | null;
-//       NAME: string;
-//       URL: string[];
-//     };
-//   };
-  
-//   let tabGroupsArray: TabGroup[] = [];
-  
-  
-//   isCheckedArray = document.querySelectorAll('.container input');
-//   // unchecks everything that is checked
-//   for (let i = 0; i < isCheckedArray.length; i += 1) {
-//     const groupNumber = `GROUP${String(i + 1)}`;
-//     // const groupNumber =  Date.now() + Math.random();
-//     inputBox[i].style.pointerEvents = 'auto';
-//     // let matchingText = checkedUrlField[i].value;
-//     // let matchingTextSplitComma = matchingText.split(',');
-//     // let matchingTextRemoveSpace = matchingTextSplitComma.map((item) => item.trim());
-//     if (isCheckedArray[i].checked) {
-//         tabGroupsArray.push({
-//           [groupNumber]: {
-//             COLOR: document.querySelectorAll('.box')[i].getAttribute('value'),
-//             NAME: checkedNameField[i].value,
-//             URL: checkedUrlField[i].value.split(',').map((item: string) => item.trim()),
-//           },
-//         });
-//         toggleInputAndDropdown(checkedNameField[i], checkedUrlField[i], dropDownBox[i])
-//         isCheckedArray[i].checked = false;
-//     } 
-//     else if (checkedNameField[i].value && checkedUrlField[i].value
-//       && boxField[i].getAttribute('value') !== 'grey') {
-//       tabGroupsArray.push({
-//         [groupNumber]: {
-//           COLOR: document.querySelectorAll('.box')[i].getAttribute('value'),
-//           NAME: checkedNameField[i].value,
-//           URL: checkedUrlField[i].value.split(',').map((item: string) => item.trim()),
-//         },
-//       });
-//     } else {
-//       tabGroupsArray.push({});
-//     }
-//   }
-//   chrome.storage.sync.set({ TABGROUPS: tabGroupsArray });
-//   toggleDisplays(button);
-//   toggleElementDisplay(addButton);
-// }
-export let editButtonLogic = (button: any, isCheckedArray: any, checkedNameField: any, checkedUrlField: any, dropDownBox: any) => {
+ export let editButtonLogic = (button: any, isCheckedArray: any, checkedNameField: any, checkedUrlField: any, dropDownBox: any) => {
   for (let i = 0; i < isCheckedArray.length; i += 1) {
     (document.querySelectorAll('.container')[i] as HTMLElement).style.pointerEvents = 'none';
     if (isCheckedArray[i].checked) {
@@ -441,7 +383,7 @@ export let editButtonLogic = (button: any, isCheckedArray: any, checkedNameField
 }
 
 // this functoin finds duplicates in an array and returns an object showing if ther are any essentially testing functoin
-function findDuplicates(arr: number[]): { hasDuplicates: boolean; indices: number[] } {
+export function findDuplicates(arr: number[]): { hasDuplicates: boolean; indices: number[] } {
   let indices: number[] = [];
   let seen = new Set<number>();
   for (let i = 0; i < arr.length; i++) {
@@ -456,10 +398,8 @@ function findDuplicates(arr: number[]): { hasDuplicates: boolean; indices: numbe
     indices: indices
   };
 }
-
 //testing fucntion to go in and put  a bunch of random values in an arra test up to a million 
-
-function generateRandomValuesAndPushToArray(arrayLength:number):number[] {
+export function generateRandomValuesAndPushToArray(arrayLength:number):number[] {
   let randomNumbersArray:number[] = [];
   for(let i = 0; i < arrayLength; i++) {
     randomNumbersArray.push(Math.random())
@@ -469,3 +409,4 @@ function generateRandomValuesAndPushToArray(arrayLength:number):number[] {
 }
 let testArray = [1, 2, 3 , 4, 5]
 
+}

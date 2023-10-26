@@ -1,21 +1,5 @@
-import {
-  toggleInputDisabled,
-  toggleDropdownBox, 
-  addDropDownMenuOnClickListeners,
-  toggleElementDisplay,
-  toggleButtonText,
-  editButtonLogic,
-  saveButtonLogic,
-  isChecked
-} from './globalValAndFunction';
-
-let addButton = document.getElementById('addButton');
-let deleteButton = document.getElementById('deleteButton');
-let gobackButton = document.getElementById('goBackButton'); 
-let editAddButton = document.getElementById('editAddButton');
-let zoomLg = document.getElementById('zoomLg');
-let zoomReg = document.getElementById('zoomReg');
-let createRuleElement = function() {
+namespace AutoTabGroups {
+ let createRuleElement = function() {
   let rulesContainerElement = document.querySelector(".rules-container");
     let centerRuleDiv = document.createElement("div");
     centerRuleDiv.classList.add("center");
@@ -58,7 +42,7 @@ let createRuleElement = function() {
     colorContentChildBoxDiv.classList.add("box");
     colorContentChildBoxDiv.setAttribute("id", "first-box");
     colorContentChildBoxDiv.setAttribute("value", "grey");
-    colorContentChildBoxDiv.value = "grey";
+  
     //create divs for all box colors that are not gray 
     // let blueBox = document.createElement("div")
     // let yellowBox = document.createElement("div")
@@ -116,10 +100,11 @@ let createRuleElement = function() {
     rulesContainerElement!.appendChild(centerRuleDiv);
     return centerRuleDiv;
 }
-
+let ruleElement = createRuleElement();
 // when delete button clicked removes the group number
 // from google sync and from the popup page of extension
-deleteButton.addEventListener('click', async () => {
+console.log(" this is tab groups delte button" , AutoTabGroups.deleteButton)
+AutoTabGroups.deleteButton!.addEventListener('click', async () => {
   //use method isChecked to loop through checkboxes and see if checked or not 
   // if checked displays conirmation message, if nothing checked displays erro rmessage
   isCheckedArray = document.querySelectorAll('.container input');
@@ -137,20 +122,23 @@ deleteButton.addEventListener('click', async () => {
   })
   }
 });
-addButton.addEventListener('click', async(elem) => {
+addButton!.addEventListener('click', async(elem) => {
 
   // uncheck all other selectorrs other than one added
   let otherSelectorInputContainers = document.querySelectorAll('.container');
   for(let i = 0; i < otherSelectorInputContainers.length; i++) {
-    otherSelectorInputContainers[i].querySelector('input').checked = false;
-    otherSelectorInputContainers[i].style.pointerEvents = 'none';
+    const container = otherSelectorInputContainers[i] as HTMLElement; // Narrow down the type to HTMLElement
+    const input = container.querySelector('input') as HTMLInputElement; // Also narrow down the type of the input
+
+    input.checked = false;
+    container.style.pointerEvents = 'none';
   }
-  let addButton = elem.target;
-  let ruleElement = createRuleElement();
-  let selectorInput = ruleElement.querySelector(".container > input")
-  const checkedNameField = ruleElement.querySelector('.name-content > input');
-  const checkedUrlField = ruleElement.querySelector('.flex-center');
-  let dropDown = ruleElement.querySelector('.dropdown')
+  let addButton = elem.target as HTMLElement;
+ 
+  let selectorInput = ruleElement.querySelector(".container > input") as HTMLInputElement;
+  const checkedNameField = ruleElement.querySelector('.name-content > input') as HTMLInputElement;
+  const checkedUrlField = ruleElement.querySelector('.flex-center') as HTMLInputElement;
+  let dropDown = ruleElement.querySelector('.dropdown') as HTMLInputElement;
   console.log(ruleElement.querySelector(".container > input"));
   selectorInput.checked = true;
   toggleInputDisabled(checkedNameField);
@@ -163,21 +151,20 @@ addButton.addEventListener('click', async(elem) => {
   // console.log(selectedElement);
   console.log(ruleElement);
   toggleElementDisplay(addButton);
-  toggleElementDisplay(document.getElementById('go-back'));
-  toggleElementDisplay(document.getElementById('delete-group'));
-  toggleButtonText(document.getElementById('edit-add-group'), "Select", "Save")
+  toggleElementDisplay(document.getElementById('go-back')!);
+  toggleElementDisplay(document.getElementById('delete-group')!);
+  toggleButtonText(document.getElementById('edit-add-group')!, "Select", "Save")
   checkedNameField.focus();
        
 })
 gobackButton!.addEventListener('click', async () => {
   const isCheckedArray = document.querySelectorAll('.container input');
-  const dropDownBox = document.querySelectorAll('.dropdown');
-  
+  const dropDownBox = document.querySelectorAll('.dropdown') as unknown as HTMLElement[];
+
   // deleteButtonLogic(isCheckedArray, tabGroupsArray, dropDownBox, true)
   goBackButtonLogic(isCheckedArray, dropDownBox)
 })
-editAddButton!.addEventListener('click', async function ()  {
- 
+editAddButton!.addEventListener('click', async function () {
   addDropDownMenuOnClickListeners();
   const isCheckedArray = document.querySelectorAll('.container input');
   const inputBox = document.querySelectorAll('.container');
@@ -185,28 +172,38 @@ editAddButton!.addEventListener('click', async function ()  {
   const checkedUrlField = document.querySelectorAll('.flex-center');
   const dropDownBox = document.querySelectorAll('.dropdown');
   const boxField = document.querySelectorAll('.box');
-  // if save button clicked  because should be only
+
+  // need to conver nodelistOfElments to HTMLInputElement[]
+  const inputBoxes = Array.from(inputBox) as HTMLInputElement[];
+  const checkedInputs = Array.from(isCheckedArray) as HTMLInputElement[]
+  const checkedNameInputs = Array.from(checkedNameField) as HTMLInputElement[];
+  const checkedUrlInputs = Array.from(checkedUrlField) as HTMLInputElement[];
+  const boxInputs = Array.from(boxField) as HTMLInputElement[];
+  const dropDownElements = Array.from(dropDownBox) as HTMLElement[];
+  // if save button clicked because should be only
   // Save Button text when delete button is not visible
-  if (window.getComputedStyle(deleteButton, null).display === 'none') {
-    saveButtonLogic(this, inputBox, isCheckedArray, checkedNameField, checkedUrlField, boxField, dropDownBox);
+  if (window.getComputedStyle(deleteButton!, null).display === 'none') {
+    saveButtonLogic(this as HTMLButtonElement, inputBoxes, checkedInputs, checkedNameInputs, checkedUrlInputs, boxInputs, dropDownElements);
   } 
   else {
-    if(isChecked(isCheckedArray)) {
+    if (isChecked(isCheckedArray)) {
       editButtonLogic(this, isCheckedArray, checkedNameField, checkedUrlField, dropDownBox);
     }
     else {
       ModalWindow.openModal({
-      title:'No Group Checked!',
-      content: 'Please check tab group to edit/add a rule!'
-    })
+        title: 'No Group Checked!',
+        content: 'Please check a tab group to edit/add a rule!'
+      });
     }
   }
 });
-zoomLg.addEventListener('click', async() => {
-  document.getElementById('page-style').setAttribute('href', "/css/style.css")
-  document.getElementById('alert-style').setAttribute('href', "/css/alert-boxes.css")
+
+zoomLg!.addEventListener('click', async() => {
+  document.getElementById('page-style')!.setAttribute('href', "/css/style.css")
+  document.getElementById('alert-style')!.setAttribute('href', "/css/alert-boxes.css")
 })
-zoomReg.addEventListener('click', async() => {
-  document.getElementById('page-style').setAttribute('href', "/css/styles2.css")
-  document.getElementById('alert-style').setAttribute('href', "/css/alert-boxes2.css")
+zoomReg!.addEventListener('click', async() => {
+  document.getElementById('page-style')!.setAttribute('href', "/css/styles2.css")
+  document.getElementById('alert-style')!.setAttribute('href', "/css/alert-boxes2.css")
 })
+}

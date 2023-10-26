@@ -1,3 +1,4 @@
+namespace AutoTabGroups {
 console.log("testing js");
 // USE THIS FOR TESTING TO REMOVE ALL TABGROUPS WHEN DELETE AND ADDD FUNCTOINS MES THINGS UP testing functoin
 
@@ -36,4 +37,4 @@ function removeTabGroups() {
     return tabGroupsArray;
   }
   
-  
+}
