@@ -1,5 +1,5 @@
 namespace AutoTabGroups {
- let createRuleElement = function() {
+ export let createRuleElement = function() {
   let rulesContainerElement = document.querySelector(".rules-container");
     let centerRuleDiv = document.createElement("div");
     centerRuleDiv.classList.add("center");
@@ -100,7 +100,7 @@ namespace AutoTabGroups {
     rulesContainerElement!.appendChild(centerRuleDiv);
     return centerRuleDiv;
 }
-let ruleElement = createRuleElement();
+ let ruleElement = createRuleElement();
 // when delete button clicked removes the group number
 // from google sync and from the popup page of extension
 console.log(" this is tab groups delte button" , AutoTabGroups.deleteButton)

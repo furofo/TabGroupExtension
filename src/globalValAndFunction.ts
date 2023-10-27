@@ -17,7 +17,7 @@ type TabGroup = {
     COLOR: string;
   };
 };
-let tabGroupsArray: TabGroup[] = [];
+export let tabGroupsArray: TabGroup[] = [];
  export const zoomLg = document.getElementById('zoom-lg')
  export const zoomReg = document.getElementById('zoom-reg')
 
@@ -119,7 +119,8 @@ window.onload = async () => {
           tabGroupsArray.push(result.TABGROUPS[i]);
         }
       }
-      tabGroupsArray = reorderTabGroups(tabGroupsArray);
+       tabGroupsArray = reorderTabGroups(tabGroupsArray);
+      
     }
     if (Object.keys(result).length !== 0) {
       for (let i = 0; i < tabGroupsArray.length; i += 1) {
