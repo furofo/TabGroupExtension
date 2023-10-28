@@ -100,7 +100,7 @@ namespace AutoTabGroups {
     rulesContainerElement!.appendChild(centerRuleDiv);
     return centerRuleDiv;
 }
- let ruleElement = createRuleElement();
+
 // when delete button clicked removes the group number
 // from google sync and from the popup page of extension
 console.log(" this is tab groups delte button" , AutoTabGroups.deleteButton)
@@ -123,6 +123,7 @@ AutoTabGroups.deleteButton!.addEventListener('click', async () => {
   }
 });
 addButton!.addEventListener('click', async(elem) => {
+  let ruleElement = createRuleElement();
 
   // uncheck all other selectorrs other than one added
   let otherSelectorInputContainers = document.querySelectorAll('.container');

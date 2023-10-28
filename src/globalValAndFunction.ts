@@ -122,7 +122,7 @@ window.onload = async () => {
        tabGroupsArray = reorderTabGroups(tabGroupsArray);
       
     }
-    if (Object.keys(result).length !== 0) {
+    if (Object.keys(result).length !== 0 && Object.keys(result)['TABGROUPS'] !== null) {
       for (let i = 0; i < tabGroupsArray.length; i += 1) {
         let ruleElement = createRuleElement();
         const checkedNameField = ruleElement.querySelector('.name-content > input');
