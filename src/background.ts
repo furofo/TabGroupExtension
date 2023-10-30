@@ -1,4 +1,5 @@
 namespace AutoTabGroups {
+
 // looks through a list of search terms and tells you if url is in them
 let isSearchTermInUrl =  (url: string, searchTerms: string[]) => {
   if(searchTerms) {
@@ -11,14 +12,20 @@ let isSearchTermInUrl =  (url: string, searchTerms: string[]) => {
   }
 }
 
-interface BrowserTabGroup {
+type TabGroup = {
   title: string;
   id: number;
-}
+};
 
+type ChromeStorageTabGroupObject = {
+    NAME: string;
+    URL: string[];
+    COLOR: string;
+  
+};
 //function looks through a current browswerTabGroupObject and a then a chromeStorageTabGroup Object and if the name of one of the tab group objects
 // in the the browser matches the name from chrome storage object it puts in that tab group and returns true, otherwise returns false
-function groupTabIfTabGroupExistsInBrowser(browserTabGroupObject, chromeStorageTabGroupObject, tabId) {
+function groupTabIfTabGroupExistsInBrowser(browserTabGroupObject: chrome.tabGroups.TabGroup[], chromeStorageTabGroupObject: ChromeStorageTabGroupObject | null, tabId: number) {
   let matchingTabGroupInBrowser = false;
   for (let i = 0; i < browserTabGroupObject.length; i++) {
     if (
