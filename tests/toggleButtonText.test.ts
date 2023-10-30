@@ -1,5 +1,7 @@
-import { toggleButtonText } from '../src/globalValAndFunction'; // Make sure to export the function in your original file
+ // Make sure to export the function in your original file
 
+
+ const toggleButtonText = (global as any).AutoTabGroups.toggleButtonText;
 describe('toggleButtonText', () => {
   it('should toggle button text between two strings', () => {
     // Create a mock button element

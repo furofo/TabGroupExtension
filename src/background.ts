@@ -1,6 +1,6 @@
 namespace AutoTabGroups {
 // looks through a list of search terms and tells you if url is in them
-let isSearchTermInUrl =  (url: string, searchTerms) => {
+let isSearchTermInUrl =  (url: string, searchTerms: string[]) => {
   if(searchTerms) {
     for(let i = 0; i < searchTerms.length; i++) {
       if(url.includes(searchTerms[i])) {

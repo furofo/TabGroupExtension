@@ -1,24 +1,28 @@
 namespace AutoTabGroups {
+  interface ModalOptions {
+    title: string;
+    content: string;
+    buttons?: boolean;
+}
   export const ModalWindow = {
     init() {
-        document.body.addEventListener('click', e => {
-          // IF this is go back or close button clicked return this ModalWindow objects closeMOdeal with teh element that was clicked as argument
-            if(e.target.classList.contains("modal__close") || 
-            e.target.classList.contains("modal__overlay") ||
-            e.target.classList.contains("modal__goback__button")) {
+        document.body.addEventListener('click', this.handleClick.bind(this));  // Binding 'this' context
+    },
+    handleClick(e: MouseEvent) {
+        const target = e.target as HTMLElement;
+        if(target) {
+            if(target.classList.contains("modal__close") || 
+               target.classList.contains("modal__overlay") ||
+               target.classList.contains("modal__goback__button")) {
+                   this.closeModal();
+            } else if (target.classList.contains("modal__confirm__button")) {
+                deleteButtonLogic(isCheckedArray, tabGroupsArray);
                 this.closeModal();
             }
-            // if confirm button is clicked instead use delet ebutton logic  with argument isCheckedArray and tabGroups array as arguments
-            else if (e.target.classList.contains("modal__confirm__button")) {
-              deleteButtonLogic(isCheckedArray, tabGroupsArray);
-              this.closeModal()
-
-            }
-        })
-  
+        }
     },
     //function of Modal window that returns html of the modal window 
-      getHtmlTemplate(modalOptions) {
+      getHtmlTemplate(modalOptions: ModalOptions){
       if(modalOptions.buttons){
         return`
         <div class="modal__overlay">
@@ -39,7 +43,6 @@ namespace AutoTabGroups {
        </div>`;
 
       }
-
       else{
         return`
         <div class="modal__overlay">
@@ -54,25 +57,26 @@ namespace AutoTabGroups {
          </div>
        </div>`;
       }
-       
     },
-    openModal(modalOptions = {}) {
-        modalOptions = Object.assign({
-            title: 'Modal Title',
-            content: 'Modal Content',
-            buttons: false,
-        }, modalOptions)
-  
-  const modalTemplate = this.getHtmlTemplate(modalOptions);
-  document.body.insertAdjacentHTML("afterbegin", modalTemplate);
+    openModal(modalOptions: Partial<ModalOptions> = {}) {
+      modalOptions = Object.assign({
+          title: 'Modal Title',
+          content: 'Modal Content',
+          buttons: false,
+      }, modalOptions);
+    const modalTemplate = this.getHtmlTemplate(modalOptions as ModalOptions);
+    document.body.insertAdjacentHTML("afterbegin", modalTemplate);
     },
     closeModal() {
         const modalOverlay = document.querySelector(".modal__overlay");
-       document.body.removeChild(modalOverlay);
+        if(modalOverlay !== null) {
+          document.body.removeChild(modalOverlay);
+        }
+       
     }
   }
   
   document.addEventListener("DOMContentLoaded", () => {
-    ModalWindow.init();
+  ModalWindow.init();
   });
 }
