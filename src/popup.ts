@@ -1,4 +1,12 @@
-namespace AutoTabGroups {
+
+import {
+  deleteButton, gobackButton, addButton, editAddButton, isCheckedArray, tabGroupsArray,
+  zoomLg, zoomReg, toggleButtonText, addDropDownMenuOnClickListeners, toggleElementDisplay,
+  toggleInputDisabled, toggleDropdownBox, isChecked, goBackButtonLogic, deleteButtonLogic,
+  saveButtonLogic, editButtonLogic
+} from './globalValAndFunction';
+import {ModalWindow} from "./alertBoxes"
+
  export let createRuleElement = function() {
   let rulesContainerElement = document.querySelector(".rules-container");
     let centerRuleDiv = document.createElement("div");
@@ -103,11 +111,11 @@ namespace AutoTabGroups {
 
 // when delete button clicked removes the group number
 // from google sync and from the popup page of extension
-console.log(" this is tab groups delte button" , AutoTabGroups.deleteButton)
-AutoTabGroups.deleteButton!.addEventListener('click', async () => {
+console.log(" this is tab groups delte button" , deleteButton)
+document.addEventListener('DOMContentLoaded', (event) => {
+deleteButton!.addEventListener('click', async () => {
   //use method isChecked to loop through checkboxes and see if checked or not 
   // if checked displays conirmation message, if nothing checked displays erro rmessage
-  isCheckedArray = document.querySelectorAll('.container input');
   if(isChecked(isCheckedArray)) {
     ModalWindow.openModal({
       title: "Do you want to delete?",
@@ -122,6 +130,8 @@ AutoTabGroups.deleteButton!.addEventListener('click', async () => {
   })
   }
 });
+});
+document.addEventListener('DOMContentLoaded', (event) => {
 addButton!.addEventListener('click', async(elem) => {
   let ruleElement = createRuleElement();
 
@@ -158,6 +168,8 @@ addButton!.addEventListener('click', async(elem) => {
   checkedNameField.focus();
        
 })
+});
+document.addEventListener('DOMContentLoaded', (event) => {
 gobackButton!.addEventListener('click', async () => {
   const isCheckedArray = document.querySelectorAll('.container input');
   const dropDownBox = document.querySelectorAll('.dropdown') as unknown as HTMLElement[];
@@ -165,6 +177,8 @@ gobackButton!.addEventListener('click', async () => {
   // deleteButtonLogic(isCheckedArray, tabGroupsArray, dropDownBox, true)
   goBackButtonLogic(isCheckedArray, dropDownBox)
 })
+});
+document.addEventListener('DOMContentLoaded', (event) => {
 editAddButton!.addEventListener('click', async function () {
   addDropDownMenuOnClickListeners();
   const isCheckedArray = document.querySelectorAll('.container input');
@@ -198,13 +212,16 @@ editAddButton!.addEventListener('click', async function () {
     }
   }
 });
-
+});
+document.addEventListener('DOMContentLoaded', (event) => {
 zoomLg!.addEventListener('click', async() => {
   document.getElementById('page-style')!.setAttribute('href', "/css/style.css")
   document.getElementById('alert-style')!.setAttribute('href', "/css/alert-boxes.css")
 })
+});
+document.addEventListener('DOMContentLoaded', (event) => {
 zoomReg!.addEventListener('click', async() => {
   document.getElementById('page-style')!.setAttribute('href', "/css/styles2.css")
   document.getElementById('alert-style')!.setAttribute('href', "/css/alert-boxes2.css")
 })
-}
+});

@@ -1,11 +1,15 @@
-namespace AutoTabGroups {
+
+import {createRuleElement} from "./popup"
+import {ModalWindow} from "./alertBoxes"
 // get variables for buttons ahere
- export const deleteButton = document.getElementById('delete-group');
+ 
+export const deleteButton = document.getElementById('delete-group');
  export const gobackButton = document.getElementById('go-back');
  export const addButton = document.getElementById('add-group');
  export const editAddButton: HTMLButtonElement = document.getElementById('edit-add-group') as HTMLButtonElement;
 
 export let isCheckedArray = document.querySelectorAll('.container input');
+
 // let dropDownAll = document.querySelectorAll('.dropdown');
 // console.log("drop down all is.... " ,)
 // let boxAll = document.querySelectorAll('.box');
@@ -179,7 +183,7 @@ export const toggleInputAndDropdown = (nameField: HTMLInputElement, urlField: HT
 export let toggleDisplays = (button: HTMLButtonElement) => {
   const goBackButton = document.getElementById('go-back');
   const deleteButton = document.getElementById('delete-button');
-  
+  console.log("this is delte button after intially created", deleteButton);
   if (goBackButton) {
     toggleElementDisplay(goBackButton);
   }
@@ -410,4 +414,3 @@ export function generateRandomValuesAndPushToArray(arrayLength:number):number[] 
 }
 let testArray = [1, 2, 3 , 4, 5]
 
-}

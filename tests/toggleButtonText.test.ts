@@ -1,7 +1,7 @@
  // Make sure to export the function in your original file
+ import { toggleButtonText, deleteButton } from "../src/globalValAndFunction"
 
-
- const toggleButtonText = (global as any).AutoTabGroups.toggleButtonText;
+ 
 describe('toggleButtonText', () => {
   it('should toggle button text between two strings', () => {
     // Create a mock button element

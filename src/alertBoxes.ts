@@ -1,5 +1,5 @@
-namespace AutoTabGroups {
-  interface ModalOptions {
+import{deleteButtonLogic, isCheckedArray, tabGroupsArray} from "./globalValAndFunction"
+interface ModalOptions {
     title: string;
     content: string;
     buttons?: boolean;
@@ -79,4 +79,3 @@ namespace AutoTabGroups {
   document.addEventListener("DOMContentLoaded", () => {
   ModalWindow.init();
   });
-}
