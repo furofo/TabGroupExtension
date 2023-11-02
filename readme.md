@@ -23,6 +23,8 @@
 ## UPDATE AS OF 10/25/2023
 
 -- Working on integrating typescript and CI/CD pipeline using JEST to run unit tests on code, will comment on code and read me accordingly.
+<br/>
+The current version uses Typescript, and Jest to test typescript code functionality. This is to make development and testing functionality easier. Then uses Webpack to bundle all js files into  a bundle.js file  will still work for chrome extension once compiled down to javascript.
 
 
 ## Extension Overview 
