@@ -30,3 +30,10 @@ test('reorderTabGroups handles arrays of varying lengths correctly', () => {
   expect(resultLong.length).toBe(15);
 });
 
+test('reorderTabGroups removes empty objects', () => {
+  const input = [{ "GROUP1": { "COLOR": "red",  "NAME": "TEST", "URL":["TEST"]} }, {}, {}];
+
+  const result = reorderTabGroups(input);
+
+  expect(result).toEqual([{ "GROUP1": { "COLOR": "red",  "NAME": "TEST", "URL":["TEST"] } }]);
+});

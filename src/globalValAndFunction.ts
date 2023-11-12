@@ -21,6 +21,12 @@ type TabGroup = {
     COLOR: string;
   };
 };
+
+type TabGroupOrBlankObject = TabGroup | {};
+function isNotEmptyObject(obj: TabGroupOrBlankObject): obj is TabGroup {
+  return Object.keys(obj).length > 0;
+}
+
 export let tabGroupsArray: TabGroup[] = [];
  export const zoomLg = document.getElementById('zoom-lg')
  export const zoomReg = document.getElementById('zoom-reg')
@@ -90,26 +96,28 @@ export const determineClickHandlerInB = (elemArr: HTMLElement[], elemToMatch:  H
 //this takes an array of Object representing tabGroup Rules and this returns an copy array of Objects but renames the property of them to represent the GROUP number
 //starts with GROUP1 and goes on until the end of the array. This is to prevent situation where Tab Group 1 deleted last time and tab group 2 repeats for instance, guarinties unique tab
 // group names
-export function reorderTabGroups(tabGroupsArrayOfObjects: TabGroup[]) {
-  let newTabGroups = [];
+export function reorderTabGroups(tabGroupsArrayOfObjects: TabGroupOrBlankObject[]) {
+  let newTabGroups: TabGroupOrBlankObject[] = [];
   for (let i = 0; i < tabGroupsArrayOfObjects.length; i++) {
-      for (let key in tabGroupsArrayOfObjects[i]) {
-          let newKey = "GROUP" + (i + 1);
-          let newObject: TabGroup = {}; 
-          newObject[newKey] = tabGroupsArrayOfObjects[i][key];
-          newTabGroups.push(newObject);
+    if (isNotEmptyObject(tabGroupsArrayOfObjects[i])) {
+      const tabGroup = tabGroupsArrayOfObjects[i] as TabGroup;
+      for (let key in tabGroup) {
+        let newKey = "GROUP" + (i + 1);
+        let newObject: TabGroup = {}; 
+        newObject[newKey] = tabGroup[key];
+        newTabGroups.push(newObject);
       }
+    }
   }
   return newTabGroups;
 }
-
 
 // get chrome storage tabgropus object 
 window.onload = async () => {
     // //uncomment this to remoe all tabgroups on load for testing 
     // removeTabGroups();
-    // let testTabGroups = createXNumbersTabGroupsArray(9);
-    // setTabGroups(testTabGroups);
+    // let TabGroupOrBlankObjects = createXNumbersTabGroupsArray(9);
+    // setTabGroups(TabGroupOrBlankObjects);
     let result = await chrome.storage.sync.get(['TABGROUPS']);
     console.log("result is", result);
     console.log("Chrome Tab rules are as follows!" , result);
