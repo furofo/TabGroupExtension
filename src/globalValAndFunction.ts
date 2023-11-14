@@ -132,6 +132,8 @@ window.onload = async () => {
         }
       }
        tabGroupsArray = reorderTabGroups(tabGroupsArray);
+       console.log("tab groups where reorder", tabGroupsArray);
+       chrome.storage.sync.set({ TABGROUPS: tabGroupsArray });
       
     }
     if (Object.keys(result).length !== 0 && result['TABGROUPS'] !== null) {
@@ -308,6 +310,7 @@ export let deleteButtonLogic = (isCheckedArray: NodeListOf<Element>, tabGroupsAr
     console.log("rule elemtens after deleing", ruleElements);
   }
    tabGroupsArray = reorderTabGroups(tabGroupsArray);
+   console.log("tab groups where reorder", tabGroupsArray);
    chrome.storage.sync.set({ TABGROUPS: tabGroupsArray });
 }
 
