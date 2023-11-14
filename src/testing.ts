@@ -1,6 +1,6 @@
 namespace AutoTabGroups {
 console.log("testing js");
-// USE THIS FOR TESTING TO REMOVE ALL TABGROUPS WHEN DELETE AND ADDD FUNCTOINS MES THINGS UP testing functoin
+// USE THIS  to quickly test setting and delte rules functionality
 
 function removeTabGroups() {
     chrome.storage.sync.remove('TABGROUPS', function() {
@@ -20,7 +20,7 @@ function removeTabGroups() {
     chrome.storage.sync.set({ TABGROUPS: tabGroupsArray});
   
   }
- 
+ // this sets desidred number of test rules to make sure rules set and function correctly
   let createXNumbersTabGroupsArray = function(numTestRules: number): TabGroup[] {
     let tabGroupsArray: TabGroup[] = [];
     for (let i = 0; i < numTestRules; i++) {
