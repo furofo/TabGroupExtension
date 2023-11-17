@@ -67,10 +67,11 @@ Rule preferences are saved and retrieved using chrome.storage API detailed here 
 ## Running locally
 
 ---
+-To run locally make sure typescript installed
+-Use Git Clone git@github.com:furofo/TabGroupExtension.git for SSH or git clone https://github.com/furofo/TabGroupExtension.git for HTTPS
+-Open project and run command npm install to install dependencies
+-Use npm test to run tests in test folder to ensure they pass
+-Use npm run build all to build javascript files from typescript (this compiles down background.js separetly and bundles the rest of typescript into one javascript file called bundles.js. This is because background.js is only used by a background service worker, the rest for the UI of extension.)
 
--Project is configured to run via typescript and when files are compiled to javascript are moved to dist folder.
 
--Tests are configured to run via Jest.
-
--To run locally make sure typescript installed, clone repo, make sure dist folder is added to root of project.
 

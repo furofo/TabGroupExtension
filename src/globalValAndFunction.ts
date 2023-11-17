@@ -288,7 +288,7 @@ export function updateInputWhenTyped(e: InputEvent) {
 export let deleteButtonLogic = (isCheckedArray: NodeListOf<Element>, tabGroupsArray: TabGroup[]) => {
   const ruleElements = document.querySelectorAll('.center.rule');
   console.log("rule elements before deleing", ruleElements);
-  let ruleElementIndexesToRemove = [];
+  let ruleElementIndexesToRemove: number[] = [];
   for (let i = 0; i < isCheckedArray.length; i += 1) {
     const checkedNameField = document.querySelectorAll('.name')[i];
     const checkedUrlField = document.querySelectorAll('.flex-center')[i];
