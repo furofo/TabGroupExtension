@@ -37,3 +37,39 @@ test('reorderTabGroups removes empty objects', () => {
 
   expect(result).toEqual([{ "GROUP1": { "COLOR": "red",  "NAME": "TEST", "URL":["TEST"] } }]);
 });
+
+test('reorderTabGroups rearranges TabGroups so that always starts with Group1 and gets rid of extra blank objects', () => {
+  const groupsWithSpaceBetween = [
+    {
+        "GROUP1": {
+            "COLOR": "red",
+            "NAME": "color",
+            "URL": [
+                "red"
+            ]
+        }
+    },
+    {},
+    {},
+    {},
+    {},
+    {
+        "GROUP6": {
+            "COLOR": "purple",
+            "NAME": "coro",
+            "URL": [
+                "dasdfa"
+            ]
+        }
+    },
+    {},
+    {}
+]
+;
+
+
+  const resultSpaceBetween = reorderTabGroups(groupsWithSpaceBetween);
+  console.log(resultSpaceBetween);
+  expect(resultSpaceBetween.length).toBe(2);
+
+});

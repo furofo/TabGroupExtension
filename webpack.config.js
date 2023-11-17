@@ -10,6 +10,7 @@ function excludeFileAndNodeModules(fileToExclude) {
   }
 module.exports = {
   entry: './src/popup.ts', // Your main TypeScript file
+  devtool: 'source-map',
   module: {
     rules: [
       {
