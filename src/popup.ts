@@ -6,7 +6,6 @@ import {
   saveButtonLogic, editButtonLogic
 } from './globalValAndFunction';
 import {ModalWindow} from "./alertBoxes"
-
  export let createRuleElement = function() {
   let rulesContainerElement = document.querySelector(".rules-container");
     let centerRuleDiv = document.createElement("div");
@@ -32,7 +31,6 @@ import {ModalWindow} from "./alertBoxes"
     nameContentChildInput.disabled = true;
     nameContentDiv.appendChild(nameContentChildInput);
     centerRuleDiv.appendChild(nameContentDiv);
-
     let urlContentDiv = document.createElement("div");
     urlContentDiv.classList.add("rule-content");
     let urlContentChildInput = document.createElement("input");
@@ -43,26 +41,12 @@ import {ModalWindow} from "./alertBoxes"
     urlContentChildInput.disabled = true;
     urlContentDiv.appendChild(urlContentChildInput);
     centerRuleDiv.appendChild(urlContentDiv);
-
     let colorContentDiv = document.createElement("div");
     colorContentDiv.classList.add("color-content");
     let colorContentChildBoxDiv = document.createElement("div");
     colorContentChildBoxDiv.classList.add("box");
     colorContentChildBoxDiv.setAttribute("id", "first-box");
     colorContentChildBoxDiv.setAttribute("value", "grey");
-  
-    //create divs for all box colors that are not gray 
-    // let blueBox = document.createElement("div")
-    // let yellowBox = document.createElement("div")
-    // let purpleBox = document.createElement("div")
-    // let greenBox = document.createElement("div")
-    // let pinkBox = document.createElement("div")
-    // let redBox = document.createElement("div")
-    // let orangeBox = document.createElement("div")
-    // let cyanBox = document.createElement("div")
-    
-    // blueBox.classList.add("blue-box");
-    //make all color boxes divs and give them correct claass names
     let blueBox = document.createElement("div")
     blueBox.classList.add("blue-box");
     let yellowBox = document.createElement("div")
@@ -89,10 +73,8 @@ import {ModalWindow} from "./alertBoxes"
     colorContentChildBoxDiv.appendChild(orangeBox);
     colorContentChildBoxDiv.appendChild(cyanBox);
     // append cololorContent ChildBox div as child to color content
-
     colorContentDiv.appendChild(colorContentChildBoxDiv);
     centerRuleDiv.appendChild(colorContentDiv);
-
     let dropdown = document.createElement("div");
     dropdown.classList.add("dropdown");
     let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -108,10 +90,8 @@ import {ModalWindow} from "./alertBoxes"
     rulesContainerElement!.appendChild(centerRuleDiv);
     return centerRuleDiv;
 }
-
 // when delete button clicked removes the group number
 // from google sync and from the popup page of extension
-console.log(" this is tab groups delte button" , deleteButton)
 document.addEventListener('DOMContentLoaded', (event) => {
 deleteButton!.addEventListener('click', async () => {
   //use method isChecked to loop through checkboxes and see if checked or not 
@@ -134,46 +114,35 @@ deleteButton!.addEventListener('click', async () => {
 document.addEventListener('DOMContentLoaded', (event) => {
 addButton!.addEventListener('click', async(elem) => {
   let ruleElement = createRuleElement();
-
   // uncheck all other selectorrs other than one added
   let otherSelectorInputContainers = document.querySelectorAll('.container');
   for(let i = 0; i < otherSelectorInputContainers.length; i++) {
     const container = otherSelectorInputContainers[i] as HTMLElement; // Narrow down the type to HTMLElement
     const input = container.querySelector('input') as HTMLInputElement; // Also narrow down the type of the input
-
     input.checked = false;
     container.style.pointerEvents = 'none';
   }
   let addButton = elem.target as HTMLElement;
- 
   let selectorInput = ruleElement.querySelector(".container > input") as HTMLInputElement;
   const checkedNameField = ruleElement.querySelector('.name-content > input') as HTMLInputElement;
   const checkedUrlField = ruleElement.querySelector('.flex-center') as HTMLInputElement;
   let dropDown = ruleElement.querySelector('.dropdown') as HTMLInputElement;
-  console.log(ruleElement.querySelector(".container > input"));
   selectorInput.checked = true;
   toggleInputDisabled(checkedNameField);
   toggleInputDisabled(checkedUrlField);
   toggleDropdownBox(dropDown);
   addDropDownMenuOnClickListeners();
-
-  // let selectedElemetn = document.querySelector("body > div.rules-container > div")
-  // // let selectedElement = document.querySelector(ruleElement);
-  // console.log(selectedElement);
-  console.log(ruleElement);
   toggleElementDisplay(addButton);
   toggleElementDisplay(document.getElementById('go-back')!);
   toggleElementDisplay(document.getElementById('delete-group')!);
   toggleButtonText(document.getElementById('edit-add-group')!, "Select", "Save")
   checkedNameField.focus();
-       
 })
 });
 document.addEventListener('DOMContentLoaded', (event) => {
 gobackButton!.addEventListener('click', async () => {
   const isCheckedArray = document.querySelectorAll('.container input');
   const dropDownBox = document.querySelectorAll('.dropdown') as unknown as HTMLElement[];
-
   // deleteButtonLogic(isCheckedArray, tabGroupsArray, dropDownBox, true)
   goBackButtonLogic(isCheckedArray, dropDownBox)
 })
@@ -187,7 +156,6 @@ editAddButton!.addEventListener('click', async function () {
   const checkedUrlField = document.querySelectorAll('.flex-center');
   const dropDownBox = document.querySelectorAll('.dropdown');
   const boxField = document.querySelectorAll('.box');
-
   // need to conver nodelistOfElments to HTMLInputElement[]
   const inputBoxes = Array.from(inputBox) as HTMLInputElement[];
   const checkedInputs = Array.from(isCheckedArray) as HTMLInputElement[]
