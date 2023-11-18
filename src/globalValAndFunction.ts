@@ -79,11 +79,13 @@ export const determineClickHandlerInB = (elemArr: HTMLElement[], elemToMatch:  H
 // group names
 export function reorderTabGroups(tabGroupsArrayOfObjects: TabGroupOrBlankObject[]) {
   let newTabGroups: TabGroupOrBlankObject[] = [];
+  let groupNumberForNewTabGroups: number = 1;
   for (let i = 0; i < tabGroupsArrayOfObjects.length; i++) {
     if (isNotEmptyObject(tabGroupsArrayOfObjects[i])) {
       const tabGroup = tabGroupsArrayOfObjects[i] as TabGroup;
       for (let key in tabGroup) {
-        let newKey = "GROUP" + (i + 1);
+        let newKey = "GROUP" + groupNumberForNewTabGroups;
+        groupNumberForNewTabGroups += 1;
         let newObject: TabGroup = {}; 
         newObject[newKey] = tabGroup[key];
         newTabGroups.push(newObject);
