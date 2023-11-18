@@ -2,17 +2,11 @@
 import {createRuleElement} from "./popup"
 import {ModalWindow} from "./alertBoxes"
 // get variables for buttons ahere
- 
 export const deleteButton = document.getElementById('delete-group');
- export const gobackButton = document.getElementById('go-back');
- export const addButton = document.getElementById('add-group');
- export const editAddButton: HTMLButtonElement = document.getElementById('edit-add-group') as HTMLButtonElement;
-
+export const gobackButton = document.getElementById('go-back');
+export const addButton = document.getElementById('add-group');
+export const editAddButton: HTMLButtonElement = document.getElementById('edit-add-group') as HTMLButtonElement;
 export let isCheckedArray = document.querySelectorAll('.container input');
-
-// let dropDownAll = document.querySelectorAll('.dropdown');
-// console.log("drop down all is.... " ,)
-// let boxAll = document.querySelectorAll('.box');
 const colors = {'blue': '#8ab4f7', 'yellow': '#fed663', 'purple': '#c589f9', 'green': '#81c895', 'red': '#f18b82', 'pink': '#ff8bcb', 'orange': '#fbac70', 'cyan': '#78d9ec', 'grey': 'grey'}
 type TabGroup = {
   [key: string]: {
@@ -21,23 +15,17 @@ type TabGroup = {
     COLOR: string;
   };
 };
-
 type TabGroupOrBlankObject = TabGroup | {};
 function isNotEmptyObject(obj: TabGroupOrBlankObject): obj is TabGroup {
   return Object.keys(obj).length > 0;
 }
-
 export let tabGroupsArray: TabGroup[] = [];
- export const zoomLg = document.getElementById('zoom-lg')
- export const zoomReg = document.getElementById('zoom-reg')
-
+export const zoomLg = document.getElementById('zoom-lg')
+export const zoomReg = document.getElementById('zoom-reg')
 // function that switches a btn elements inner html between two strings
- export const toggleButtonText = (btn: HTMLElement, str1: string, str2: string): void => {
+export const toggleButtonText = (btn: HTMLElement, str1: string, str2: string): void => {
   btn.innerHTML = (btn.innerHTML === str1) ? str2 : str1;
 };
-
-
-
 // Looks at second argument for parent element, if it has parent element
 // that doesn't have class of dropdown and doesn't match element in the elmeArr toggles
 // active-box away from it, ignores drop down when clicked since
@@ -56,12 +44,10 @@ export const determineClickHandlerInB = (elemArr: HTMLElement[], elemToMatch:  H
     }
   }
 };
-
 // this loops through all visible drop down boxes and assigns htem on click listeners
  export function addDropDownMenuOnClickListeners() {
   let dropDownAll = document.querySelectorAll('.dropdown') as NodeListOf<HTMLElement>;
   let boxAll = document.querySelectorAll('.box') as NodeListOf<HTMLElement>;
-
   for (let i = 0; i < dropDownAll.length; i++) {
     dropDownAll[i].onclick = () => {
       for (let j = 0; j < boxAll.length; j++) {
@@ -71,16 +57,12 @@ export const determineClickHandlerInB = (elemArr: HTMLElement[], elemToMatch:  H
       }
       boxAll[i].classList.toggle('active-box');
     };
-
     for (const color in colors) {
       if (color === 'grey') continue;
-
       const colorBox = boxAll[i].querySelector(`.${color}-box`) as HTMLElement; // Casting here
-
       if (colorBox !== null) {
         colorBox.onclick = (event: Event) => { // Using event parameter
           const targetElement = event.currentTarget as HTMLElement;
-
           if (targetElement && targetElement.parentElement) {
             targetElement.parentElement!.style.backgroundColor = colors[color as keyof typeof colors];
 
@@ -92,7 +74,6 @@ export const determineClickHandlerInB = (elemArr: HTMLElement[], elemToMatch:  H
     }
   }
 }
-
 //this takes an array of Object representing tabGroup Rules and this returns an copy array of Objects but renames the property of them to represent the GROUP number
 //starts with GROUP1 and goes on until the end of the array. This is to prevent situation where Tab Group 1 deleted last time and tab group 2 repeats for instance, guarinties unique tab
 // group names
@@ -111,7 +92,6 @@ export function reorderTabGroups(tabGroupsArrayOfObjects: TabGroupOrBlankObject[
   }
   return newTabGroups;
 }
-
 // get chrome storage tabgropus object 
 window.onload = async () => {
     // //uncomment this to remoe all tabgroups on load for testing 
@@ -119,22 +99,18 @@ window.onload = async () => {
     // let TabGroupOrBlankObjects = createXNumbersTabGroupsArray(9);
     // setTabGroups(TabGroupOrBlankObjects);
     let result = await chrome.storage.sync.get(['TABGROUPS']);
-    console.log("result is", result);
-    console.log("Chrome Tab rules are as follows!" , result);
     //put all TabGroup Rules in to TabGroups Array
     if (Object.keys(result).length !== 0) {
       //first thing we do is initzlze array to blank array to make sure it wlways starts empty 
       tabGroupsArray = [];
       for (let i = 0; i < result.TABGROUPS.length; i += 1) {
-        if (result.TABGROUPS[i] === null)  { console.log ('empty tab group found??')}
-        else {
+        if(result.TABGROUPS[i] !== null) {
           tabGroupsArray.push(result.TABGROUPS[i]);
         }
       }
        tabGroupsArray = reorderTabGroups(tabGroupsArray);
-       console.log("tab groups where reorder", tabGroupsArray);
+       console.log("tab groups where reordered here is new TabGroupsJSON", tabGroupsArray);
        chrome.storage.sync.set({ TABGROUPS: tabGroupsArray });
-      
     }
     if (Object.keys(result).length !== 0 && result['TABGROUPS'] !== null) {
       for (let i = 0; i < tabGroupsArray.length; i += 1) {
@@ -188,7 +164,6 @@ export const toggleInputAndDropdown = (nameField: HTMLInputElement, urlField: HT
   toggleInputDisabled(urlField);
   toggleDropdownBox(dropDown);
 }
-
 // helper function for toggling display elements
 export let toggleDisplays = (button: HTMLButtonElement) => {
   const goBackButton = document.getElementById('go-back');
@@ -197,11 +172,9 @@ export let toggleDisplays = (button: HTMLButtonElement) => {
   if (goBackButton) {
     toggleElementDisplay(goBackButton);
   }
-
   if (deleteButton) {
     toggleElementDisplay(deleteButton);
   }
-  
   toggleButtonText(button, "Select", "Save");
 };
 // helper function for setting field values
@@ -213,7 +186,6 @@ let setValues = (nameField: HTMLInputElement , urlField: HTMLInputElement, box: 
   box.setAttribute('color', color);
   box.style.backgroundColor = colors[color as keyof typeof colors];
 }
-
 // Returns true if either name or url or color field is blank if it is checked in tool false othersiwe
 export const isBlank = (isCheckedArray: HTMLInputElement[], checkedNameField: HTMLInputElement[], checkedUrlField: HTMLInputElement[], boxField:  HTMLElement[]) => {
   for(let i = 0; i < isCheckedArray.length; i += 1) {
@@ -226,12 +198,10 @@ export const isBlank = (isCheckedArray: HTMLInputElement[], checkedNameField: HT
   }
   return false;
 }
-
 export function updateInputWhenTyped(e: InputEvent) {
   const target = e.target as HTMLInputElement;
   target.setAttribute('value', target.value);
 }
-
 // Loops through list and sees if a value is checked, if not returns false otherwise returns true
  export let isChecked = (isCheckedArray: NodeListOf<Element>) => {
   let checkedInput = false;
@@ -241,19 +211,16 @@ export function updateInputWhenTyped(e: InputEvent) {
   return checkedInput;
 }
  export let goBackButtonLogic = (isCheckedArray: NodeListOf<Element>, dropDownBox: HTMLElement[]) => {
- console.log("this is tab grops array", tabGroupsArray);
   // toggle element display buttons
   if (editAddButton && addButton) {
     // toggle element display buttons
     toggleDisplays(editAddButton);
     toggleElementDisplay(addButton);
   }
-
   // update pointer events for check boxes
   document.querySelectorAll('.container').forEach(e => {
     (e as HTMLElement).style.pointerEvents = 'auto';
   });
-  
   // loop through the tabGroupsArray and set corresponding values
   // essentially reverts to original state before edits were made
   let allRules = document.querySelectorAll(".center.rule");
@@ -276,15 +243,11 @@ export function updateInputWhenTyped(e: InputEvent) {
     (isCheckedArray[i] as HTMLInputElement).checked = false;
     toggleInputAndDropdown(checkedNameField as HTMLInputElement, checkedUrlField as HTMLInputElement, dropDownBox[i] as HTMLInputElement)
   }
-
   if(allRules.length > tabGroupsArray.length) {
     allRules[allRules.length - 1].remove();
 
   }
-  
 }
-
-
 export let deleteButtonLogic = (isCheckedArray: NodeListOf<Element>, tabGroupsArray: TabGroup[]) => {
   const ruleElements = document.querySelectorAll('.center.rule');
   console.log("rule elements before deleing", ruleElements);
@@ -313,7 +276,6 @@ export let deleteButtonLogic = (isCheckedArray: NodeListOf<Element>, tabGroupsAr
    console.log("tab groups where reorder", tabGroupsArray);
    chrome.storage.sync.set({ TABGROUPS: tabGroupsArray });
 }
-
 type ButtonType = HTMLButtonElement; // Replace with actual type
 type InputBoxType = HTMLInputElement[]; // Replace with actual type
 type IsCheckedArrayType = HTMLInputElement[]; // Replace with actual type
@@ -346,10 +308,7 @@ type DropDownBoxType = HTMLElement[]; // Replace with actual type
       URL: string[];
     };
   };
-  
   let tabGroupsArray: TabGroup[] = [];
-  
-  
   isCheckedArray = Array.from(document.querySelectorAll('.container input')) as HTMLInputElement[];
   // unchecks everything that is checked
   for (let i = 0; i < isCheckedArray.length; i += 1) {
@@ -397,31 +356,3 @@ type DropDownBoxType = HTMLElement[]; // Replace with actual type
   toggleDisplays(button);
   toggleElementDisplay(addButton!);
 }
-
-// this functoin finds duplicates in an array and returns an object showing if ther are any essentially testing functoin
-export function findDuplicates(arr: number[]): { hasDuplicates: boolean; indices: number[] } {
-  let indices: number[] = [];
-  let seen = new Set<number>();
-  for (let i = 0; i < arr.length; i++) {
-    if (seen.has(arr[i])) {
-      indices.push(i);
-    } else {
-      seen.add(arr[i]);
-    }
-  }
-  return {
-    hasDuplicates: indices.length > 0,
-    indices: indices
-  };
-}
-//testing fucntion to go in and put  a bunch of random values in an arra test up to a million 
-export function generateRandomValuesAndPushToArray(arrayLength:number):number[] {
-  let randomNumbersArray:number[] = [];
-  for(let i = 0; i < arrayLength; i++) {
-    randomNumbersArray.push(Math.random())
-  
-  }
-  return randomNumbersArray;
-}
-let testArray = [1, 2, 3 , 4, 5]
-
