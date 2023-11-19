@@ -2,8 +2,8 @@
 import {createRuleElement} from "./popup"
 import {ModalWindow} from "./alertBoxes"
 // get variables for buttons ahere
-export const deleteButton = document.getElementById('delete-group');
-export const gobackButton = document.getElementById('go-back');
+export const deleteButton = document.getElementById('delete-group') as HTMLButtonElement;
+export const gobackButton = document.getElementById('go-back') as HTMLButtonElement;
 export const addButton = document.getElementById('add-group');
 export const editAddButton: HTMLButtonElement = document.getElementById('edit-add-group') as HTMLButtonElement;
 export let isCheckedArray = document.querySelectorAll('.container input');
@@ -170,7 +170,6 @@ export const toggleInputAndDropdown = (nameField: HTMLInputElement, urlField: HT
 export let toggleDisplays = (button: HTMLButtonElement) => {
   const goBackButton = document.getElementById('go-back');
   const deleteButton = document.getElementById('delete-button');
-  console.log("this is delte button after intially created", deleteButton);
   if (goBackButton) {
     toggleElementDisplay(goBackButton);
   }
@@ -214,10 +213,11 @@ export function updateInputWhenTyped(e: InputEvent) {
 }
  export let goBackButtonLogic = (isCheckedArray: NodeListOf<Element>, dropDownBox: HTMLElement[]) => {
   // toggle element display buttons
-  if (editAddButton && addButton) {
+  if (editAddButton && addButton && gobackButton) {
     // toggle element display buttons
     toggleDisplays(editAddButton);
     toggleElementDisplay(addButton);
+    toggleElementDisplay(deleteButton);
   }
   // update pointer events for check boxes
   document.querySelectorAll('.container').forEach(e => {
