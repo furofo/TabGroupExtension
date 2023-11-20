@@ -347,6 +347,7 @@ type DropDownBoxType = HTMLElement[]; // Replace with actual type
   chrome.storage.sync.set({ TABGROUPS: tabGroupsArray });
   toggleDisplays(button);
   toggleElementDisplay(addButton!);
+  toggleElementDisplay(deleteButton!);
 }
  export let editButtonLogic = (button: any, isCheckedArray: any, checkedNameField: any, checkedUrlField: any, dropDownBox: any) => {
   for (let i = 0; i < isCheckedArray.length; i += 1) {
