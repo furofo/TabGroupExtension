@@ -16,6 +16,7 @@ interface ModalOptions {
                target.classList.contains("modal__goback__button")) {
                    this.closeModal();
             } else if (target.classList.contains("modal__confirm__button")) {
+                let isCheckedArray = document.querySelectorAll('.container input');
                 deleteButtonLogic(isCheckedArray, tabGroupsArray);
                 this.closeModal();
             }
