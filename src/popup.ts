@@ -1,8 +1,8 @@
 
 import {
-  deleteButton, gobackButton, addButton, editAddButton, isCheckedArray, tabGroupsArray,
+  deleteButton, gobackButton, addButton, editAddButton,
   zoomLg, zoomReg, toggleButtonText, addDropDownMenuOnClickListeners, toggleElementDisplay,
-  toggleInputDisabled, toggleDropdownBox, isChecked, goBackButtonLogic, deleteButtonLogic,
+  toggleInputDisabled, toggleDropdownBox, isChecked, goBackButtonLogic,
   saveButtonLogic, editButtonLogic
 } from './globalValAndFunction';
 import {ModalWindow} from "./alertBoxes"

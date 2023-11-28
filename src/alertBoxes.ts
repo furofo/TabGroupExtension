@@ -8,7 +8,7 @@ interface ModalOptions {
     init() {
         document.body.addEventListener('click', this.handleClick.bind(this));  // Binding 'this' context
     },
-    handleClick(e: MouseEvent) {
+   async handleClick(e: MouseEvent)  {
         const target = e.target as HTMLElement;
         if(target) {
             if(target.classList.contains("modal__close") || 
@@ -17,7 +17,7 @@ interface ModalOptions {
                    this.closeModal();
             } else if (target.classList.contains("modal__confirm__button")) {
                 let isCheckedArray = document.querySelectorAll('.container input');
-                deleteButtonLogic(isCheckedArray, tabGroupsArray);
+                await deleteButtonLogic(isCheckedArray);
                 this.closeModal();
             }
         }
