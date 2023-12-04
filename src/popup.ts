@@ -7,7 +7,7 @@ import {
 } from './globalValAndFunction';
 import {ModalWindow} from "./alertBoxes"
  export let createRuleElement = function() {
-  let rulesContainerElement = document.querySelector(".rules-container");
+    let rulesContainerElement = document.querySelector(".rules-container");
     let centerRuleDiv = document.createElement("div");
     centerRuleDiv.classList.add("center");
     centerRuleDiv.classList.add("rule");
@@ -86,7 +86,6 @@ import {ModalWindow} from "./alertBoxes"
     svg.appendChild(path);
     dropdown.appendChild(svg);
     colorContentDiv.appendChild(dropdown);
-    // console.log("center rule  is  ", centerRuleDiv);
     rulesContainerElement!.appendChild(centerRuleDiv);
     return centerRuleDiv;
 }
@@ -97,7 +96,6 @@ deleteButton!.addEventListener('click', async () => {
   //use method isChecked to loop through checkboxes and see if checked or not 
   // if checked displays conirmation message, if nothing checked displays erro rmessage
   let isCheckedArray = document.querySelectorAll('.container input');
-  console.log(isCheckedArray);
   if(isChecked(isCheckedArray)) {
     ModalWindow.openModal({
       title: "Do you want to delete?",

@@ -28,7 +28,6 @@ function isNotEmptyObject(obj: TabGroupOrBlankObject): obj is TabGroup {
 }
 
 export let tabGroupsArray: TabGroup[] = [];
-console.log("early on tabGroupsArray", tabGroupsArray);
 export const zoomLg = document.getElementById('zoom-lg')
 export const zoomReg = document.getElementById('zoom-reg')
 // function that switches a btn elements inner html between two strings
@@ -109,11 +108,10 @@ export function reorderTabGroups(tabGroupsArrayOfObjects: TabGroupOrBlankObject[
   return newTabGroups;
 }
 
-async function populateTabGroupsArrayFromChromeStorage() {
+export async function populateTabGroupsArrayFromChromeStorage() {
   let result = await chrome.storage.sync.get(['TABGROUPS']);
   //put all TabGroup Rules in to TabGroups Array
   tabGroupsArray = [];
-  console.log("populateTabGroupsArrayFromChromeStorage tabgroups array intialized", tabGroupsArray);
   if (Object.keys(result).length !== 0) {
     //first thing we do is initzlze array to blank array to make sure it wlways starts empty 
     
@@ -123,16 +121,13 @@ async function populateTabGroupsArrayFromChromeStorage() {
       }
     }
     tabGroupsArray =  reorderTabGroups(tabGroupsArray);
-    console.log("this is problem child tabgroups array", tabGroupsArray);
      await chrome.storage.sync.set({ TABGROUPS: tabGroupsArray });
      return tabGroupsArray;
 }
 }
 // get chrome storage tabgropus object 
 window.onload = async () => {
-  
      let result = await chrome.storage.sync.get(['TABGROUPS']);
-     console.log("this is tabgroups on onload", result);
    await  populateTabGroupsArrayFromChromeStorage();
     if (Object.keys(result).length !== 0 && result['TABGROUPS'] !== null) {
       for (let i = 0; i < tabGroupsArray.length; i += 1) {
@@ -268,8 +263,6 @@ export function updateInputWhenTyped(e: InputEvent) {
   }
 }
 export let deleteButtonLogic = async (isCheckedArray: NodeListOf<Element>) => {
-  console.log("this is tabbroups array  in beggining of tab groups logic before populate function called", tabGroupsArray);
-  console.log("this is tabbroups array  in beggining of tab groups logic after populate function called", tabGroupsArray);
    await populateTabGroupsArrayFromChromeStorage();
   const ruleElements = document.querySelectorAll('.center.rule');
   let ruleElementIndexesToRemove: number[] = [];
@@ -290,11 +283,8 @@ export let deleteButtonLogic = async (isCheckedArray: NodeListOf<Element>) => {
   for(let i = 0; i < ruleElementIndexesToRemove.length; i++) {
     ruleElements[ruleElementIndexesToRemove[i]].remove();
   }
-  console.log("this is tabbroups array in delte button logic before reorder is called", tabGroupsArray);
    tabGroupsArray = reorderTabGroups(tabGroupsArray);
-   console.log("this is tabgroups array in delte button logic that chrome storgae will be st to", tabGroupsArray);
    chrome.storage.sync.set({ TABGROUPS: tabGroupsArray }, () => {
-    console.log("storage set was called", "this is tabgorups arry i tis", tabGroupsArray);
   });
 }
 type ButtonType = HTMLButtonElement; // Replace with actual type
@@ -363,7 +353,6 @@ type DropDownBoxType = HTMLElement[]; // Replace with actual type
       tabGroupsArray.push({});
     }
   }
-  console.log("this is tabgroups at the end of save button logic", tabGroupsArray);
   chrome.storage.sync.set({ TABGROUPS: tabGroupsArray });
   toggleDisplays(button);
   toggleElementDisplay(addButton!);
@@ -378,4 +367,5 @@ type DropDownBoxType = HTMLElement[]; // Replace with actual type
   }
   toggleDisplays(button);
   toggleElementDisplay(addButton!);
+  toggleElementDisplay(deleteButton!);
 }

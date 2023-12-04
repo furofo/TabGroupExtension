@@ -36,7 +36,7 @@ function groupTabIfTabGroupExistsInBrowser(browserTabGroupObject: chrome.tabGrou
       chrome.tabs.group({
         tabIds: tabId,
         groupId: browserTabGroupObject[i].id,
-      }).catch((e) => console.log(''));
+      }).catch((e) => console.log('error with chrome tabs group'));
     }
   }
   return matchingTabGroupInBrowser;
