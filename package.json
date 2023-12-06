@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "build": "webpack --mode production",
-    "build-all": "npm run build && tsc -p tsconfig.json"
+    "build-all": "npm run build && tsc -p tsconfig.json && tsc -p tsconfig.options.json"
   },
   "keywords": [],
   "author": "",
