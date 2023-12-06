@@ -1,5 +1,14 @@
-namespace AutoTabGroups {
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.storage.sync.set({ loggingEnabled: false });
+});
 
+chrome.storage.onChanged.addListener((changes, namespace) => {
+  for (let key in changes) {
+      if (key === "loggingEnabled") {
+          console.log("Logging is " + (changes[key].newValue ? "enabled" : "disabled"));
+      }
+  }
+});
 // looks through a list of search terms and tells you if url is in them
 let isSearchTermInUrl =  (url: string, searchTerms: string[]) => {
   if(searchTerms) {
@@ -131,4 +140,3 @@ chrome.commands.onCommand.addListener((command) => {
     openTabGroupsWhenCtrlShiftH()
   }
 });
-}

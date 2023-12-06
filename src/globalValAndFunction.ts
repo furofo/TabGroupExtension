@@ -134,6 +134,7 @@ window.onload = async () => {
     settingsIcon.addEventListener('click', () => {
       // Log the SVG element to the console when it is clicked
       console.log("settings wheel clicked", settingsIcon);
+      chrome.runtime.openOptionsPage();
     });
   }
   let result = await chrome.storage.sync.get(['TABGROUPS']);
