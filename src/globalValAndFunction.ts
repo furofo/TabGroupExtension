@@ -127,7 +127,17 @@ export async function populateTabGroupsArrayFromChromeStorage() {
 }
 // get chrome storage tabgropus object 
 window.onload = async () => {
-     let result = await chrome.storage.sync.get(['TABGROUPS']);
+  const settingsIcon = document.getElementById('settings-icon');
+  // Check if the element exists to avoid null reference errors
+  if (settingsIcon) {
+    // Add a click event listener to the SVG element
+    settingsIcon.addEventListener('click', () => {
+      // Log the SVG element to the console when it is clicked
+      console.log("settings wheel clicked", settingsIcon);
+      chrome.runtime.openOptionsPage();
+    });
+  }
+  let result = await chrome.storage.sync.get(['TABGROUPS']);
    await  populateTabGroupsArrayFromChromeStorage();
     if (Object.keys(result).length !== 0 && result['TABGROUPS'] !== null) {
       for (let i = 0; i < tabGroupsArray.length; i += 1) {

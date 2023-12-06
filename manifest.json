@@ -32,6 +32,7 @@
             "suggested_key": "Ctrl+Shift+U",
             "description": "Toggle Tab Groups Open Or Closed"
         }
-        }
+        },
+        "options_page": "options/options.html"
 }
 
