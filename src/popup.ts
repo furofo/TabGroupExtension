@@ -181,15 +181,3 @@ editAddButton!.addEventListener('click', async function () {
   }
 });
 });
-document.addEventListener('DOMContentLoaded', (event) => {
-zoomLg!.addEventListener('click', async() => {
-  document.getElementById('page-style')!.setAttribute('href', "/css/style.css")
-  document.getElementById('alert-style')!.setAttribute('href', "/css/alert-boxes.css")
-})
-});
-document.addEventListener('DOMContentLoaded', (event) => {
-zoomReg!.addEventListener('click', async() => {
-  document.getElementById('page-style')!.setAttribute('href', "/css/styles2.css")
-  document.getElementById('alert-style')!.setAttribute('href', "/css/alert-boxes2.css")
-})
-});
