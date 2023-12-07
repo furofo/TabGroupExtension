@@ -127,6 +127,17 @@ export async function populateTabGroupsArrayFromChromeStorage() {
 }
 // get chrome storage tabgropus object 
 window.onload = async () => {
+  // get chrome setting for zoom and zoom or mimize screen accoring
+  let zoom = await  chrome.storage.sync.get("zoomEnabled");
+  console.log("zoom is", zoom);
+  if(zoom.zoomEnabled) {
+    document.getElementById('page-style')!.setAttribute('href', "/css/style.css")
+    document.getElementById('alert-style')!.setAttribute('href', "/css/alert-boxes.css")
+  }
+  else {
+  document.getElementById('page-style')!.setAttribute('href', "/css/styles2.css")
+  document.getElementById('alert-style')!.setAttribute('href', "/css/alert-boxes2.css")
+  }
   const settingsIcon = document.getElementById('settings-icon');
   // Check if the element exists to avoid null reference errors
   if (settingsIcon) {
