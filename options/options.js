@@ -15,3 +15,54 @@ function loadZoomPrefernence() {
 }
 document.addEventListener('DOMContentLoaded', loadZoomPrefernence);
 document.getElementById('zoomEnabled').addEventListener('change', saveZoomPrefernence);
+document.getElementById('download-btn').addEventListener('click', function () {
+    // Retrieve the 'TABGROUPS' data from Chrome's storage
+    chrome.storage.sync.get(['TABGROUPS'], function (result) {
+        if (result.TABGROUPS) {
+            var data = result.TABGROUPS;
+            // Create a blob from the retrieved data
+            var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            var url = URL.createObjectURL(blob);
+            // Create an anchor element and trigger the download
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'data.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+        else {
+            console.error("No data found in TABGROUPS");
+        }
+    });
+});
+// Function to read and process the file
+// Function to read and process the file
+function handleFileSelect(evt) {
+    var file = evt.target.files[0]; // Get the selected file
+    if (file) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var content = e.target.result;
+            try {
+                var data = JSON.parse(content);
+                // Save the parsed data to Chrome's storage
+                chrome.storage.sync.set({ 'TABGROUPS': data }, function () {
+                    console.log('TABGROUPS data saved to Chrome storage');
+                });
+            }
+            catch (error) {
+                console.error("Error parsing JSON:", error);
+            }
+        };
+        reader.readAsText(file);
+    }
+}
+// Attach event listener to the file input
+document.getElementById('file-input').addEventListener('change', handleFileSelect);
+// Function to trigger file input click
+function loadCustomRules() {
+    document.getElementById('file-input').click();
+}
+// Attach event listener to the load button
+document.getElementById('load-btn').addEventListener('click', loadCustomRules);
