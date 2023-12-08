@@ -25,7 +25,7 @@
 
 .center {
   /* Add margin-top to push it down a bit */
-  margin-top: 40px; /* Adjust this value based on your layout needs */
+  margin-top: 8px; /* Adjust this value based on your layout needs */
   /* Rest of your .center styles */
 }
 
@@ -81,7 +81,7 @@ button {
       width: 50%;
   }
   .rule-buttons {
-    margin: 1.5em 1.5em 0 1.5em;
+    margin: 1.5em 1.5em 30px 1.5em;
   }
 
   .rule-headings h3{
@@ -136,7 +136,7 @@ button {
     border: 2px solid black;
 }
 .rules-container {
-  height: 110px;
+  height: 180px;
   overflow-x: hidden;
   overflow-y: auto;
 

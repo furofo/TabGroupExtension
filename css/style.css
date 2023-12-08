@@ -78,7 +78,7 @@ abbr,acronym { border:0;
   text-align: center;
 }
 .rules-container {
-  height: 110px;
+  height: 302px;
   overflow-x: hidden;
   overflow-y: auto;
 
@@ -148,7 +148,7 @@ button {
       width: 50%;
   }
   .rule-buttons {
-    margin: 1.5em 0px 0 0px;
+    margin: 1.5em 0px 50px 0px;
   }
 
   .rule-headings h3{

@@ -3,7 +3,8 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center;
+    flex-direction: column; /* Add this line */
+    align-items: center;  
     height: 100vh;
     background-color: #f4f4f4;
   }
@@ -28,4 +29,36 @@ body {
     margin-left: 10px;
     cursor: pointer;
   }
-  
+
+  .button-wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin: 20px;
+  }
+  /* General Button Styling */
+button {
+  background-color: #4CAF50; /* Green background */
+  color: white; /* White text */
+  padding: 15px 32px; /* Top and bottom padding of 15px, left and right padding of 32px */
+  text-align: center; /* Center the text inside the button */
+  text-decoration: none; /* Remove underline from text */
+  display: inline-block; /* Display the button inline */
+  font-size: 16px; /* Set font size */
+  margin: 4px 2px; /* Margin around the button */
+  cursor: pointer; /* Change mouse cursor to pointer when hovering over the button */
+  border: none; /* Remove border */
+  border-radius: 4px; /* Slightly rounded corners */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Add a subtle shadow effect */
+  transition-duration: 0.4s; /* Smooth transition for hover effects */
+}
+
+/* Button Hover Effect */
+button:hover {
+  background-color: #101310; /* Darker shade of green when hovered */
+}
+
+/* Button Focus Effect */
+button:focus {
+  outline: none; /* Remove the outline shown on focus */
+}
