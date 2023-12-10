@@ -65,29 +65,35 @@ input[type=checkbox] {
 
 
 /* General Button Styling */
+/* General Button Styling with Gradient */
 button {
-  background-color: #4CAF50; /* Green background */
+  background: linear-gradient(135deg, #4CAF50, #033f11); /* Gradient from light green to darker green */
   color: white; /* White text */
-  padding: 15px 32px; /* Adjust padding as needed */
+  padding: 15px 32px; /* Top and bottom padding of 15px, left and right padding of 32px */
   text-align: center; /* Center the text inside the button */
   text-decoration: none; /* Remove underline from text */
   display: inline-block; /* Display the button inline */
-  font-size: 12px; /* Set font size */
+  font-size: 16px; /* Set font size */
   margin: 4px 2px; /* Margin around the button */
   cursor: pointer; /* Change mouse cursor to pointer when hovering over the button */
   border: none; /* Remove border */
   border-radius: 4px; /* Slightly rounded corners */
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Add a subtle shadow effect */
   transition-duration: 0.4s; /* Smooth transition for hover effects */
-  width: 200px; /* Fixed width */
-  height: 50px; /* Fixed height */
+  /* Additional styles for gradient */
+  background-size: 200% auto; /* For gradient hover effect */
+  color: white; /* Text color */
+  box-shadow: 0 0 20px #eee; /* Shadow effect */
+  border-radius: 10px; /* Rounded corners */
+  display: block;
+  transition: 0.5s;
+  width: 200px;
 }
 
-/* Button Hover Effect */
+/* Button Hover Effect with Gradient Shift */
 button:hover {
-  background-color: #101310; /* Darker shade of green when hovered */
+  background-position: right center; /* Change the position of the gradient */
 }
-
 /* Button Focus Effect */
 button:focus {
   outline: none; /* Remove the outline shown on focus */

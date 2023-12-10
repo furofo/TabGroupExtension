@@ -38,17 +38,29 @@
     color: #eeeeee;
   }
 
-  .modal__close {
-    width: 35px;
-    outline: none;
-    border: none;
-    background: transparent;
-    color: #eeeeee;
-    cursor: pointer;
+ /* Style for .modal__close button */
+.modal__close {
+  width: 35px;
+  outline: none;
+  border: none;
+  background: transparent;
+  color: #eeeeee; /* Light color for contrast on darkred background */
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease; /* Smooth transitions for effects */
 }
-  .modal__close:hover{
-    color: grey;
-  }
+
+/* Hover effect for .modal__close */
+.modal__close:hover {
+  color: #FFFFFF; /* Change to white for better visibility on hover */
+  transform: scale(1.2); /* Slightly increase size for interaction */
+}
+
+/* Active state for .modal__close */
+.modal__close:active {
+  transform: scale(1); /* Return to normal size when clicked */
+  color: #FFD700; /* Change to a different color for active state (e.g., gold) */
+}
+
 
   .modal__content {
     padding: 10px;
@@ -60,30 +72,58 @@
     width: 100%;
   }
 
-  .modal__goback__button {
-    margin-bottom: 19px;
-    cursor: pointer;
-    font-size: 22px;
-    background-color: darkred;
-    border: 1px solid grey;
-    box-shadow: 10px grey;
-    padding: 10px;
-    height: auto;
+ /* Style for .modal__goback__button */
+.modal__goback__button {
+  margin-bottom: 19px;
+  cursor: pointer;
+  font-size: 22px;
+  background-color: #8B0000; /* Dark red */
+  color: white; /* White text */
+  border: 1px solid grey;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Subtle shadow for depth */
+  padding: 10px;
+  height: auto;
+  border-radius: 5px; /* Rounded corners */
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease; /* Smooth transitions */
 }
-  .modal__confirm__button {
-    margin-bottom: 19px;
-    cursor: pointer;
-    font-size: 22px;
-    background-color: darkgreen;
-    border: 1px solid grey;
-    box-shadow: 10px grey;
-    height: auto;
-  }
-  .modal__goback__button:hover {
-    background-color: lightcoral;
-    color: black;
-  }
-  .modal__confirm__button:hover {
-    background-color: lightgreen;
-    color: black;
-  }
+
+/* Hover effect for .modal__goback__button */
+.modal__goback__button:hover {
+  background-color: #B22222; /* Lighter shade of red for hover */
+  transform: scale(1.05); /* Slightly increase size */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Larger shadow for depth */
+}
+
+/* Active state for .modal__goback__button */
+.modal__goback__button:active {
+  transform: scale(0.98); /* Slightly shrink on click */
+  background-color: #600000; /* An even darker shade for active state */
+}
+
+  /* Style for .modal__confirm__button */
+.modal__confirm__button {
+  margin-bottom: 19px;
+  cursor: pointer;
+  font-size: 22px;
+  background-color: #006400; /* Dark green */
+  color: white; /* White text */
+  border: 1px solid grey;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Subtle shadow for depth */
+  padding: 10px;
+  height: auto;
+  border-radius: 5px; /* Rounded corners */
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease; /* Smooth transitions */
+}
+
+/* Hover effect for .modal__confirm__button */
+.modal__confirm__button:hover {
+  background-color: #228B22; /* Lighter shade of green for hover */
+  transform: scale(1.05); /* Slightly increase size */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Larger shadow for depth */
+}
+
+/* Active state for .modal__confirm__button */
+.modal__confirm__button:active {
+  transform: scale(0.98); /* Slightly shrink on click */
+  background-color: #004d00; /* An even darker shade for active state */
+}
