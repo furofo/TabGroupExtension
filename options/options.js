@@ -22,11 +22,13 @@ document.getElementById('download-btn').addEventListener('click', function () {
             var data = result.TABGROUPS;
             // Create a blob from the retrieved data
             var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-            var url = URL.createObjectURL(blob);
+            // Get today's date in yyyy-mm-dd format
+            var today = new Date();
+            var formattedDate = today.toISOString().substring(0, 10); // yyyy-mm-dd
             // Create an anchor element and trigger the download
             var a = document.createElement('a');
-            a.href = url;
-            a.download = 'data.json';
+            a.href = URL.createObjectURL(blob);
+            a.download = "AutoTabGroups_".concat(formattedDate, ".json"); // Set file name with date
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
