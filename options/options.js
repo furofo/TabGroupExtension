@@ -56,6 +56,7 @@ function handleFileSelect(evt) {
             }
         };
         reader.readAsText(file);
+        showTooltip();
     }
 }
 // Attach event listener to the file input
@@ -66,3 +67,10 @@ function loadCustomRules() {
 }
 // Attach event listener to the load button
 document.getElementById('load-btn').addEventListener('click', loadCustomRules);
+function showTooltip() {
+    var tooltip = document.getElementById('loadToolTip');
+    tooltip.classList.add('show-tooltip');
+    console.log("tool tip button clicked !");
+    setTimeout(function () { return tooltip.classList.remove('show-tooltip'); }, 3000); // Hide after 3 seconds
+}
+// Example of using it in your save function

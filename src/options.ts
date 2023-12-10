@@ -2,7 +2,8 @@
 function saveZoomPrefernence() {
     let zoomEnabled = (document.getElementById('zoomEnabled') as HTMLInputElement).checked;
     console.log("new code");
-    chrome.storage.sync.set({ zoomEnabled });
+    chrome.storage.sync.set({ zoomEnabled }
+    );
 }
 
 // Load the setting
@@ -60,6 +61,7 @@ function handleFileSelect(evt) {
             }
         };
         reader.readAsText(file);
+        showTooltip();
     }
 }
 
@@ -74,3 +76,12 @@ function loadCustomRules() {
 
 // Attach event listener to the load button
 document.getElementById('load-btn')!.addEventListener('click', loadCustomRules);
+function showTooltip() {
+    const tooltip = document.getElementById('loadToolTip');
+    tooltip!.classList.add('show-tooltip');
+    console.log("tool tip button clicked !");
+    setTimeout(() => tooltip!.classList.remove('show-tooltip'), 3000); // Hide after 3 seconds
+}
+
+// Example of using it in your save function
+
