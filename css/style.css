@@ -40,12 +40,14 @@ q:before,q:after {
 }
 abbr,acronym { border:0;
 }
+
+
 .settings-page-icon {
-  width: 20px;
-  height: 20px;
-  margin-top: 12px;
+  width: 40px;
+  height: 40px;
+  margin-top: 20px;
   margin-left: auto;
-  margin-right: 10px;
+  margin-right: 20px;
   margin-bottom: 12px;
   display: flex; /* Added for centering the SVG */
   align-items: center; /* Vertically center */
@@ -58,6 +60,14 @@ abbr,acronym { border:0;
   height: 30px; /* SVG fills the div */
  /* If you want to set the color of the SVG */
   margin-left: auto;
+  transition: transform 0.2s ease;
+  transform: rotate(0deg);
+}
+
+/* Hover effect - rotate right */
+.settings-page-icon #settings-icon:hover {
+  transition: transform 2s linear; /* Transition for rotating */
+  transform: rotate(360deg); /* Rotate to the right on hover */
 }
 
 
@@ -142,7 +152,6 @@ button {
   background-color: #A52A2A; /* A shade of brown */
   color: white; /* White text */
   cursor: pointer;
-  padding: 10px 20px; /* Adjust padding as needed */
   border-radius: 5px; /* Rounded corners */
   transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease; /* Smooth transitions */
   box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Subtle shadow for depth */
@@ -166,7 +175,6 @@ button {
   background-color: #4CAF50; /* A vibrant shade of green */
   color: white; /* White text */
   cursor: pointer;
-  padding: 10px 20px; /* Adjust padding as needed */
   border-radius: 5px; /* Rounded corners */
   transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease; /* Smooth transitions */
   box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Subtle shadow for depth */
@@ -192,7 +200,7 @@ button {
   background-color: #2196F3; /* A bright shade of blue */
   color: white; /* White text */
   cursor: pointer;
-  padding: 10px 20px; /* Adjust padding as needed */
+  
   border-radius: 5px; /* Rounded corners */
   transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease; /* Smooth transitions */
   box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Subtle shadow for depth */
