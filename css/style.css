@@ -66,8 +66,8 @@ abbr,acronym { border:0;
 
 /* Hover effect - rotate right */
 .settings-page-icon #settings-icon:hover {
-  transition: transform 2s linear; /* Transition for rotating */
-  transform: rotate(360deg); /* Rotate to the right on hover */
+  transition: transform .8s linear; /* Transition for rotating */
+  transform: rotate(90deg); /* Rotate to the right on hover */
 }
 
 
