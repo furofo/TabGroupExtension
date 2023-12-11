@@ -1,44 +1,73 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column; /* Add this line */
-    align-items: center;  
-    height: 100vh;
-    background-color: #f4f4f4;
-  }
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Add this line */
+  height: 100vh;
+  background-color: #f4f4f4;
+}
   
-  .container {
-    text-align: center;
-  }
-  
-  .heading {
-    color: #333;
-    margin-top: 50px;
-    margin-bottom: 20px;
-    font-size: 40px;
-  }
-  
+ /* Container Adjustments for Overall Layout */
+ .container {
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center children horizontally */
+  justify-content: center; 
+  text-align: center;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: white;
+  max-width: 400px;
+  /* Remove or adjust margin-top if needed */
+}
+
+/* Heading Style Adjustments */
+.heading {
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 30px; /* Slightly larger heading */
+  text-align: center; /* Center-align the heading */
+}
   label {
-    font-size: 20px;
+    display: flex;
+    justify-content: center; /* Center the label and checkbox horizontally */
+    align-items: center; /* Align the label and checkbox vertically */
+    width: 100%; /* Take full width to center content */
+    font-size: 22px; /* Slightly larger font size for better readability */
     color: #555;
-  }
-  
-  input[type=checkbox] {
+    font-weight: bold; /* Make the label text bolder */
+    display: flex; /* Use flex layout for label and checkbox alignment */
+    align-items: center; /* Align items vertically */
+    margin-bottom: 15px; /* Add some space below the label */
+}
+
+/* Larger Checkbox */
+input[type=checkbox] {
     margin-left: 10px;
     cursor: pointer;
-  }
+    transform: scale(1.5); /* Scale up the checkbox */
+    margin-right: 10px; /* Add some space to the right of the checkbox */
+}
+
 
   .button-wrapper {
     display: flex;
+    position: relative;
     width: 100%;
     justify-content: center;
     margin: 20px;
   }
   /* General Button Styling */
+
+
+/* General Button Styling */
+/* General Button Styling with Gradient */
 button {
-  background-color: #4CAF50; /* Green background */
+  background: linear-gradient(135deg, #4CAF50, #033f11); /* Gradient from light green to darker green */
   color: white; /* White text */
   padding: 15px 32px; /* Top and bottom padding of 15px, left and right padding of 32px */
   text-align: center; /* Center the text inside the button */
@@ -51,14 +80,53 @@ button {
   border-radius: 4px; /* Slightly rounded corners */
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Add a subtle shadow effect */
   transition-duration: 0.4s; /* Smooth transition for hover effects */
+  /* Additional styles for gradient */
+  background-size: 200% auto; /* For gradient hover effect */
+  color: white; /* Text color */
+  box-shadow: 0 0 20px #eee; /* Shadow effect */
+  border-radius: 10px; /* Rounded corners */
+  display: block;
+  transition: 0.5s;
+  width: 200px;
 }
 
-/* Button Hover Effect */
+/* Button Hover Effect with Gradient Shift */
 button:hover {
-  background-color: #101310; /* Darker shade of green when hovered */
+  background-position: right center; /* Change the position of the gradient */
 }
-
 /* Button Focus Effect */
 button:focus {
   outline: none; /* Remove the outline shown on focus */
+}
+.tooltip {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
+.show-tooltip {
+  visibility: visible;
+  opacity: 1;
 }

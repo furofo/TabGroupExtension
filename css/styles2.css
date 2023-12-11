@@ -20,6 +20,12 @@
   height: 30px; /* SVG fills the div */
  /* If you want to set the color of the SVG */
   margin-left: auto;
+  transition: transform 0.2s ease;
+  transform: rotate(0deg);
+}
+.settings-page-icon #settings-icon:hover {
+  transition: transform .8s linear; /* Transition for rotating */
+  transform: rotate(90deg); /* Rotate to the right on hover */
 }
 
 
@@ -46,26 +52,106 @@ button {
     font-size: .85em;
   }
 
-  #go-back {
-    display: none;
-    background-color: brown;
-    cursor: pointer;
-  }
+  /* Style for #go-back button */
+#go-back {
+  background-color: #8B4513; /* A shade of brown */
+  color: white; /* White text */
+  cursor: pointer;
+ /* Adjust padding as needed */
+  border-radius: 5px; /* Rounded corners */
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease; /* Smooth transitions */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Subtle shadow for depth */
+  /* Add other styles as needed */
+  display: none; /* Ensure it's displayed */
+}
 
-  #delete-group {
-    background-color: brown;
-    cursor: pointer;
-  }
-  #add-group {
-    background-color: green;
-    cursor: pointer;
-  }
+/* Hover effect for #go-back */
+#go-back:hover {
+  background-color: #CD5C5C; /* A lighter, more vibrant shade of brown */
+  transform: scale(1.05); /* Slightly increase size */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Larger shadow for depth */
+}
+
+/* Active state for #go-back */
+#go-back:active {
+  transform: scale(0.98); /* Slightly shrink on click */
+  background-color: #A52A2A; /* An even darker shade for active state */
+}
 
 
-  #edit-add-group {
-      background-color: blue;
-      cursor: pointer;
-  }
+  /* Style for #delete-group button */
+#delete-group {
+  background-color: #A52A2A; /* A shade of brown */
+  color: white; /* White text */
+  cursor: pointer;
+  border-radius: 5px; /* Rounded corners */
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease; /* Smooth transitions */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Subtle shadow for depth */
+}
+
+/* Hover effect for #delete-group */
+#delete-group:hover {
+  background-color: #CD5C5C; /* A lighter, more vibrant shade of brown */
+  transform: scale(1.05); /* Slightly increase size */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Larger shadow for depth */
+}
+
+/* Active state for #delete-group */
+#delete-group:active {
+  transform: scale(0.98); /* Slightly shrink on click */
+  background-color: #8B4513; /* An even darker shade for active state */
+}
+
+/* Style for #add-group button */
+#add-group {
+  background-color: #4CAF50; /* A vibrant shade of green */
+  color: white; /* White text */
+  cursor: pointer;
+ /* Adjust padding as needed */
+  border-radius: 5px; /* Rounded corners */
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease; /* Smooth transitions */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Subtle shadow for depth */
+  /* Add other styles as needed */
+}
+
+/* Hover effect for #add-group */
+#add-group:hover {
+  background-color: #66BB6A; /* A lighter shade of green for hover */
+  transform: scale(1.05); /* Slightly increase size */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Larger shadow for depth */
+}
+
+/* Active state for #add-group */
+#add-group:active {
+  transform: scale(0.98); /* Slightly shrink on click */
+  background-color: #388E3C; /* A darker shade of green for active state */
+}
+
+
+  /* Style for #edit-add-group button */
+#edit-add-group {
+  background-color: #2196F3; /* Bright shade of blue */
+  color: white; /* White text */
+  cursor: pointer;
+  border-radius: 5px; /* Rounded corners */
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease; /* Smooth transitions */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Subtle shadow for depth */
+  /* Add other styles as needed */
+}
+
+/* Hover effect for #edit-add-group */
+#edit-add-group:hover {
+  background-color: #42A5F5; /* Lighter shade of blue for hover */
+  transform: scale(1.05); /* Slightly increase size */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Larger shadow for depth */
+}
+
+/* Active state for #edit-add-group */
+#edit-add-group:active {
+  transform: scale(0.98); /* Slightly shrink on click */
+  background-color: #1E88E5; /* Darker shade of blue for active state */
+}
+
   
   button.current {
     box-shadow: 0 0 0 2px white,
@@ -226,23 +312,7 @@ button {
   background-color: white;
 }
 
-#go-back:hover {
-  background-color: rgb(245, 20, 72);
-  color: black;
-}
-#delete-group:hover {
-  background-color: rgb(245, 20, 72);
-  color: black;
-}
-#add-group:hover {
-  background-color: #DBFFCB;
-  color: black;
-}
 
-#edit-add-group:hover {
-    background-color:  rgb(174, 216, 235);
-    color: black;
-}
 
 .name {
   font-size: 1em;

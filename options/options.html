@@ -10,14 +10,18 @@
         Zoomed View:
         <input type="checkbox" id="zoomEnabled">
       </label>
+      <div class = "button-wrapper">
+        <button id="download-btn">Save Your Group Rules</button>
+        
+      </div>
+      
+      <input type="file" id="file-input" style="display: none;" accept=".json"/>
+      <div class = "button-wrapper">
+        <button id = "load-btn">Load Custom Rules</button>
+        <div class="tooltip" id="loadToolTip"> Rules Loaded successfully!</div>
+      </div>
     </div>
-    <div class = "button-wrapper">
-      <button id="download-btn">Save Your Group Rules</button>
-    </div>
-    <input type="file" id="file-input" style="display: none;" accept=".json"/>
-    <div class = "button-wrapper">
-      <button id = "load-btn">Load Custom Rules</button>
-    </div>
+   
     <script src="options.js"></script>
   </body>
 </html>

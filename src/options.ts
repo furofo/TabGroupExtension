@@ -2,7 +2,8 @@
 function saveZoomPrefernence() {
     let zoomEnabled = (document.getElementById('zoomEnabled') as HTMLInputElement).checked;
     console.log("new code");
-    chrome.storage.sync.set({ zoomEnabled });
+    chrome.storage.sync.set({ zoomEnabled }
+    );
 }
 
 // Load the setting
@@ -22,15 +23,18 @@ document.getElementById('download-btn')!.addEventListener('click', function() {
     chrome.storage.sync.get(['TABGROUPS'], function(result) {
         if (result.TABGROUPS) {
             const data = result.TABGROUPS;
-
+    
             // Create a blob from the retrieved data
             const blob = new Blob([JSON.stringify(data, null, 2)], {type : 'application/json'});
-            const url = URL.createObjectURL(blob);
-
+    
+            // Get today's date in yyyy-mm-dd format
+            const today = new Date();
+            const formattedDate = today.toISOString().substring(0, 10); // yyyy-mm-dd
+    
             // Create an anchor element and trigger the download
             const a = document.createElement('a');
-            a.href = url;
-            a.download = 'data.json';
+            a.href = URL.createObjectURL(blob);
+            a.download = `AutoTabGroups_${formattedDate}.json`; // Set file name with date
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -38,6 +42,7 @@ document.getElementById('download-btn')!.addEventListener('click', function() {
             console.error("No data found in TABGROUPS");
         }
     });
+    
 });
 
 // Function to read and process the file
@@ -60,6 +65,7 @@ function handleFileSelect(evt) {
             }
         };
         reader.readAsText(file);
+        showTooltip();
     }
 }
 
@@ -74,3 +80,12 @@ function loadCustomRules() {
 
 // Attach event listener to the load button
 document.getElementById('load-btn')!.addEventListener('click', loadCustomRules);
+function showTooltip() {
+    const tooltip = document.getElementById('loadToolTip');
+    tooltip!.classList.add('show-tooltip');
+    console.log("tool tip button clicked !");
+    setTimeout(() => tooltip!.classList.remove('show-tooltip'), 3000); // Hide after 3 seconds
+}
+
+// Example of using it in your save function
+
