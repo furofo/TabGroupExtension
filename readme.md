@@ -18,6 +18,7 @@
   - [Inputs](#inputs)
   - [Edit/Add Rule(s)](#editadd-rules)
   - [Delete Rule(s)](#delete-rules)
+  - [Options / Settings Page](#options--settings-page)
 - [How Tool Works](#how-tool-works)
 - [Running Locally](#running-locally)
 
@@ -59,6 +60,15 @@ Make sure to set all values ***no fields can be left blank*** or the extension w
 
 ***This will permanently delete your rule though so keep this in mind.***
 
+### Options / Settings Page
+---
+- You can get to the settings page by clicking the gear icon in the top right corner of the popup window
+- The first option is a checkbox for zoom view. This will make the font and popup window bigger or smaller depending on whether it is checked or not.
+- The second option is a button with the text "Save Your Group Rules" This saves all your rules to a JSON file so you can manually back them up.
+- The third option is a button with the text "Load Your Group Rules", This loads a JSON file generated from the previous button. It saves these rules into your Chrome storage as well.
+  
+***This will permanently delete your old rules and overwrite them with the ones in the file though so keep this in mind.***
+
 ## How Tool Works
 ---
 - Extension does not collect any data other than rule preferences and stores that in local variables for help with logic
@@ -86,7 +96,7 @@ Rule preferences are saved and retrieved using chrome.storage API detailed here 
   The `options.js` file is also compiled into a separate `options` folder with associated HTML and CSS. This is to keep the logic of the options/settings page separate. 
 </details>
 
-6. Go to "manage extensions" or enter `brave://extensions/` in your browser's address bar to access the extensions manager.
+6. Go to "manage extensions" or enter `chrome://extensions/` in your browser's address bar to access the extensions manager.
 7. Make sure "developer mode" is toggled on in the top right corner.
 8. Click "load unpacked" in the top left corner.
 9. Navigate to the `tabGroupExtensions` folder and select it to load the extension.
