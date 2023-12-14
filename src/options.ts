@@ -2,16 +2,15 @@
 function saveZoomPrefernence() {
     let zoomEnabled = (document.getElementById('zoomEnabled') as HTMLInputElement).checked;
     console.log("new code");
-    chrome.storage.sync.set({ zoomEnabled }
-    );
+    chrome.storage.sync.set({ "TABGROUPSZOOMENABLED": zoomEnabled });
 }
 
 // Load the setting
 function loadZoomPrefernence() {
     {
-    chrome.storage.sync.get("zoomEnabled", (data) => {
+    chrome.storage.sync.get("TABGROUPSZOOMENABLED", (data) => {
         console.log("new code");
-        (document.getElementById('zoomEnabled') as HTMLInputElement).checked = data.zoomEnabled;
+        (document.getElementById('zoomEnabled') as HTMLInputElement).checked = data.TABGROUPSZOOMENABLED;
     });
 }
 }

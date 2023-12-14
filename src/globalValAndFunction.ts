@@ -128,9 +128,9 @@ export async function populateTabGroupsArrayFromChromeStorage() {
 // get chrome storage tabgropus object 
 window.onload = async () => {
   // get chrome setting for zoom and zoom or mimize screen accoring
-  let zoom = await  chrome.storage.sync.get("zoomEnabled");
+  let zoom = await  chrome.storage.sync.get("TABGROUPSZOOMENABLED");
   console.log("zoom is", zoom);
-  if(zoom.zoomEnabled) {
+  if(zoom.TABGROUPSZOOMENABLED) {
     document.getElementById('page-style')!.setAttribute('href', "/css/style.css")
     document.getElementById('alert-style')!.setAttribute('href', "/css/alert-boxes.css")
   }
