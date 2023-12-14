@@ -29,12 +29,6 @@
   </a>
 </p>
 
-## UPDATE AS OF 10/25/2023
-
--- Working on integrating TypeScript and CI/CD pipeline using JEST to run unit tests on code, will comment on code and readme accordingly.
-<br/>
-The current version uses TypeScript, and Jest to test TypeScript code functionality. This is to make development and testing functionality easier. Then uses Webpack to bundle all JS files into a `bundle.js` file will still work for the chrome extension once compiled down to JavaScript.
-
 ## Extension Overview 
 
 - Automatically sorts tabs using [Google Tab Groups](https://blog.google/products/chrome/manage-tabs-with-google-chrome/) 
@@ -46,7 +40,7 @@ The current version uses TypeScript, and Jest to test TypeScript code functional
 - `Domain`: String in URL to determine grouping, can separate multiple URLs with commas
 - `Color`: Tab group color
 
-Make sure to set all values ***no fields can be left blank*** or the extension will throw a descriptive error
+Make sure to set all values, ***no fields can be left blank***. The extension will throw a descriptive error if a value is left blank.
 
 ### Edit/Add Rule(s)
 ---
@@ -63,7 +57,7 @@ Make sure to set all values ***no fields can be left blank*** or the extension w
 ### Options / Settings Page
 ---
 - You can get to the settings page by clicking the gear icon in the top right corner of the popup window
-- The first option is a checkbox for zoom view. This will make the font and popup window bigger or smaller depending on whether it is checked or not.
+- The first option is a checkbox for zoom view. This will make the font on the popup window bigger or smaller depending on whether it is checked or not.
 - The second option is a button with the text "Save Your Group Rules" This saves all your rules to a JSON file so you can manually back them up.
 - The third option is a button with the text "Load Your Group Rules", This loads a JSON file generated from the previous button. It saves these rules into your Chrome storage as well.
   
@@ -75,7 +69,7 @@ Make sure to set all values ***no fields can be left blank*** or the extension w
 - Back-end logic triggered upon page load
 1.  Loads an object from google.sync API that represents the rules a user has set. 
 2. Loads all tab groups currently present on the page
-3. If the URL visited follows one of the rules set, it looks to see if any of the current tab groups has the same name and puts the tab in that group. 
+3. If the URL visited follows one of the rules set, it looks to see if any of the current tab groups have the same name and puts the tab in that group. 
 4. If not it creates a new tab group with the rule, name, and color. 
 
 Rule preferences are saved and retrieved using chrome.storage API detailed here https://developer.chrome.com/docs/extensions/reference/storage/ 
@@ -83,6 +77,10 @@ Rule preferences are saved and retrieved using chrome.storage API detailed here 
 ## Running locally
 
 ---
+
+-This code uses NPM, Typescript, HTML, and CSS. It compiles the typescript to several javascript files via npm commands.
+
+-Steps to run locally:
 
 1. Make sure you have TypeScript installed globally on your computer.
 2. Use Git Clone `git@github.com:furofo/TabGroupExtension.git` for SSH or `git clone https://github.com/furofo/TabGroupExtension.git` for HTTPS.
@@ -101,7 +99,3 @@ Rule preferences are saved and retrieved using chrome.storage API detailed here 
 8. Click "load unpacked" in the top left corner.
 9. Navigate to the `tabGroupExtensions` folder and select it to load the extension.
 10. You should now be able to use the extension!
-
-
-
-
