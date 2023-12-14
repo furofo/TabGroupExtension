@@ -46,10 +46,12 @@ document.getElementById('download-btn')!.addEventListener('click', function() {
 
 // Function to read and process the file
 // Function to read and process the file
+// Function to read and process the file
 function handleFileSelect(evt) {
     const file = evt.target.files[0]; // Get the selected file
 
-    if (file) {
+    // Check if the file is a JSON file
+    if (file && file.name.endsWith('.json')) {
         const reader = new FileReader();
         reader.onload = function(e) {
             const content = e.target!.result;
@@ -64,9 +66,12 @@ function handleFileSelect(evt) {
             }
         };
         reader.readAsText(file);
-        showTooltip();
+        showTooltip(); // Assuming showTooltip is a function you've defined elsewhere
+    } else {
+        console.error("Error: Only .json files are accepted");
     }
 }
+
 
 
 // Attach event listener to the file input
