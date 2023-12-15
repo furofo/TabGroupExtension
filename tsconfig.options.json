@@ -2,6 +2,7 @@
  // Extend your main tsconfig to keep the settings consistent
     "compilerOptions": {
       "outDir": "./options", // Specify the output directory
+      "sourceMap": true
     },
     "include": [
         "src/options.ts" // Only include your options.ts file
