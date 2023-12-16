@@ -1,0 +1,128 @@
+/* custom dialog menu */
+
+.modal__overlay {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+  .modal__window{
+    width: 60%;
+    background: white;
+    font-size: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.25);
+    border-radius: 10px;
+
+  }
+
+  .modal__titlebar {
+    height: 50px;
+    background: darkred;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-size: 20px;
+}
+
+  .modal__title{
+    margin-left: 15px;
+    font-weight: bold;
+    color: #eeeeee;
+  }
+
+  .modal__close {
+    width: 35px;
+    outline: none;
+    border: none;
+    background: none; /* Explicitly set background to none */
+    color: #ffffff; /* Set the color to white */
+    cursor: pointer;
+    text-shadow: none; /* Remove text shadow */
+    box-shadow: none; /* Remove box shadow */
+    transition: transform 0.2s ease; /* Only transition the transform property */
+  }
+  
+  .modal__close:hover {
+    transform: scale(1.2); /* Increase size on hover */
+  }
+
+/* Active state for .modal__close */
+.modal__close:active {
+  transform: scale(1); /* Return to normal size when clicked */
+  color: #FFD700; /* Change to a different color for active state (e.g., gold) */
+}
+
+
+  .modal__content {
+    padding: 10px;
+    font-size: 24px;
+}
+  .modal__buttons {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+ /* Style for .modal__goback__button */
+.modal__goback__button {
+  margin-bottom: 19px;
+  cursor: pointer;
+  font-size: 22px;
+  background-color: #8B0000; /* Dark red */
+  color: white; /* White text */
+  border: 1px solid grey;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Subtle shadow for depth */
+  padding: 10px;
+  height: auto;
+  border-radius: 5px; /* Rounded corners */
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease; /* Smooth transitions */
+}
+
+/* Hover effect for .modal__goback__button */
+.modal__goback__button:hover {
+  background-color: #B22222; /* Lighter shade of red for hover */
+  transform: scale(1.05); /* Slightly increase size */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Larger shadow for depth */
+}
+
+/* Active state for .modal__goback__button */
+.modal__goback__button:active {
+  transform: scale(0.98); /* Slightly shrink on click */
+  background-color: #600000; /* An even darker shade for active state */
+}
+
+  /* Style for .modal__confirm__button */
+.modal__confirm__button {
+  margin-bottom: 19px;
+  cursor: pointer;
+  font-size: 22px;
+  background-color: #006400; /* Dark green */
+  color: white; /* White text */
+  border: 1px solid grey;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Subtle shadow for depth */
+  padding: 10px;
+  height: auto;
+  border-radius: 5px; /* Rounded corners */
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease; /* Smooth transitions */
+}
+
+/* Hover effect for .modal__confirm__button */
+.modal__confirm__button:hover {
+  background-color: #228B22; /* Lighter shade of green for hover */
+  transform: scale(1.05); /* Slightly increase size */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Larger shadow for depth */
+}
+
+/* Active state for .modal__confirm__button */
+.modal__confirm__button:active {
+  transform: scale(0.98); /* Slightly shrink on click */
+  background-color: #004d00; /* An even darker shade for active state */
+}

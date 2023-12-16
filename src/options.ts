@@ -1,3 +1,4 @@
+
 // Save the setting
 function saveZoomPrefernence() {
     let zoomEnabled = (document.getElementById('zoomEnabled') as HTMLInputElement).checked;
@@ -20,7 +21,7 @@ document.getElementById('zoomEnabled')!.addEventListener('change', saveZoomPrefe
 document.getElementById('download-btn')!.addEventListener('click', function() {
     // Retrieve the 'TABGROUPS' data from Chrome's storage
     chrome.storage.sync.get(['TABGROUPS'], function(result) {
-        if (result.TABGROUPS) {
+        if (result.TABGROUPS && result.TABGROUPS.length > 0) {
             const data = result.TABGROUPS;
     
             // Create a blob from the retrieved data
@@ -38,7 +39,10 @@ document.getElementById('download-btn')!.addEventListener('click', function() {
             a.click();
             document.body.removeChild(a);
         } else {
-            console.error("No data found in TABGROUPS");
+          ModalWindow.openModal({
+            title:'No Rules To Save',
+            content: "Looks you have do not have any TabGroups set up yet. Add a least one rule to be able to save them to a file."
+          })
         }
     });
     
@@ -55,55 +59,68 @@ type TabGroup = {
   // Function to read and process the file
   function handleFileSelect(evt) {
       const file = evt.target.files[0]; // Get the selected file
-      console.log("did we get toe here", file);
       // Check if the file is a JSON file
       if (file && file.name.endsWith('.json')) {
-        console.log("end with json");
           const reader = new FileReader();
           reader.onload =  function(e) {
               const content = e.target!.result;
               try {
-                  console.log("try block reached")
                   const data = JSON.parse(content as string);
                   // Validate the data against the TabGroup type
                   if (isValidTabGroup(data)) {
-                    console.log("did this even work");
                       // Save the parsed data to Chrome's storage
                        chrome.storage.sync.set({ 'TABGROUPS': data }, function() {
-                          console.log('TABGROUPS data saved to Chrome storage');
                       });
                       
                       showTooltip(); // Assuming showTooltip is a function you've defined elsewhere
                   } else {
-                      console.error(`Error: Data does not match the TabGroup format. Please make sure it's a valid JSON file.\n\nExample of  a file with the correct format:\n
-                      {\n  "group1": {\n    "NAME": "Work",\n    "URL": ["https://example.com", "https://worksite.com"],\n    "COLOR": "blue"\n  },\n  
-                      "group2": {\n    "NAME": "Leisure",\n    "URL": ["https://youtube.com", "https://reddit.com"],\n    "COLOR": "red"\n  }\n}`);
+                    let modalWindowContent = `Error: Data does not match the TabGroup format or is blank. Please make sure it's a valid JSON file.\n\nExample of  a file with the correct format:\n
+                    {\n  "group1": {\n    "NAME": "Work",\n    "URL": ["https://example.com", "https://worksite.com"],\n    "COLOR": "blue"\n  },\n  
+                    "group2": {\n    "NAME": "Leisure",\n    "URL": ["https://youtube.com", "https://reddit.com"],\n    "COLOR": "red"\n  }\n}`;
+                    ModalWindow.openModal({
+                        title:'Invalid Object Type!',
+                        content: modalWindowContent
+                      })
                   }
               } catch (error) {
-                console.error("Error parsing JSON:", error);
+                ModalWindow.openModal({
+                  title:'Error parsing the JSON',
+                  content: error
+                })
             
                 if (error instanceof SyntaxError) {
-                    console.error(`Syntax error in file ${file.name}: ${error.message}`);
                     // Inform the user about the correct format
-                    alert(`Failed to load file ${file.name}. Please make sure it's a valid JSON file.\n\nExample of a file with the correct format:\n{\n  
+                    let modalWindowContent = `Failed to load file ${file.name}. Please make sure it's a valid JSON file.\n\nExample of a file with the correct format:\n{\n  
                         "group1": {\n    "NAME": "Work",\n    "URL": ["https://example.com", "https://worksite.com"],\n    "COLOR": "blue"\n  },
-                        \n  "group2": {\n    "NAME": "Leisure",\n    "URL": ["https://youtube.com", "https://reddit.com"],\n    "COLOR": "red"\n  }\n}`);
+                        \n  "group2": {\n    "NAME": "Leisure",\n    "URL": ["https://youtube.com", "https://reddit.com"],\n    "COLOR": "red"\n  }\n}`;
+                        ModalWindow.openModal({
+                            title:'Invalid File Data!',
+                            content: modalWindowContent
+                          })
                 } else {
-                    console.error(`Unexpected error processing file ${file.name}: ${error.message}`);
-                    alert(`An unexpected error occurred while processing file ${file.name}. Please try again.`);
+                  let modalWindowTitle = `Unexpected error processing file ${file.name}: ${error.message}`;
+                  let modalWindowContent = `An unexpected error occurred while processing file ${file.name}. Please try again.`;
+                  ModalWindow.openModal({
+                    title: modalWindowTitle,
+                    content: modalWindowContent
+                  })
                 }
               }
           };
           reader.readAsText(file);
 
       } else {
-          console.error("Error: Only .json files are accepted");
+        ModalWindow.openModal({
+          title: "Incorrect File Type",
+          content: "Only .json files are accepted"
+        })
+         
       }
   }
   
   function isValidTabGroup(data) {
     // Check if data is an array
-    if (!Array.isArray(data)) return false;
+    if (!Array.isArray(data) || data.length <= 0) return false;
 
     for (const item of data) {
         // Now, item is each object in the array
@@ -138,9 +155,84 @@ document.getElementById('load-btn')!.addEventListener('click', loadCustomRules);
 function showTooltip() {
     const tooltip = document.getElementById('loadToolTip');
     tooltip!.classList.add('show-tooltip');
-    console.log("tool tip button clicked !");
     setTimeout(() => tooltip!.classList.remove('show-tooltip'), 3000); // Hide after 3 seconds
 }
 
 // Example of using it in your save function
+interface ModalOptions {
+    title: string;
+    content: string;
+    buttons?: boolean;
+}
+const ModalWindow = {
+    init() {
+        document.body.addEventListener('click', this.handleClick.bind(this));  // Binding 'this' context
+    },
+   async handleClick(e: MouseEvent)  {
+        const target = e.target as HTMLElement;
+        if(target) {
+            if(target.classList.contains("modal__close") || 
+               target.classList.contains("modal__overlay") ||
+               target.classList.contains("modal__goback__button")) {
+                   this.closeModal();
+            } 
+        }
+    },
+    //function of Modal window that returns html of the modal window 
+      getHtmlTemplate(modalOptions: ModalOptions){
+      if(modalOptions.buttons){
+        return`
+        <div class="modal__overlay">
+         <div class="modal__window">
+           <div class="modal__titlebar">
+             <span class="modal__title">${modalOptions.title}</span>
+             <button class = "modal__close material-icons">close</button>
+           </div>
+           <div class="modal__content">
+            ${modalOptions.content}
+           </div>
+           <div class = "modal__buttons">
+           <button class = "modal__goback__button">Go Back</button>
+            <button class = "modal__confirm__button">Confirm</button>
+           </div>
+          
+         </div>
+       </div>`;
 
+      }
+      else{
+        return`
+        <div class="modal__overlay">
+         <div class="modal__window">
+           <div class="modal__titlebar">
+             <span class="modal__title">${modalOptions.title}</span>
+             <button class = "modal__close material-icons">close</button>
+           </div>
+           <div class="modal__content">
+            ${modalOptions.content}
+           </div>
+         </div>
+       </div>`;
+      }
+    },
+    openModal(modalOptions: Partial<ModalOptions> = {}) {
+      modalOptions = Object.assign({
+          title: 'Modal Title',
+          content: 'Modal Content',
+          buttons: false,
+      }, modalOptions);
+    const modalTemplate = this.getHtmlTemplate(modalOptions as ModalOptions);
+    document.body.insertAdjacentHTML("afterbegin", modalTemplate);
+    },
+    closeModal() {
+        const modalOverlay = document.querySelector(".modal__overlay");
+        if(modalOverlay !== null) {
+          document.body.removeChild(modalOverlay);
+        }
+       
+    }
+  }
+  
+  document.addEventListener("DOMContentLoaded", () => {
+  ModalWindow.init();
+  });
