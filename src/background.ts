@@ -76,6 +76,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
                         color: chromeStorageTabGroupObject.TABGROUPS[i][group].COLOR,
                       });
                     });
+                    return true;
                   }
               }
             }
