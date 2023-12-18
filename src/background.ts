@@ -1,15 +1,8 @@
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.storage.sync.set({ loggingEnabled: false });
-});
 
-chrome.storage.onChanged.addListener((changes, namespace) => {
-  for (let key in changes) {
-      if (key === "loggingEnabled") {
-          console.log("Logging is " + (changes[key].newValue ? "enabled" : "disabled"));
-      }
-  }
-});
+// Delay initialization for a set amount of time (e.g., 5 seconds)
+const INITIALIZATION_DELAY = 2000; // 5 seconds in milliseconds
 // looks through a list of search terms and tells you if url is in them
+setTimeout(() => {
 let isSearchTermInUrl =  (url: string, searchTerms: string[]) => {
   if(searchTerms) {
     for(let i = 0; i < searchTerms.length; i++) {
@@ -142,4 +135,5 @@ chrome.commands.onCommand.addListener((command) => {
   else if (command == "open-groups") {
     openTabGroupsWhenCtrlShiftH()
   }
-});
+})
+}, INITIALIZATION_DELAY);
