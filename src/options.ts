@@ -85,12 +85,7 @@ type TabGroup = {
                       })
                       return
                   }
-              } catch (error) {
-                ModalWindow.openModal({
-                  title:'Error parsing the JSON',
-                  content: error
-                })
-            
+              } catch (error) {  
                 if (error instanceof SyntaxError) {
                     // Inform the user about the correct format
                     let modalWindowContent = `Failed to load file ${file.name}. Please make sure it's a valid JSON file.\n\nExample of a file with the correct format:\n{\n  
