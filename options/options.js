@@ -52,7 +52,10 @@ document.getElementById('download-btn').addEventListener('click', function () {
 });
 // Function to read and process the file
 function handleFileSelect(evt) {
-    const file = evt.target.files[0]; // Get the selected file
+    const fileInput = evt.target; // Cast evt.target to HTMLInputElement
+    if (!fileInput.files)
+        return; // Guard clause in case there are no files
+    const file = fileInput.files[0];
     // Check if the file is a JSON file
     if (file && file.name.endsWith('.json')) {
         const reader = new FileReader();
@@ -75,6 +78,7 @@ function handleFileSelect(evt) {
                         title: 'Invalid Object Type!',
                         content: modalWindowContent
                     });
+                    return;
                 }
             }
             catch (error) {
@@ -91,6 +95,7 @@ function handleFileSelect(evt) {
                         title: 'Invalid File Data!',
                         content: modalWindowContent
                     });
+                    return;
                 }
                 else {
                     let modalWindowTitle = `Unexpected error processing file ${file.name}: ${error.message}`;
@@ -99,8 +104,10 @@ function handleFileSelect(evt) {
                         title: modalWindowTitle,
                         content: modalWindowContent
                     });
+                    return;
                 }
             }
+            return;
         };
         reader.readAsText(file);
     }
@@ -109,7 +116,10 @@ function handleFileSelect(evt) {
             title: "Incorrect File Type",
             content: "Only .json files are accepted"
         });
+        return;
     }
+    fileInput.value = '';
+    return;
 }
 function isValidTabGroup(data) {
     // Check if data is an array
