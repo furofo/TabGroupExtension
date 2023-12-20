@@ -107,10 +107,43 @@ export function reorderTabGroups(tabGroupsArrayOfObjects: TabGroupOrBlankObject[
   }
   return newTabGroups;
 }
+type ChromeStorageTabGroupObject = {
+  NAME: string;
+  URL: string[];
+  COLOR: string;
+
+};
+
+function validateChromeStorageTabGroupObject(obj: any): ChromeStorageTabGroupObject | null {
+  console.log("this is parent object", obj);
+  // First, check if the input is an array
+  if (Array.isArray(obj["TABGROUPS"])) {
+    // Iterate through each element in the array
+    for (const groupObj of obj["TABGROUPS"]) {
+      // Check each key in the object (e.g., "GROUP1", "GROUP2", etc.)
+      for (const key in groupObj) {
+        const group = groupObj[key];
+        // Now validate the structure of each group
+        if (!group || typeof group !== 'object' || !group.NAME || !Array.isArray(group.URL) || !group.COLOR) {
+          return null;
+        }
+      }
+    }
+    // If all groups pass the validation, return the original object
+    return obj;
+  }
+  // If the input is not an array or any group fails validation, return null
+  return null;
+}
 
 export async function populateTabGroupsArrayFromChromeStorage() {
-  let result = await chrome.storage.sync.get(['TABGROUPS']);
+  let result: any = await chrome.storage.sync.get(['TABGROUPS']);
+  result = validateChromeStorageTabGroupObject(result);
   //put all TabGroup Rules in to TabGroups Array
+  if(!result) {
+    chrome.storage.sync.set({TABGROUPS: ''})
+    return;
+  }
   tabGroupsArray = [];
   if (Object.keys(result).length !== 0) {
     //first thing we do is initzlze array to blank array to make sure it wlways starts empty 
