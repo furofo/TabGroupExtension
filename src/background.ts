@@ -76,7 +76,12 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     //this gets a list of all tab groups in broswer and returns an object of them
     let browserTabGroupObject = await chrome.tabGroups.query({});
     //if statement here;
-    browserTabGroupObject = browserTabGroupObject.filter(group => group.windowId === tab.windowId);
+    let shouldGroupTabsSeparateWindow = await chrome.storage.sync.get("AUTOGROUPTABSSHOULDGROUPINSAMEWINDOW");
+    if(!shouldGroupTabsSeparateWindow.AUTOGROUPTABSSHOULDGROUPINSAMEWINDOW && shouldGroupTabsSeparateWindow.AUTOGROUPTABSSHOULDGROUPINSAMEWINDOW !== undefined ) {
+      console.log("grouping in separte window not mergin here is variable", shouldGroupTabsSeparateWindow);
+      browserTabGroupObject = browserTabGroupObject.filter(group => group.windowId === tab.windowId);
+    }
+   
     // this gets a list of all tab groups from chrome storage with name of TabGroups so what is saved to google accounts equialivent to local storage essetnially
     let chromeStorageTabGroupObject: any = await chrome.storage.sync.get(['TABGROUPS']);
     chromeStorageTabGroupObject = validateChromeStorageTabGroupObject(chromeStorageTabGroupObject);

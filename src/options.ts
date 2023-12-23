@@ -6,18 +6,40 @@ function saveZoomPrefernence() {
     chrome.storage.sync.set({ "TABGROUPSZOOMENABLED": zoomEnabled });
 }
 
+function saveGroupingSeparateWindowPreference() {
+  let shouldGroupSeparateWindow = (document.getElementById('shouldGroupInSameWindow') as HTMLInputElement).checked;
+  chrome.storage.sync.set({ "AUTOGROUPTABSSHOULDGROUPINSAMEWINDOW": shouldGroupSeparateWindow });
+  
+}
 // Load the setting
 function loadZoomPrefernence() {
     {
     chrome.storage.sync.get("TABGROUPSZOOMENABLED", (data) => {
-        console.log("new code");
         (document.getElementById('zoomEnabled') as HTMLInputElement).checked = data.TABGROUPSZOOMENABLED;
     });
 }
 }
 
-document.addEventListener('DOMContentLoaded', loadZoomPrefernence);
+function loadGroupingSeparateWindowPreference() {
+  chrome.storage.sync.get("AUTOGROUPTABSSHOULDGROUPINSAMEWINDOW", (data) => {
+      // Check if the data is undefined and set default to true
+      let shouldGroupSeparateWindow = data.AUTOGROUPTABSSHOULDGROUPINSAMEWINDOW;
+      if (shouldGroupSeparateWindow === undefined) {
+        shouldGroupSeparateWindow = true;
+        // Optionally, save this default value back to the storage
+        chrome.storage.sync.set({ "AUTOGROUPTABSSHOULDGROUPINSAMEWINDOW": true });
+      }
+      (document.getElementById('shouldGroupInSameWindow') as HTMLInputElement).checked = shouldGroupSeparateWindow;
+  });
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadZoomPrefernence();
+  loadGroupingSeparateWindowPreference();
+});
 document.getElementById('zoomEnabled')!.addEventListener('change', saveZoomPrefernence);
+document.getElementById('shouldGroupInSameWindow')!.addEventListener('change', saveGroupingSeparateWindowPreference);
 document.getElementById('download-btn')!.addEventListener('click', function() {
     // Retrieve the 'TABGROUPS' data from Chrome's storage
     chrome.storage.sync.get(['TABGROUPS'], function(result) {
