@@ -61,6 +61,7 @@ type TabGroup = {
     const fileInput = evt.target as HTMLInputElement; // Cast evt.target to HTMLInputElement
     if (!fileInput.files) return; // Guard clause in case there are no files
     const file = fileInput.files[0]
+    fileInput.value = '';
       // Check if the file is a JSON file
       if (file && file.name.endsWith('.json')) {
           const reader = new FileReader();
@@ -75,6 +76,7 @@ type TabGroup = {
                       });
                       
                       showTooltip(); // Assuming showTooltip is a function you've defined elsewhere
+                      
                   } else {
                     let modalWindowContent = `Error: Data does not match the TabGroup format or is blank. Please make sure it's a valid JSON file.\n\nExample of  a file with the correct format:\n
                     {\n  "group1": {\n    "NAME": "Work",\n    "URL": ["https://example.com", "https://worksite.com"],\n    "COLOR": "blue"\n  },\n  
@@ -83,7 +85,8 @@ type TabGroup = {
                         title:'Invalid Object Type!',
                         content: modalWindowContent
                       })
-                      return
+                  
+                     
                   }
               } catch (error) {  
                 if (error instanceof SyntaxError) {
@@ -95,7 +98,8 @@ type TabGroup = {
                             title:'Invalid File Data!',
                             content: modalWindowContent
                           })
-                          return
+                         
+                       
                 } else {
                   let modalWindowTitle = `Unexpected error processing file ${file.name}: ${error.message}`;
                   let modalWindowContent = `An unexpected error occurred while processing file ${file.name}. Please try again.`;
@@ -103,11 +107,12 @@ type TabGroup = {
                     title: modalWindowTitle,
                     content: modalWindowContent
                   })
-                  return
+                
+                
                 }
                 
               }
-              return
+             
           };
           reader.readAsText(file);
 
@@ -116,11 +121,11 @@ type TabGroup = {
           title: "Incorrect File Type",
           content: "Only .json files are accepted"
         })
-        return
+       
          
       }
-      fileInput.value = ''
-      return
+      
+     
   }
   
   function isValidTabGroup(data) {

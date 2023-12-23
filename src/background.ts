@@ -1,6 +1,6 @@
 
 // Delay initialization for a set amount of time (e.g., 5 seconds)
-const INITIALIZATION_DELAY = 2000; // 5 seconds in milliseconds
+const INITIALIZATION_DELAY = 3000; // 5 seconds in milliseconds
 // looks through a list of search terms and tells you if url is in them
 setTimeout(() => {
 let isSearchTermInUrl =  (url: string, searchTerms: string[]) => {
@@ -72,9 +72,11 @@ function validateChromeStorageTabGroupObject(obj: any): ChromeStorageTabGroupObj
 // listener that can tell if a tab changes or a  new html page loads or if a new tab is opened
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   // only exectue if tabs are fully loaded
-  if (changeInfo.status === 'complete' && tab.status === 'complete' && tab.url !== undefined ) {
+  if (changeInfo.status === 'complete' && tab.status === 'complete' && tab.url !== undefined  && tab.windowId !== undefined) {
     //this gets a list of all tab groups in broswer and returns an object of them
     let browserTabGroupObject = await chrome.tabGroups.query({});
+    //if statement here;
+    browserTabGroupObject = browserTabGroupObject.filter(group => group.windowId === tab.windowId);
     // this gets a list of all tab groups from chrome storage with name of TabGroups so what is saved to google accounts equialivent to local storage essetnially
     let chromeStorageTabGroupObject: any = await chrome.storage.sync.get(['TABGROUPS']);
     chromeStorageTabGroupObject = validateChromeStorageTabGroupObject(chromeStorageTabGroupObject);
