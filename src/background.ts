@@ -1,15 +1,8 @@
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.storage.sync.set({ loggingEnabled: false });
-});
 
-chrome.storage.onChanged.addListener((changes, namespace) => {
-  for (let key in changes) {
-      if (key === "loggingEnabled") {
-          console.log("Logging is " + (changes[key].newValue ? "enabled" : "disabled"));
-      }
-  }
-});
+// Delay initialization for a set amount of time (e.g., 5 seconds)
+const INITIALIZATION_DELAY = 20000; // 5 seconds in milliseconds
 // looks through a list of search terms and tells you if url is in them
+setTimeout(() => {
 let isSearchTermInUrl =  (url: string, searchTerms: string[]) => {
   if(searchTerms) {
     for(let i = 0; i < searchTerms.length; i++) {
@@ -47,20 +40,52 @@ function groupTabIfTabGroupExistsInBrowser(browserTabGroupObject: chrome.tabGrou
         groupId: browserTabGroupObject[i].id,
       }).catch((e) => {
         const error = e as Error;
-        console.log("error with chrome tabs group", error);
       });
     }
   }
   return matchingTabGroupInBrowser;
 }
+function validateChromeStorageTabGroupObject(obj: any): ChromeStorageTabGroupObject | null {
+  // First, check if the input is an array
+  if (Array.isArray(obj["TABGROUPS"])) {
+    // Iterate through each element in the array
+    for (const groupObj of obj["TABGROUPS"]) {
+      // Check each key in the object (e.g., "GROUP1", "GROUP2", etc.)
+      for (const key in groupObj) {
+        const group = groupObj[key];
+        // Now validate the structure of each group
+        if (!group || typeof group !== 'object' || !group.NAME || !Array.isArray(group.URL) || !group.COLOR) {
+          return null;
+        }
+      }
+    }
+    // If all groups pass the validation, return the original object
+    return obj;
+  }
+  // If the input is not an array or any group fails validation, return null
+  return null;
+}
+
+
 // listener that can tell if a tab changes or a  new html page loads or if a new tab is opened
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   // only exectue if tabs are fully loaded
-  if (changeInfo.status === 'complete' && tab.status === 'complete' && tab.url !== undefined ) {
+  if (changeInfo.status === 'complete' && tab.status === 'complete' && tab.url !== undefined  && tab.windowId !== undefined) {
     //this gets a list of all tab groups in broswer and returns an object of them
     let browserTabGroupObject = await chrome.tabGroups.query({});
+    //if statement here;
+    let shouldGroupTabsSeparateWindow = await chrome.storage.sync.get("AUTOGROUPTABSSHOULDGROUPINSAMEWINDOW");
+    if(!shouldGroupTabsSeparateWindow.AUTOGROUPTABSSHOULDGROUPINSAMEWINDOW && shouldGroupTabsSeparateWindow.AUTOGROUPTABSSHOULDGROUPINSAMEWINDOW !== undefined ) {
+      browserTabGroupObject = browserTabGroupObject.filter(group => group.windowId === tab.windowId);
+    }
+   
     // this gets a list of all tab groups from chrome storage with name of TabGroups so what is saved to google accounts equialivent to local storage essetnially
-    let chromeStorageTabGroupObject = await chrome.storage.sync.get(['TABGROUPS']);
+    let chromeStorageTabGroupObject: any = await chrome.storage.sync.get(['TABGROUPS']);
+    chromeStorageTabGroupObject = validateChromeStorageTabGroupObject(chromeStorageTabGroupObject);
+    if(!chromeStorageTabGroupObject) {
+      chrome.storage.sync.set({TABGROUPS: ''})
+      return;
+    }
           const { url } = tab;
           if (Object.keys(chromeStorageTabGroupObject).length !== 0) {
             let ungroup = true;
@@ -83,6 +108,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
                         color: chromeStorageTabGroupObject.TABGROUPS[i][group].COLOR,
                       });
                     });
+                    return true;
                   }
               }
             }
@@ -142,4 +168,5 @@ chrome.commands.onCommand.addListener((command) => {
   else if (command == "open-groups") {
     openTabGroupsWhenCtrlShiftH()
   }
-});
+})
+}, INITIALIZATION_DELAY);

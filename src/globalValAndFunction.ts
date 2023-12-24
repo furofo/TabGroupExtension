@@ -107,10 +107,42 @@ export function reorderTabGroups(tabGroupsArrayOfObjects: TabGroupOrBlankObject[
   }
   return newTabGroups;
 }
+type ChromeStorageTabGroupObject = {
+  NAME: string;
+  URL: string[];
+  COLOR: string;
+
+};
+
+function validateChromeStorageTabGroupObject(obj: any): ChromeStorageTabGroupObject | null {
+  // First, check if the input is an array
+  if (Array.isArray(obj["TABGROUPS"])) {
+    // Iterate through each element in the array
+    for (const groupObj of obj["TABGROUPS"]) {
+      // Check each key in the object (e.g., "GROUP1", "GROUP2", etc.)
+      for (const key in groupObj) {
+        const group = groupObj[key];
+        // Now validate the structure of each group
+        if (!group || typeof group !== 'object' || !group.NAME || !Array.isArray(group.URL) || !group.COLOR) {
+          return null;
+        }
+      }
+    }
+    // If all groups pass the validation, return the original object
+    return obj;
+  }
+  // If the input is not an array or any group fails validation, return null
+  return null;
+}
 
 export async function populateTabGroupsArrayFromChromeStorage() {
-  let result = await chrome.storage.sync.get(['TABGROUPS']);
+  let result: any = await chrome.storage.sync.get(['TABGROUPS']);
+  result = validateChromeStorageTabGroupObject(result);
   //put all TabGroup Rules in to TabGroups Array
+  if(!result) {
+    chrome.storage.sync.set({TABGROUPS: ''})
+    return;
+  }
   tabGroupsArray = [];
   if (Object.keys(result).length !== 0) {
     //first thing we do is initzlze array to blank array to make sure it wlways starts empty 
@@ -128,9 +160,8 @@ export async function populateTabGroupsArrayFromChromeStorage() {
 // get chrome storage tabgropus object 
 window.onload = async () => {
   // get chrome setting for zoom and zoom or mimize screen accoring
-  let zoom = await  chrome.storage.sync.get("zoomEnabled");
-  console.log("zoom is", zoom);
-  if(zoom.zoomEnabled) {
+  let zoom = await  chrome.storage.sync.get("TABGROUPSZOOMENABLED");
+  if(zoom.TABGROUPSZOOMENABLED) {
     document.getElementById('page-style')!.setAttribute('href', "/css/style.css")
     document.getElementById('alert-style')!.setAttribute('href', "/css/alert-boxes.css")
   }
@@ -144,7 +175,6 @@ window.onload = async () => {
     // Add a click event listener to the SVG element
     settingsIcon.addEventListener('click', () => {
       // Log the SVG element to the console when it is clicked
-      console.log("settings wheel clicked", settingsIcon);
       chrome.runtime.openOptionsPage();
     });
   }
