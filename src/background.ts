@@ -1,6 +1,6 @@
 
 // Delay initialization for a set amount of time (e.g., 5 seconds)
-const INITIALIZATION_DELAY = 3000; // 5 seconds in milliseconds
+const INITIALIZATION_DELAY = 20000; // 5 seconds in milliseconds
 // looks through a list of search terms and tells you if url is in them
 setTimeout(() => {
 let isSearchTermInUrl =  (url: string, searchTerms: string[]) => {
@@ -40,14 +40,12 @@ function groupTabIfTabGroupExistsInBrowser(browserTabGroupObject: chrome.tabGrou
         groupId: browserTabGroupObject[i].id,
       }).catch((e) => {
         const error = e as Error;
-        console.log("error with chrome tabs group", error);
       });
     }
   }
   return matchingTabGroupInBrowser;
 }
 function validateChromeStorageTabGroupObject(obj: any): ChromeStorageTabGroupObject | null {
-  console.log("this is parent object", obj);
   // First, check if the input is an array
   if (Array.isArray(obj["TABGROUPS"])) {
     // Iterate through each element in the array
@@ -78,14 +76,12 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     //if statement here;
     let shouldGroupTabsSeparateWindow = await chrome.storage.sync.get("AUTOGROUPTABSSHOULDGROUPINSAMEWINDOW");
     if(!shouldGroupTabsSeparateWindow.AUTOGROUPTABSSHOULDGROUPINSAMEWINDOW && shouldGroupTabsSeparateWindow.AUTOGROUPTABSSHOULDGROUPINSAMEWINDOW !== undefined ) {
-      console.log("grouping in separte window not mergin here is variable", shouldGroupTabsSeparateWindow);
       browserTabGroupObject = browserTabGroupObject.filter(group => group.windowId === tab.windowId);
     }
    
     // this gets a list of all tab groups from chrome storage with name of TabGroups so what is saved to google accounts equialivent to local storage essetnially
     let chromeStorageTabGroupObject: any = await chrome.storage.sync.get(['TABGROUPS']);
     chromeStorageTabGroupObject = validateChromeStorageTabGroupObject(chromeStorageTabGroupObject);
-    console.log('this is chromeStorageTabGroupObject now', chromeStorageTabGroupObject);
     if(!chromeStorageTabGroupObject) {
       chrome.storage.sync.set({TABGROUPS: ''})
       return;

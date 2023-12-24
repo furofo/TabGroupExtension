@@ -115,7 +115,6 @@ type ChromeStorageTabGroupObject = {
 };
 
 function validateChromeStorageTabGroupObject(obj: any): ChromeStorageTabGroupObject | null {
-  console.log("this is parent object", obj);
   // First, check if the input is an array
   if (Array.isArray(obj["TABGROUPS"])) {
     // Iterate through each element in the array
@@ -162,7 +161,6 @@ export async function populateTabGroupsArrayFromChromeStorage() {
 window.onload = async () => {
   // get chrome setting for zoom and zoom or mimize screen accoring
   let zoom = await  chrome.storage.sync.get("TABGROUPSZOOMENABLED");
-  console.log("zoom is", zoom);
   if(zoom.TABGROUPSZOOMENABLED) {
     document.getElementById('page-style')!.setAttribute('href', "/css/style.css")
     document.getElementById('alert-style')!.setAttribute('href', "/css/alert-boxes.css")
@@ -177,7 +175,6 @@ window.onload = async () => {
     // Add a click event listener to the SVG element
     settingsIcon.addEventListener('click', () => {
       // Log the SVG element to the console when it is clicked
-      console.log("settings wheel clicked", settingsIcon);
       chrome.runtime.openOptionsPage();
     });
   }
