@@ -54,12 +54,40 @@ Make sure to set all values, ***no fields can be left blank***. The extension wi
 
 ***This will permanently delete your rule though so keep this in mind.***
 
+
 ### Options / Settings Page
 ---
-- You can get to the settings page by clicking the gear icon in the top right corner of the popup window
+- You can get to the settings page by clicking the gear icon in the top right corner of the popup window.
 - The first option is a checkbox for zoom view. This will make the font on the popup window bigger or smaller depending on whether it is checked or not.
-- The second option is a button with the text "Save Your Group Rules" This saves all your rules to a JSON file so you can manually back them up.
-- The third option is a button with the text "Load Your Group Rules", This loads a JSON file generated from the previous button. It saves these rules into your Chrome storage as well.
+- The second option is a button with the text "Save Your Group Rules". This saves all your rules to a JSON file so you can manually back them up.
+- The third option is a button with the text "Load Your Group Rules". This loads a user-picked JSON file that is generated from the "Save Your Group Rules" button. It loads these rules to the pop-up window and saves these rules into your Chrome storage as well.
+    - If an incorrect file type is tried to load with this button or one that contains an incorrect object, a specific error will be displayed. The file type must be a .json file and must have an array that can be parsed to objects that are of a certain type.
+    - Here is an example of a correct file type called `AutoTabGroups_2013-12-24.json`:
+```json
+  [
+    {
+      "GROUP1": {
+        "COLOR": "green",
+        "NAME": "test1",
+        "URL": ["test1"]
+      }
+    },
+    {
+      "GROUP2": {
+        "COLOR": "red",
+        "NAME": "test2",
+        "URL": ["test2"]
+      }
+    },
+    {
+      "GROUP3": {
+        "COLOR": "pink",
+        "NAME": "test3",
+        "URL": ["test3"]
+      }
+    }
+  ]
+```
   
 ***This will permanently delete your old rules and overwrite them with the ones in the file though so keep this in mind.***
 
@@ -86,7 +114,7 @@ Rule preferences are saved and retrieved using chrome.storage API detailed here 
 2. Use Git Clone `git@github.com:furofo/TabGroupExtension.git` for SSH or `git clone https://github.com/furofo/TabGroupExtension.git` for HTTPS.
 3. Open the project, and in the command prompt for the root directory, run the command `npm install` to install dependencies.
 4. Use `npm run test` to run the Jest tests in the test folder to ensure they pass.
-5. Use `npm run build-all` to build all necessary JavaScript files from TypeScript in the correct folders. You should now see a `dist` folder in the root of the project.
+5. Use `npm run build-all` to build all necessary JavaScript files from TypeScript in the correct folders. You should now see a `dist` folder at the root of the project.
 
 <details>
   <summary>JavaScript Structure details</summary> 
