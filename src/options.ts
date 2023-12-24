@@ -2,7 +2,6 @@
 // Save the setting
 function saveZoomPrefernence() {
     let zoomEnabled = (document.getElementById('zoomEnabled') as HTMLInputElement).checked;
-    console.log("new code");
     chrome.storage.sync.set({ "TABGROUPSZOOMENABLED": zoomEnabled });
 }
 
