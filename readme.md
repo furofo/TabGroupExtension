@@ -13,7 +13,6 @@
 
 ## Table of Contents
 - [Youtube Guide](#youtube-guide)
-- [Update as of 10/25/2023](#update-as-of-10252023)
 - [Extension Overview](#extension-overview)
   - [Inputs](#inputs)
   - [Edit/Add Rule(s)](#editadd-rules)
