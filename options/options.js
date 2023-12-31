@@ -10,7 +10,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 // Save the setting
 function saveZoomPrefernence() {
     let zoomEnabled = document.getElementById('zoomEnabled').checked;
-    console.log("new code");
     chrome.storage.sync.set({ "TABGROUPSZOOMENABLED": zoomEnabled });
 }
 function saveGroupingSeparateWindowPreference() {

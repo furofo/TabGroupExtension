@@ -1,6 +1,6 @@
 
 // Delay initialization for a set amount of time (e.g., 5 seconds)
-const INITIALIZATION_DELAY = 20000; // 5 seconds in milliseconds
+const INITIALIZATION_DELAY = 2000; // 5 seconds in milliseconds
 // looks through a list of search terms and tells you if url is in them
 setTimeout(() => {
 let isSearchTermInUrl =  (url: string, searchTerms: string[]) => {
