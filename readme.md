@@ -13,7 +13,6 @@
 
 ## Table of Contents
 - [Youtube Guide](#youtube-guide)
-- [Update as of 10/25/2023](#update-as-of-10252023)
 - [Extension Overview](#extension-overview)
   - [Inputs](#inputs)
   - [Edit/Add Rule(s)](#editadd-rules)
@@ -44,7 +43,7 @@ Make sure to set all values, ***no fields can be left blank***. The extension wi
 
 ### Edit/Add Rule(s)
 ---
-- `Select` one or multiple checkboxes on the left. 
+- `Check` one or multiple checkboxes on the left. 
 - Add a  `Title`, `Domain`, and `Color` then click the `SAVE GROUP(s)` button.
 
 ### Delete Rule(s)
@@ -58,9 +57,10 @@ Make sure to set all values, ***no fields can be left blank***. The extension wi
 ### Options / Settings Page
 ---
 - You can get to the settings page by clicking the gear icon in the top right corner of the popup window.
-- The first option is a checkbox for zoom view. This will make the font on the popup window bigger or smaller depending on whether it is checked or not.
-- The second option is a button with the text "Save Your Group Rules". This saves all your rules to a JSON file so you can manually back them up.
-- The third option is a button with the text "Load Your Group Rules". This loads a user-picked JSON file that is generated from the "Save Your Group Rules" button. It loads these rules to the pop-up window and saves these rules into your Chrome storage as well.
+- The first option is a checkbox for enabling zoom view. This will make the font on the popup window bigger or smaller depending on whether it is checked or not.
+- The second option is a check box for enabling merging tabs from other windows. When checked if a new window is opened that follows rules will automatically group tabs in the same window instead of separately.
+- The third option is a button with the text "Save Your Group Rules". This saves all your rules to a JSON file so you can manually back them up.
+- The fourth option is a button with the text "Load Your Group Rules". This loads a user-picked JSON file that is generated from the "Save Your Group Rules" button. It loads these rules to the pop-up window and saves these rules into your Chrome storage as well. By default, this is set to checked but this can be disabled if you do not want to group tabs in separate windows separately. 
     - If an incorrect file type is tried to load with this button or one that contains an incorrect object, a specific error will be displayed. The file type must be a .json file and must have an array that can be parsed to objects that are of a certain type.
     - Here is an example of a correct file type called `AutoTabGroups_2013-12-24.json`:
 ```json
