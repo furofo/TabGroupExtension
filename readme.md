@@ -23,7 +23,7 @@
 
 ## Youtube Guide
 <p align='center'>
-  <a href="https://www.youtube.com/watch?v=sloz6SB8Id0">
+  <a href="https://www.youtube.com/watch?v=BgajjcqSxH0&t=2s">
     <img width='450px' src="https://img.youtube.com/vi/aLIIAZAC4bo/maxresdefault.jpg" />
   </a>
 </p>
